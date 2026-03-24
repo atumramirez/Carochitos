@@ -10,6 +10,13 @@ public class CarochitoBase : ScriptableObject
 
     [SerializeField] public Sprite _sprite;
 
+    [SerializeField] GameObject _Model;
+
+    public GameObject Model 
+    {
+        get { return _Model; }
+    }
+
     // Elemental Types 
     [SerializeField] ElementalTypes _elementalType1;
     [SerializeField] ElementalTypes _elementalType2;

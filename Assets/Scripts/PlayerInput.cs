@@ -8,6 +8,8 @@ public class PlayerInput : MonoBehaviour
 
     CharacterSwap _characterSwap;
     public PlayerMenu _playerMenu;
+    public PlayerSummoner _playerSummoner;
+    public CarochitoParty _c;
 
     private void Awake()
     {
@@ -42,6 +44,21 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             _playerMenu.ActivateMenu();
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            _playerSummoner.ActivateSummon();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            _c.Previous();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _c.NextCarochito();
         }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMenu : MonoBehaviour
 {
-    public bool isOpened = false;
+    public bool isOpened = true;
 
     public GameObject _playerMenu;
     
