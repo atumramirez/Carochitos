@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CarochitoParty : MonoBehaviour
 {
-    [SerializeField] List<Carochito> carochitos;
+    [SerializeField] public List<Carochito> carochitos;
 
     public void AddCarochito(Carochito carochito)
     {

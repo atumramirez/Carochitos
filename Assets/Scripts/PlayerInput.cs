@@ -7,6 +7,7 @@ public class PlayerInput : MonoBehaviour
     Vector3 moveVector;
 
     CharacterSwap _characterSwap;
+    public PlayerMenu _playerMenu;
 
     private void Awake()
     {
@@ -36,6 +37,11 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             _characterSwap.SwapToNext();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _playerMenu.ActivateMenu();
         }
     }
 }

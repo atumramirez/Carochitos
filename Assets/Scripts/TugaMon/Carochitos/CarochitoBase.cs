@@ -8,7 +8,7 @@ public class CarochitoBase : ScriptableObject
     [TextArea]
     [SerializeField] string _description;
 
-    [SerializeField] Sprite _sprite;
+    [SerializeField] public Sprite _sprite;
 
     // Elemental Types 
     [SerializeField] ElementalTypes _elementalType1;
@@ -19,6 +19,11 @@ public class CarochitoBase : ScriptableObject
     [SerializeField] int _attack;
     [SerializeField] int _defense;
     [SerializeField] int _speed;
+
+
+    public int MaxHP { 
+        get { return _maxHP; }
+    }
 
     public string Name {
         get { return _name; }

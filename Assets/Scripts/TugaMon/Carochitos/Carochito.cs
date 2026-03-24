@@ -7,6 +7,7 @@ public class Carochito
 {
     [SerializeField] CarochitoBase _base;
     [SerializeField] int _level;
+    [SerializeField] int _currentHP;
 
     public CarochitoBase Base { 
         get { 
@@ -18,6 +19,14 @@ public class Carochito
         get
         {
             return _level;
+        }
+    }
+
+    public int CurrentHP
+    {
+        get
+        {
+            return _currentHP;
         }
     }
 
