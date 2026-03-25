@@ -4,6 +4,7 @@ public class PlayerSummoner : MonoBehaviour
 {
     public CarochitoParty _carochitoParty;
     private GameObject _currentInstance;
+    public CharacterSwap _characterSwap;
 
     public void ActivateSummon()
     {
@@ -21,12 +22,12 @@ public class PlayerSummoner : MonoBehaviour
     {
         _currentInstance = Instantiate(_carochitoParty.carochitos[0].Base.Model, Vector3.zero, Quaternion.identity);
 
-        // Spawna o modelo do personagem
-        // Spawna na posição desejada
         
         if (_currentInstance.TryGetComponent<CarochitoHandle>(out var data))
         {
             data.carochito = _carochitoParty.carochitos[0];
+
+            _characterSwap.AddCharacter(data.transform);
         }
         else
         {

@@ -43,22 +43,34 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            _playerMenu.ActivateMenu();
+            if (_playerMenu != null)
+            {
+                _playerMenu.ActivateMenu();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            _playerSummoner.ActivateSummon();
+            if (_playerSummoner != null)
+            {
+                _playerSummoner.ActivateSummon();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _c.Previous();
+            if (_c != null)
+            {
+                _c.Previous();
+            }  
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            _c.NextCarochito();
+            if (_c != null)
+            {
+                _c.NextCarochito();
+            }
         }
     }
 }

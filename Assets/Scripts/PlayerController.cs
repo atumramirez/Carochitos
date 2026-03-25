@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _playerAnimator = GetComponentInChildren<PlayerAnimator>();
+        _camera = FindFirstObjectByType<Camera>();
+        
     }
 
     public void AddMoveVectorInput(Vector3 moveVector)

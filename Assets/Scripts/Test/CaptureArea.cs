@@ -4,11 +4,11 @@ public class CaptureArea : MonoBehaviour
 {
     public float lifetime = 1.5f;
 
-    public PlayerInventory playerInventory;
+    public CarochitoParty playerInventory;
 
     void Start()
     {
-        playerInventory = FindAnyObjectByType<PlayerInventory>();
+        playerInventory = FindAnyObjectByType<CarochitoParty>();
         Destroy(gameObject, lifetime);
     }
 
@@ -16,7 +16,7 @@ public class CaptureArea : MonoBehaviour
     {
         if (other.TryGetComponent<Creature>(out var creature))
         {
-            playerInventory.AddCreature(creature);
+            playerInventory.AddCarochito(creature.carochito);
             creature.Capture();
         }
     }

@@ -19,6 +19,7 @@ public class CharacterSwap : MonoBehaviour
         }
 
         Swap();
+
     }
     public void Swap()
     {
@@ -49,5 +50,51 @@ public class CharacterSwap : MonoBehaviour
         }
 
         Swap();
+    }
+
+    public void RemoveCharacter(Transform characterToRemove)
+    {
+        if (characterToRemove == null)
+            return;
+
+        if (possibleCharacters.Contains(characterToRemove))
+        {
+            int index = possibleCharacters.IndexOf(characterToRemove);
+
+            possibleCharacters.Remove(characterToRemove);
+
+            if (possibleCharacters.Count == 0)
+            {
+                character = null;
+                return;
+            }
+
+            if (index <= whichCharacter)
+            {
+                whichCharacter--;
+
+                if (whichCharacter < 0)
+                    whichCharacter = 0;
+            }
+
+            whichCharacter = Mathf.Clamp(whichCharacter, 0, possibleCharacters.Count - 1);
+
+            Swap();
+        }
+    }
+
+    public void AddCharacter(Transform newCharacter)
+    {
+        if (newCharacter == null)
+            return;
+
+        if (!possibleCharacters.Contains(newCharacter))
+        {
+            possibleCharacters.Add(newCharacter);
+
+            var input = newCharacter.GetComponent<PlayerInput>();
+            if (input != null)
+                input.enabled = false;
+        }
     }
 }

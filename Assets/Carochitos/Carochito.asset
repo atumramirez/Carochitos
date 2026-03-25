@@ -18,7 +18,7 @@ MonoBehaviour:
   _Model: {fileID: 1000153353145618415, guid: ae315666219c7bc4682c2b517a252b67, type: 3}
   _elementalType1: 0
   _elementalType2: 0
-  _maxHP: 0
+  _maxHP: 10
   _attack: 0
   _defense: 0
   _speed: 0

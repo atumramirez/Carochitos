@@ -4,8 +4,9 @@ public class PlayerMenu : MonoBehaviour
 {
     public bool isOpened = true;
 
-    public GameObject _playerMenu;
-    
+    public GameObject _playerMenu; 
+    public GameObject _inGameMenu;
+
     public CarochitoPartyHolder _carochitoHolder;
 
     private void Start()
@@ -32,6 +33,7 @@ public class PlayerMenu : MonoBehaviour
         isOpened = true;
         Cursor.lockState = CursorLockMode.None;
         _playerMenu.SetActive(isOpened);
+        _inGameMenu.SetActive(!isOpened);
     }
 
     public void CloseMenu() 
@@ -39,5 +41,6 @@ public class PlayerMenu : MonoBehaviour
         isOpened = false;
         Cursor.lockState = CursorLockMode.Locked;
         _playerMenu.SetActive(isOpened);
+        _inGameMenu.SetActive(!isOpened);
     }
 }

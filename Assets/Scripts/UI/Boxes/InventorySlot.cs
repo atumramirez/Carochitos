@@ -4,8 +4,9 @@ using UnityEngine.EventSystems;
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
     public PartyHolderBoxes organizer;
+    public bool isParty = false;
 
-    public void OnDrop(PointerEventData eventData)
+    public virtual void OnDrop(PointerEventData eventData)
     {
         GameObject dropped = eventData.pointerDrag;
         DragItem draggableItem = dropped.GetComponent<DragItem>();

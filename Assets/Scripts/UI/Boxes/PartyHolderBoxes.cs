@@ -1,8 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PartyHolderBoxes : MonoBehaviour
+public class PartyHolderBoxes : BoxesAndPartyHolder
 {
+    public CarochitoParty carochitoParty;
+    public GameObject prefab;
+
+    private void Start()
+    {
+        PopulateFromList();
+    }
     public void Organize()
     {
         List<Transform> items = new();
@@ -48,5 +55,29 @@ public class PartyHolderBoxes : MonoBehaviour
         }
 
         return count;
+    }
+
+    public void PopulateFromList()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform slot = transform.GetChild(i);
+
+            if (slot.childCount > 0)
+            {
+                Destroy(slot.GetChild(0).gameObject);
+            }
+        }
+
+        for (int i = 0; i < carochitoParty.carochitos.Count && i < transform.childCount; i++)
+        {
+            if (carochitoParty.carochitos[i] == null)
+                continue;
+
+            Transform slot = transform.GetChild(i);
+
+            GameObject newItem = Instantiate(prefab, slot);
+            newItem.transform.SetAsLastSibling();
+        }
     }
 }

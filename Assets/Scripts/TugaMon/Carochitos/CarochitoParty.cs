@@ -3,6 +3,21 @@ using UnityEngine;
 
 public class CarochitoParty : MonoBehaviour
 {
+    public static CarochitoParty Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+
     [SerializeField] public List<Carochito> carochitos;
     public Carochito currentCarochito;
     public int currentIndex = 0;
@@ -30,6 +45,8 @@ public class CarochitoParty : MonoBehaviour
         {
             carochitoBoxes.AddCarochito(carochito);
         }
+
+        CarochitoSelectionMenu.instance.RefreshMenu();
     }
 
     public CarochitoBoxes carochitoBoxes;
