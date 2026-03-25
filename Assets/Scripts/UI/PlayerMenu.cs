@@ -30,12 +30,14 @@ public class PlayerMenu : MonoBehaviour
     public void OpenMenu()
     {
         isOpened = true;
+        Cursor.lockState = CursorLockMode.None;
         _playerMenu.SetActive(isOpened);
     }
 
     public void CloseMenu() 
     {
         isOpened = false;
+        Cursor.lockState = CursorLockMode.Locked;
         _playerMenu.SetActive(isOpened);
     }
 }
