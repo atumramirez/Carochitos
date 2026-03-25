@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 143129872680149981}
   - component: {fileID: 7466694816595963599}
   m_Layer: 0
-  m_Name: Tugamon
+  m_Name: 23
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000153353145618415}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adbddf7fcf8707b4d934d0bb85ee6e89, type: 3}
   m_Name: 
@@ -172,13 +172,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000153353145618415}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff8714521dcc0f64c8b51a05ebbbe9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
   _playerMenu: {fileID: 0}
   _playerSummoner: {fileID: 0}
+  _c: {fileID: 0}
 --- !u!114 &143129872680149981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,7 +187,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000153353145618415}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e818d62c8174dc143807f38578c5e22d, type: 3}
   m_Name: 
@@ -273,10 +274,38 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -4011179589226667584, guid: e6d23230f7842a740993453fe62e7426, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a616a8b289003e48a4d30f708ebc4ef, type: 2}
+    - target: {fileID: -1634232581467730460, guid: e6d23230f7842a740993453fe62e7426, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a616a8b289003e48a4d30f708ebc4ef, type: 2}
+    - target: {fileID: 852769032822574529, guid: e6d23230f7842a740993453fe62e7426, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a616a8b289003e48a4d30f708ebc4ef, type: 2}
+    - target: {fileID: 852769032822574529, guid: e6d23230f7842a740993453fe62e7426, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a616a8b289003e48a4d30f708ebc4ef, type: 2}
+    - target: {fileID: 852769032822574529, guid: e6d23230f7842a740993453fe62e7426, type: 3}
+      propertyPath: 'm_Materials.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a616a8b289003e48a4d30f708ebc4ef, type: 2}
     - target: {fileID: 919132149155446097, guid: e6d23230f7842a740993453fe62e7426, type: 3}
       propertyPath: m_Name
       value: bd0001_00_pikachu
       objectReference: {fileID: 0}
+    - target: {fileID: 1432653099638275537, guid: e6d23230f7842a740993453fe62e7426, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a616a8b289003e48a4d30f708ebc4ef, type: 2}
+    - target: {fileID: 7357768380530788346, guid: e6d23230f7842a740993453fe62e7426, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a616a8b289003e48a4d30f708ebc4ef, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

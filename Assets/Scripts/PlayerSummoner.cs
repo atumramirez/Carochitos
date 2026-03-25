@@ -20,13 +20,12 @@ public class PlayerSummoner : MonoBehaviour
 
     public void SpawnPrefab()
     {
-        _currentInstance = Instantiate(_carochitoParty.carochitos[0].Base.Model, Vector3.zero, Quaternion.identity);
+        _currentInstance = Instantiate(_carochitoParty.currentCarochito.Base.Model, Vector3.zero, Quaternion.identity);
 
         
         if (_currentInstance.TryGetComponent<CarochitoHandle>(out var data))
         {
-            data.carochito = _carochitoParty.carochitos[0];
-
+            data.carochito = _carochitoParty.currentCarochito;
             _characterSwap.AddCharacter(data.transform);
         }
         else
@@ -39,6 +38,7 @@ public class PlayerSummoner : MonoBehaviour
     {
         if (_currentInstance != null)
         {
+            _characterSwap.RemoveCharacter(_currentInstance.transform);
             Destroy(_currentInstance);
             _currentInstance = null;
         }
