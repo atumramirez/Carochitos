@@ -17,8 +17,8 @@ public class CarochitoParty : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-
     [SerializeField] public List<Carochito> carochitos;
+
     public Carochito currentCarochito;
     public int currentIndex = 0;
 
@@ -32,24 +32,26 @@ public class CarochitoParty : MonoBehaviour
 
     public void AddCarochito(Carochito carochito)
     {
-        /// Adicionar Animação de UI
-        /// [Animação de Captura]
-        /// 
-
-        if(carochitos.Count < 6)
+        if (carochitos.Count < 6)
         {
             carochitos.Add(carochito);
         }
 
         else
         {
-            carochitoBoxes.AddCarochito(carochito);
+            CarochitoBoxes.Instance.AddCarochito(carochito);
         }
 
         CarochitoSelectionMenu.instance.RefreshMenu();
+
+
+        // [Adicionar Logica da PokéDex]
     }
 
-    public CarochitoBoxes carochitoBoxes;
+    public void MoveToParty(Carochito carochito)
+    {
+        carochitos.Add(carochito);
+    }
 
     public void NextCarochito()
     {

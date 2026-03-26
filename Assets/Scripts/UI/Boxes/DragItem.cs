@@ -8,12 +8,12 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public Image image;
     public Carochito carochito;
 
-    public PartyHolderBoxes organizer;
+    public PartyHolder organizer;
 
     private void Start()
     {
         image = GetComponent<Image>();
-        organizer = FindFirstObjectByType<PartyHolderBoxes>();
+        organizer = FindFirstObjectByType<PartyHolder>();
     }
 
     public void Refresh(Carochito car)

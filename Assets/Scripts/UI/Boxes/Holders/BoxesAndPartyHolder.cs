@@ -1,15 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PartyHolderBoxes : BoxesAndPartyHolder
+public class BoxesAndPartyHolder : MonoBehaviour
 {
-    public CarochitoParty carochitoParty;
     public GameObject prefab;
 
-    private void Start()
-    {
-        PopulateFromList();
-    }
     public void Organize()
     {
         List<Transform> items = new();
@@ -39,7 +34,6 @@ public class PartyHolderBoxes : BoxesAndPartyHolder
             items[i].SetParent(transform.GetChild(i));
             items[i].SetAsLastSibling();
         }
-    
     }
 
     public int GetItemCount()
@@ -57,27 +51,13 @@ public class PartyHolderBoxes : BoxesAndPartyHolder
         return count;
     }
 
-    public void PopulateFromList()
+    public virtual void PopulateFromList()
     {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Transform slot = transform.GetChild(i);
+        Debug.Log("Cada Script tem a sua lista especifica");
+    }
 
-            if (slot.childCount > 0)
-            {
-                Destroy(slot.GetChild(0).gameObject);
-            }
-        }
-
-        for (int i = 0; i < carochitoParty.carochitos.Count && i < transform.childCount; i++)
-        {
-            if (carochitoParty.carochitos[i] == null)
-                continue;
-
-            Transform slot = transform.GetChild(i);
-
-            GameObject newItem = Instantiate(prefab, slot);
-            newItem.transform.SetAsLastSibling();
-        }
+    public virtual void PopulateToList()
+    {
+        Debug.Log("Cada Script tem a sua lista especifica");
     }
 }

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerSummoner : MonoBehaviour
 {
-    public CarochitoParty _carochitoParty;
     private GameObject _currentInstance;
     public CharacterSwap _characterSwap;
 
@@ -20,12 +19,12 @@ public class PlayerSummoner : MonoBehaviour
 
     public void SpawnPrefab()
     {
-        _currentInstance = Instantiate(_carochitoParty.currentCarochito.Base.Model, Vector3.zero, Quaternion.identity);
+        _currentInstance = Instantiate(CarochitoParty.Instance.currentCarochito.Base.Model, Vector3.zero, Quaternion.identity);
 
         
         if (_currentInstance.TryGetComponent<CarochitoHandle>(out var data))
         {
-            data.carochito = _carochitoParty.currentCarochito;
+            data.carochito = CarochitoParty.Instance.currentCarochito;
             _characterSwap.AddCharacter(data.transform);
         }
         else

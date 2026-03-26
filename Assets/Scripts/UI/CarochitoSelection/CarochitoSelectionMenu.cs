@@ -24,8 +24,6 @@ public class CarochitoSelectionMenu : MonoBehaviour
     public TextMeshProUGUI _level;
     public TextMeshProUGUI _name;
 
-    public CarochitoParty carochitoParty;
-
     public Transform _contentParent; 
     public GameObject _sheetPrefab;
 
@@ -42,10 +40,10 @@ public class CarochitoSelectionMenu : MonoBehaviour
 
     public void RefreshMenu()
     {
-        main.sprite = carochitoParty.currentCarochito.Base._sprite;
+        main.sprite = CarochitoParty.Instance.currentCarochito.Base._sprite;
 
-        _level.text = "Lv. " + carochitoParty.currentCarochito.Level;
-        _name.text = carochitoParty.currentCarochito.Base.Name;
+        _level.text = "Lv. " + CarochitoParty.Instance.currentCarochito.Level;
+        _name.text = CarochitoParty.Instance.currentCarochito.Base.Name;
 
         // Step 1: Clear existing UI elements
         for (int i = _contentParent.childCount - 1; i >= 0; i--)
@@ -56,7 +54,7 @@ public class CarochitoSelectionMenu : MonoBehaviour
         // Step 2: Track already added monsters (to prevent duplicates)
         HashSet<Carochito> addedMonsters = new();
 
-        foreach (Carochito member in carochitoParty.carochitos)
+        foreach (Carochito member in CarochitoParty.Instance.carochitos)
         {
             // Skip duplicates
             if (addedMonsters.Contains(member))

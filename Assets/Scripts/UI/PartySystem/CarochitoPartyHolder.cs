@@ -4,10 +4,8 @@ using UnityEngine;
 public class CarochitoPartyHolder : MonoBehaviour
 {
     [Header("References")]
-    public Transform _contentParent;      // Onde os Carochitos Party Sheets serão istanciados
-    public GameObject _sheetPrefab;       // O Prefab de cada Sheet
-
-    public CarochitoParty _carochitoParty;
+    public Transform _contentParent;   
+    public GameObject _sheetPrefab;      
 
     private void Start()
     {
@@ -21,7 +19,7 @@ public class CarochitoPartyHolder : MonoBehaviour
             Destroy(_contentParent.GetChild(i).gameObject);
         }
 
-        foreach (Carochito member in _carochitoParty.carochitos)
+        foreach (Carochito member in CarochitoParty.Instance.carochitos)
         {
             GameObject sheetObj = Instantiate(_sheetPrefab, _contentParent);
 

@@ -5,7 +5,7 @@ public class BoxesMenuOpen : MonoBehaviour
     public bool isOpened = false;
     public GameObject menu;
 
-    public PartyHolderBoxes partyHolderBoxes;
+    public PartyHolder partyHolderBoxes;
 
     private void Start()
     {
