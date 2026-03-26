@@ -16,15 +16,19 @@ public class BoxesHolder : BoxesAndPartyHolder
 
         for (int i = 0; i < CarochitoBoxes.Instance.Box1.Count && i < transform.childCount; i++)
         {
-            if (CarochitoBoxes.Instance.Box1[i] == null)
-                continue;
-
             Transform slot = transform.GetChild(i);
 
-            GameObject newItem = Instantiate(prefab, slot);
-            newItem.transform.SetAsLastSibling();
+            if (CarochitoBoxes.Instance.Box1[i].Base == null)
+            {
+                continue;
+            }
+            else
+            {
+                GameObject newItem = Instantiate(prefab, slot);
+                newItem.transform.SetAsLastSibling();
 
-            newItem.GetComponent<DragItem>().Refresh(CarochitoBoxes.Instance.Box1[i]);
+                newItem.GetComponent<DragItem>().Refresh(CarochitoBoxes.Instance.Box1[i]);
+            }
         }
     }
 
@@ -40,6 +44,10 @@ public class BoxesHolder : BoxesAndPartyHolder
             {
                 DragItem data = slot.GetChild(0).GetComponent<DragItem>();
                 CarochitoBoxes.Instance.AddCarochito(data.carochito);
+            }
+            else
+            {
+                CarochitoBoxes.Instance.Box1.Add(null);
             }
         }
     }

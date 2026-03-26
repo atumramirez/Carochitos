@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class BoxesMenuOpen : MonoBehaviour
+public class BoxesMenu : MonoBehaviour
 {
     public bool isOpened = false;
     public GameObject menu;
 
-    public PartyHolder partyHolderBoxes;
+    public PartyHolder partyHolder;
+    public BoxesHolder boxesHolder;
 
     private void Start()
     {
@@ -14,8 +15,12 @@ public class BoxesMenuOpen : MonoBehaviour
     public void ActivateMenu()
     {
         menu.SetActive(isOpened);
-        partyHolderBoxes.PopulateFromList();
-        partyHolderBoxes.Organize();
+
+        partyHolder.PopulateFromList();
+        partyHolder.Organize();
+
+        boxesHolder.PopulateFromList();
+        boxesHolder.Organize();
 
         isOpened = !isOpened;
     }

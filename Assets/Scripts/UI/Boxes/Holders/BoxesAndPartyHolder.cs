@@ -47,7 +47,6 @@ public class BoxesAndPartyHolder : MonoBehaviour
                 count++;
             }
         }
-
         return count;
     }
 
