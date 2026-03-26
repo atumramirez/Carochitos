@@ -17,7 +17,7 @@ public class CarochitoParty : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    [SerializeField] public List<Carochito> carochitos;
+    public List<Carochito> carochitos;
 
     public Carochito currentCarochito;
     public int currentIndex = 0;

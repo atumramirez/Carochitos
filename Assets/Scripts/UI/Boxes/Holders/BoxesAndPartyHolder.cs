@@ -36,7 +36,7 @@ public class BoxesAndPartyHolder : MonoBehaviour
         }
     }
 
-    public int GetItemCount()
+    public virtual int GetItemCount()
     {
         int count = 0;
 

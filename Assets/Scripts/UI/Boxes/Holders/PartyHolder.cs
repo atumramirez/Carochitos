@@ -2,11 +2,25 @@ using UnityEngine;
 
 public class PartyHolder : BoxesAndPartyHolder
 {
+    public static PartyHolder Instance;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public Transform _menu;
     public override void PopulateFromList()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < _menu.childCount; i++)
         {
-            Transform slot = transform.GetChild(i);
+            Transform slot = _menu.GetChild(i);
 
             if (slot.childCount > 0)
             {
@@ -14,12 +28,12 @@ public class PartyHolder : BoxesAndPartyHolder
             }
         }
 
-        for (int i = 0; i < CarochitoParty.Instance.carochitos.Count && i < transform.childCount; i++)
+        for (int i = 0; i < CarochitoParty.Instance.carochitos.Count && i < _menu.childCount; i++)
         {
             if (CarochitoParty.Instance.carochitos[i] == null)
                 continue;
 
-            Transform slot = transform.GetChild(i);
+            Transform slot = _menu.GetChild(i);
 
             GameObject newItem = Instantiate(prefab, slot);
             newItem.transform.SetAsLastSibling();
@@ -32,9 +46,9 @@ public class PartyHolder : BoxesAndPartyHolder
     {
         CarochitoParty.Instance.carochitos.Clear();
 
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < _menu.childCount; i++)
         {
-            Transform slot = transform.GetChild(i);
+            Transform slot = _menu.GetChild(i);
 
             if (slot.childCount > 0)
             {
@@ -42,5 +56,19 @@ public class PartyHolder : BoxesAndPartyHolder
                 CarochitoParty.Instance.MoveToParty(data.carochito);
             }
         }
+    }
+
+    public override int GetItemCount()
+    {
+        int count = 0;
+
+        for (int i = 0; i < _menu.childCount; i++)
+        {
+            if (_menu.GetChild(i).childCount > 0)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 }

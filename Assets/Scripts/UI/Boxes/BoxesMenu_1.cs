@@ -5,9 +5,6 @@ public class BoxesMenu : MonoBehaviour
     public bool isOpened = false;
     public GameObject menu;
 
-    public PartyHolder partyHolder;
-    public BoxesHolder boxesHolder;
-
     private void Start()
     {
         ActivateMenu();
@@ -16,11 +13,13 @@ public class BoxesMenu : MonoBehaviour
     {
         menu.SetActive(isOpened);
 
-        partyHolder.PopulateFromList();
-        partyHolder.Organize();
+        PartyHolder.Instance.PopulateFromList();
+        PartyHolder.Instance.Organize();
 
-        boxesHolder.PopulateFromList();
-        boxesHolder.Organize();
+        BoxesHolder.Instance.PopulateFromList();
+        //BoxesHolder.Instance.Organize();
+
+        Debug.Log("DRADSPA");
 
         isOpened = !isOpened;
     }

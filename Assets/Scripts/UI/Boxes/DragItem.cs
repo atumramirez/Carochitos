@@ -9,14 +9,9 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public Image Sprite;
     public Carochito carochito;
 
-    public PartyHolder organizer;
-    public BoxesHolder partyHolder;
-
     private void Start()
     {
         image = GetComponent<Image>();
-        organizer = FindFirstObjectByType<PartyHolder>();
-        partyHolder = FindFirstObjectByType<BoxesHolder>();
     }
 
     public void Refresh(Carochito car)
@@ -43,13 +38,9 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         transform.SetParent(parentAfterDrag);
         image.raycastTarget = true;
 
-        organizer.PopulateToList();
-        partyHolder.PopulateToList();
+        PartyHolder.Instance.PopulateToList();
+        PartyHolder.Instance.Organize();
 
-
-        if (organizer != null)
-        {
-            organizer.Organize();
-        }
+        BoxesHolder.Instance.PopulateToList();
     }
 }

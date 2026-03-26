@@ -9,9 +9,10 @@ public class BoxSlot : InventorySlot
         DragItem draggableItem = dropped.GetComponent<DragItem>();
         Transform originalParent = draggableItem.parentAfterDrag;
 
-        if (transform.childCount == 0 && organizer.GetItemCount() == 0)
+        if (transform.childCount == 0 && PartyHolder.Instance.GetItemCount() == 0)
         {
             Debug.Log("Este é o ultimo carochito! Tens que ter pelo menos 1 na equipa! ");
+
             draggableItem.parentAfterDrag = originalParent;
             return;
         }
