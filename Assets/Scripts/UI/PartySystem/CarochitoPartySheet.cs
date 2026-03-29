@@ -22,7 +22,7 @@ public class CarochitoPartySheet: MonoBehaviour
         _maxHealth = carochito.Base.MaxHP;
         _currentHealth = carochito.CurrentHP;
 
-        _sprite.sprite = carochito.Base._sprite;
+        _sprite.sprite = carochito.Base.Sprite;
 
         UpdateSlider(carochito.Base.MaxHP, carochito.CurrentHP);
     }

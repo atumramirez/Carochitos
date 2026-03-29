@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Carochito 1
   m_EditorClassIdentifier: Assembly-CSharp::CarochitoBase
   _name: Bicho Azul
+  _number: 2
   _description: 
   _sprite: {fileID: 21300000, guid: 2992feb4bfc78ca40bf9d6930838770e, type: 3}
-  _Model: {fileID: 1000153353145618415, guid: 8d19228ca52698f458c04c19b03a8649, type: 3}
+  _model: {fileID: 0}
   _elementalType1: 0
   _elementalType2: 0
   _maxHP: 10

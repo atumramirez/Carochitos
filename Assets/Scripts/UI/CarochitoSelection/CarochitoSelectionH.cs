@@ -7,6 +7,6 @@ public class CarochitoSelectionSheet : MonoBehaviour
 
     public void UpdateSheet(Carochito carochito)
     {
-        CarochitoImage.sprite = carochito.Base._sprite;
+        CarochitoImage.sprite = carochito.Base.Sprite;
     }
 }

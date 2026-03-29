@@ -17,7 +17,7 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void Refresh(Carochito car)
     {
         carochito = car;
-        Sprite.sprite = car.Base._sprite;
+        Sprite.sprite = car.Base.Sprite;
     }
 
     public void OnBeginDrag(PointerEventData eventData)

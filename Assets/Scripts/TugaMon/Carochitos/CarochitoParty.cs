@@ -32,7 +32,7 @@ public class CarochitoParty : MonoBehaviour
 
     public void AddCarochito(Carochito carochito)
     {
-        if (carochitos.Count < 6)
+        if (carochitos.Count < 6) // [Mudar para variável global]
         {
             carochitos.Add(carochito);
         }
@@ -43,7 +43,6 @@ public class CarochitoParty : MonoBehaviour
         }
 
         CarochitoSelectionMenu.instance.RefreshMenu();
-
 
         // [Adicionar Logica da PokéDex]
     }

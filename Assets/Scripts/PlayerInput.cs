@@ -52,7 +52,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (_playerSummoner != null)
             {
-                _playerSummoner.ActivateSummon();
+                _playerSummoner.ActivateSummon(); 
             }
         }
 
