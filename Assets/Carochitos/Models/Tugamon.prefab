@@ -224,8 +224,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UseSkill
   skills:
+  - {fileID: 11400000, guid: 04c4de37abeff684cb6bddcc7003bbcf, type: 2}
   - {fileID: 11400000, guid: f3400955a432e414d8183a4b0d796b8f, type: 2}
   currentSkill: {fileID: 0}
+  meleeModules: []
+  currentModule: {fileID: 0}
+  onColdown: 0
+  hitbox: {fileID: 7737261997652888080, guid: da7ae64e6d8d9e7478be23cef7c3a1ad, type: 3}
 --- !u!1001 &805992915772067334
 PrefabInstance:
   m_ObjectHideFlags: 0

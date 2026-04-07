@@ -1,5 +1,6 @@
-using UnityEngine;
+using System;
 using System.Collections;
+using UnityEngine;
 
 public class PlayerCapture : MonoBehaviour
 {
@@ -8,8 +9,8 @@ public class PlayerCapture : MonoBehaviour
     public KeyCode captureKey = KeyCode.E;
 
     public Animator animator;
-
-    public float captureDelay = 0.3f; 
+    public int captureDelay = 10;
+    public float nig;
 
     void Update()
     {
@@ -23,12 +24,8 @@ public class PlayerCapture : MonoBehaviour
     {
 
         animator.SetTrigger("Murro");
-        yield return new WaitForSeconds(captureDelay);
+        yield return new WaitForSeconds(nig);
 
-        Instantiate(
-            captureAreaPrefab,
-            spawnPoint.position,
-            Quaternion.identity
-        );
+        Instantiate(captureAreaPrefab, spawnPoint.position, Quaternion.identity);
     }
 }

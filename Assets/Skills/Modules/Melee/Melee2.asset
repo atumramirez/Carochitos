@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a6ed11967c11554780076fbd55784ef, type: 3}
-  m_Name: Melee1
+  m_Name: Melee2
   m_EditorClassIdentifier: Assembly-CSharp::MeleeModule
-  hitboxSize: {x: 2, y: 2, z: 2}
-  duration: 1
+  hitboxSize: {x: 3, y: 1, z: 1}
+  duration: 2
   damage: 10

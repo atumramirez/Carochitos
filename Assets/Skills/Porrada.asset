@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6d61e420b6dfb148a9fc5064339363a, type: 3}
-  m_Name: Bicada
+  m_Name: Porrada
   m_EditorClassIdentifier: Assembly-CSharp::SkillBases
-  skillName: Bicada
+  skillName: Porrada
   coldown: 2
   modules:
   - {fileID: 11400000, guid: 8a8cbc1ed2c550c429c8834fff9e3591, type: 2}
+  - {fileID: 11400000, guid: 5f8707d201daa1249ad2f0f2b4ed9639, type: 2}

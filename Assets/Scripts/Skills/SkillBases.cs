@@ -9,5 +9,6 @@ public class SkillBases : ScriptableObject
     public string skillName;
 
     [Header("Components")]
+    public float coldown;
     public List<MeleeModule> modules;
 }
