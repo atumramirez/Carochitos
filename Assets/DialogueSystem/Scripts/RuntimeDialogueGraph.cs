@@ -14,5 +14,15 @@ public class RuntimeDialogueNode
     public string NodeID;
     public string SpeakerName;
     public string DialogueText;
+    public List<ChoiceData> Choices = new();
     public string NextNodeID;
 }
+
+[Serializable]
+public class ChoiceData
+{
+    public string ChoiceText;
+    public string DestinationNodeID;
+}
+
+
