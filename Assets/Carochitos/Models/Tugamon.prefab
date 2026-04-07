@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 7227241316815150015}
   - component: {fileID: 143129872680149981}
   - component: {fileID: 7466694816595963599}
+  - component: {fileID: 1734755446144118057}
   m_Layer: 0
   m_Name: Tugamon
   m_TagString: Untagged
@@ -210,6 +211,21 @@ MonoBehaviour:
     _base: {fileID: 0}
     _level: 0
     _currentHP: 0
+--- !u!114 &1734755446144118057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000153353145618415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca041822647a297499502f4c0fa36b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UseSkill
+  skills:
+  - {fileID: 11400000, guid: f3400955a432e414d8183a4b0d796b8f, type: 2}
+  currentSkill: {fileID: 0}
 --- !u!1001 &805992915772067334
 PrefabInstance:
   m_ObjectHideFlags: 0
