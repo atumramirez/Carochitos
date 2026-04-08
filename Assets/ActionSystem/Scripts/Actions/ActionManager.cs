@@ -10,8 +10,11 @@ public class ActionManager : MonoBehaviour
     {
         get { return _nodeLookUp; }
     }
-
     private BaseActionNode _currentNode;
+    public BaseActionNode CurrentNode
+    {
+        get { return _currentNode; }
+    }
 
     void Awake()
     {
