@@ -16,6 +16,8 @@ public class ActionManager : MonoBehaviour
         get { return _currentNode; }
     }
 
+    private RuntimeDialogueGraph _currentGraph;
+
     void Awake()
     {
         if (Instance == null)
@@ -29,56 +31,78 @@ public class ActionManager : MonoBehaviour
         }
     }
 
-    public void StartGraph(RuntimeDialogueGraph RuntimeGraph)
+    // Open Graph
+    public void OpenGraph(RuntimeDialogueGraph graph)
     {
-        foreach (var node in RuntimeGraph.AllNodes)
+        _currentGraph = graph;
+        _nodeLookUp.Clear();
+
+        foreach (var node in graph.AllNodes)
         {
             _nodeLookUp[node.NodeID] = node;
         }
 
-        StartAction(RuntimeGraph);
+        StartAction();
     }
 
-    public void StartAction(RuntimeDialogueGraph RuntimeGraph)
+    // Close Graph
+    public void CloseGraph()
     {
-        if (!string.IsNullOrEmpty(RuntimeGraph.EntryNodeID))
-        {
-            _currentNode = _nodeLookUp[RuntimeGraph.EntryNodeID];
-            _currentNode.Perform();
-        }
-        else
-        {
-            EndGraph();
-        }
+        _currentNode = null;
+        _nodeLookUp.Clear();
+        _currentGraph = null;
+
+        Debug.Log("Graph Closed");
     }
 
-    public void EndAction()
+    // Start Action
+    public void StartAction()
     {
-        if (!_nodeLookUp.ContainsKey(_currentNode.NextNodeID))
+        if (_currentGraph == null || string.IsNullOrEmpty(_currentGraph.EntryNodeID))
         {
-            EndGraph();
+            CloseGraph();
             return;
         }
 
-        NextAction(_currentNode.NextNodeID);
+        if (!_nodeLookUp.TryGetValue(_currentGraph.EntryNodeID, out _currentNode))
+        {
+            CloseGraph();
+            return;
+        }
+
+        _currentNode.Perform();
     }
 
-    public void NextAction(string nodeID)
+    // End Action
+    public void EndAction(string overrideNodeID = null)
     {
-        if (!string.IsNullOrEmpty(nodeID))
+        if (_currentNode == null)
         {
-            _currentNode = _nodeLookUp[nodeID];
-            _currentNode.Perform();
+            CloseGraph();
+            return;
         }
-        else
-        {
-            EndGraph();
-        }
-    }
 
-    public void EndGraph()
-    {
-        _currentNode = null;
-        Debug.Log("Graph Ended");
+        // 1. End current node
+        _currentNode.End();
+
+        // 2. Decide next node
+        string nextID = overrideNodeID ?? _currentNode.NextNodeID;
+
+        if (string.IsNullOrEmpty(nextID))
+        {
+            CloseGraph();
+            return;
+        }
+
+        // 3. Get next node
+        if (!_nodeLookUp.TryGetValue(nextID, out _currentNode))
+        {
+            CloseGraph();
+            return;
+        }
+
+        // 4. Start next node
+        _currentNode.Perform();
     }
 }
+

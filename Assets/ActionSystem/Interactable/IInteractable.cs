@@ -24,7 +24,7 @@ public class IInteractable : MonoBehaviour
 
     public void OnInteract()
     {
-        ActionManager.Instance.StartGraph(dialogueGraph);
+        ActionManager.Instance.OpenGraph(dialogueGraph);
     }
 
     private void OnTriggerEnter(Collider other)

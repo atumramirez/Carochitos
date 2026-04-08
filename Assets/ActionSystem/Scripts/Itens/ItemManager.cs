@@ -27,6 +27,8 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+
+    /*
     private void Update()
     {
         if (BaseActionNode != null)
@@ -60,4 +62,5 @@ public class ItemManager : MonoBehaviour
         DialoguePanel.SetActive(false);
         BaseActionNode = null;
     }
+    */
 }

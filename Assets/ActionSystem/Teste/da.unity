@@ -575,6 +575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
   DialoguePanel: {fileID: 76248114}
+  NextButton: {fileID: 1651782332}
   SpeakerNameText: {fileID: 76248112}
   DialogueText: {fileID: 76248113}
   ChoiceButton: {fileID: 1987550506913024656, guid: 759655fb05115d34fbc4b162a70b8a78, type: 3}
@@ -932,7 +933,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1651782331
 RectTransform:
   m_ObjectHideFlags: 0
@@ -996,19 +997,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1651782333}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 614887535}
-        m_TargetAssemblyTypeName: ActionManager, Assembly-CSharp
-        m_MethodName: StartGraph
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1651782333
 MonoBehaviour:
   m_ObjectHideFlags: 0

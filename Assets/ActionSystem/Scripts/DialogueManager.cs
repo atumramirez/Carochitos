@@ -1,9 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -11,6 +8,7 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Components")]
     public GameObject DialoguePanel;
+    public Button NextButton;
     public TextMeshProUGUI SpeakerNameText;
     public TextMeshProUGUI DialogueText;
 
@@ -19,7 +17,6 @@ public class DialogueManager : MonoBehaviour
     public Transform ChoiceButtonContainer;
 
     private bool isReading = false;
-    private BaseDialogueAction currentDialogueAction;
 
     void Awake()
     {
@@ -34,94 +31,115 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void Start()
     {
-        if (currentDialogueAction != null)
+        if (NextButton != null)
         {
-            if (isReading == true && currentDialogueAction is SpeakAction)
+            NextButton.onClick.AddListener(() =>
             {
-                if (Mouse.current.leftButton.wasPressedThisFrame)
+                if (isReading)
                 {
-                    NextLine(currentDialogueAction.NextNodeID);
+                    NextLine();
                 }
-            }
-        } 
+            });
+        }
+        
     }
 
-    public void StartDialogue(BaseDialogueAction baseDialogueAction)
+    // Called from Perform()
+    public void StartDialogue()
     {
-        currentDialogueAction = baseDialogueAction;
+        if (ActionManager.Instance.CurrentNode is not BaseDialogueAction node) return;
 
-        if (isReading == false)
+        bool hasChoices = node is QuestionAction;
+
+        // Show / hide continue button
+        if (NextButton != null)
+        {
+            NextButton.gameObject.SetActive(!hasChoices);
+        }
+
+        // Open UI if needed
+        if (!isReading)
         {
             isReading = true;
             DialoguePanel.SetActive(true);
         }
 
-        SpeakerNameText.SetText(currentDialogueAction.SpeakerName);
-        DialogueText.SetText(currentDialogueAction.DialogueText);
+        // Set text
+        SpeakerNameText.SetText(node.SpeakerName);
+        DialogueText.SetText(node.DialogueText);
 
+        // Clear old choices
         foreach (Transform child in ChoiceButtonContainer)
         {
             Destroy(child.gameObject);
         }
 
-        if (currentDialogueAction is QuestionAction questionAction)
+        // Handle choices
+        if (node is QuestionAction questionNode)
         {
-            foreach (var choice in questionAction.Choices)
+            foreach (var choice in questionNode.Choices)
             {
                 Button button = Instantiate(ChoiceButton, ChoiceButtonContainer);
-                TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+                var text = button.GetComponentInChildren<TextMeshProUGUI>();
 
-                if (buttonText != null)
-                {
-                    buttonText.text = choice.ChoiceText;
-                }
+                if (text != null)
+                    text.text = choice.ChoiceText;
 
-                if (button != null)
+                button.onClick.AddListener(() =>
                 {
-                    button.onClick.AddListener(() =>
+                    if (string.IsNullOrEmpty(choice.DestinationNodeID))
                     {
-                        if (!string.IsNullOrEmpty(choice.DestinationNodeID))
-                        {
-                            NextLine(choice.DestinationNodeID);
-                        }
-                        else
-                        {
-                            EndDialogue();
-                            ActionManager.Instance.EndGraph();
-                            return;
-                        }
-                    });
-                }
+                        Debug.LogWarning("Choice has no destination.");
+                        return;
+                    }
+
+                    NextLine(choice.DestinationNodeID);
+                });
             }
         }
     }
 
-    public void NextLine(string nodeID)
+    // Called from End() OR input
+    public void NextLine(string overrideNodeID = null)
     {
-        Debug.Log("Next");
-        if (!ActionManager.Instance.NodeList.ContainsKey(nodeID))
+        var current = ActionManager.Instance.CurrentNode;
+
+        if (current == null)
         {
             EndDialogue();
-            ActionManager.Instance.EndGraph();
             return;
         }
-        else
-        {
-            if (ActionManager.Instance.NodeList[nodeID] is not BaseDialogueAction)
-            {
-                EndDialogue();
-            }
 
-            ActionManager.Instance.NextAction(nodeID);
+        // Block continue during choices
+        if (current is QuestionAction && string.IsNullOrEmpty(overrideNodeID))
+        {
+            return;
         }
+
+        // Preview next node to decide UI behavior
+        string nextID = overrideNodeID ?? current.NextNodeID;
+
+        if (!ActionManager.Instance.NodeList.TryGetValue(nextID, out var nextNode))
+        {
+            EndDialogue();
+            ActionManager.Instance.CloseGraph();
+            return;
+        }
+
+        // Close UI if next is not dialogue
+        if (nextNode is not BaseDialogueAction)
+        {
+            EndDialogue();
+        }
+
+        // ONE unified call
+        ActionManager.Instance.EndAction(overrideNodeID);
     }
 
     public void EndDialogue()
     {
-        currentDialogueAction = null;
-
         isReading = false;
         DialoguePanel.SetActive(false);
 

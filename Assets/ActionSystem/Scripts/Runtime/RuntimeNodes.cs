@@ -9,7 +9,9 @@ public class BaseActionNode
     public string NextNodeID;
     public virtual void Perform()
     {
-        Debug.Log("Hello World!");
+    }
+    public virtual void End()
+    {
     }
 }
 
@@ -18,6 +20,8 @@ public class BaseDialogueAction : BaseActionNode
 {
     public string SpeakerName;
     public string DialogueText;
+
+
 }
 
 [Serializable]
@@ -25,7 +29,7 @@ public class SpeakAction : BaseDialogueAction
 {
     public override void Perform()
     {
-        DialogueManager.Instance.StartDialogue(this);
+        DialogueManager.Instance.StartDialogue();
     }
 }
 
@@ -43,7 +47,7 @@ public class QuestionAction : BaseDialogueAction
 
     public override void Perform()
     {
-        DialogueManager.Instance.StartDialogue(this);
+        DialogueManager.Instance.StartDialogue();
     }
 }
 
@@ -56,6 +60,6 @@ public class GiveItemAction : BaseActionNode
     public override void Perform()
     {
         Debug.Log("" + Count + Item);
-        ItemManager.Instance.OpenBox(this);
+        ActionManager.Instance.EndAction();
     }
 }
