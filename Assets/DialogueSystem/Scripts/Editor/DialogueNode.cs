@@ -1,5 +1,6 @@
 using System;
 using Unity.GraphToolkit.Editor;
+using UnityEngine;
 
 [Serializable]
 public class StartNode : Node
@@ -51,10 +52,25 @@ public class ChoiceNode : Node
             context.AddInputPort<string>($"Choice Text {i}").Build();
             context.AddOutputPort($"Choice {i}").Build();
         }
+
+        Debug.Log("PortCount: " + portCount);
     }
 
     protected override void OnDefineOptions(IOptionDefinitionContext context)
     {
         context.AddOption<int>(optionID).WithDefaultValue(2).Delayed();
+    }
+}
+
+[Serializable]
+public class ItemNode : Node
+{
+    protected override void OnDefinePorts(IPortDefinitionContext context)
+    {
+        context.AddInputPort("In").Build();
+        context.AddOutputPort("Out").Build();
+
+        context.AddInputPort<int>("Count").Build();
+        context.AddInputPort<Item>("Item").Build();
     }
 }

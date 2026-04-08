@@ -3,9 +3,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static DialogueManager Instance;
+
     [Header("Components")]
     public GameObject DialoguePanel;
     public TextMeshProUGUI SpeakerNameText;
@@ -16,90 +19,66 @@ public class DialogueManager : MonoBehaviour
     public Transform ChoiceButtonContainer;
 
     private bool isReading;
+    private BaseDialogueAction currentDialogueAction;
 
-    private readonly Dictionary<string, RuntimeDialogueNode> _nodeLookup = new();
-    private RuntimeDialogueNode _currentNode;
-
-    private void Update()
+    void Awake()
     {
-        // Mudar isto para o New Input System
-        if (isReading == true)
+        if (Instance == null)
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame && _currentNode != null && _currentNode.Choices.Count == 0)
-            {
-                NextLine();
-            }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
     private void Start()
     {
         isReading = false;
-        DialoguePanel.SetActive(isReading);
+        DialoguePanel.SetActive(false);
     }
 
-    public void StartDialogue(RuntimeDialogueGraph RuntimeGraph)
+    private void Update()
     {
-        if (isReading != true)
+        if (currentDialogueAction != null)
         {
-            foreach (var node in RuntimeGraph.AllNodes)
+            if (isReading == true && currentDialogueAction is SpeakAction speakAction)
             {
-                _nodeLookup[node.NodeID] = node;
+                if (Mouse.current.leftButton.wasPressedThisFrame)
+                {
+                    NextLine(currentDialogueAction.NextNodeID);
+                }
             }
-
-            if (!string.IsNullOrEmpty(RuntimeGraph.EntryNodeID))
-            {
-                isReading = true;
-                ShowNode(RuntimeGraph.EntryNodeID);
-            }
-            else
-            {
-                EndDialogue();
-            }
-        }
+        } 
     }
 
-    public void NextLine()
+    public void StartDialogue(BaseDialogueAction baseDialogueAction)
     {
-        if (!string.IsNullOrEmpty(_currentNode.NextNodeID))
-        {
-            ShowNode(_currentNode.NextNodeID);
-        }
-        else
-        {
-            EndDialogue();
-        }
-    }
+        currentDialogueAction = baseDialogueAction;
 
-    private void ShowNode(string nodeID)
-    {
-        if (!_nodeLookup.ContainsKey(nodeID))
+        if (isReading == false)
         {
-            EndDialogue();
-            return;
+            isReading = true;
+            DialoguePanel.SetActive(true);
         }
 
-        _currentNode = _nodeLookup[nodeID];
+        SpeakerNameText.SetText(currentDialogueAction.SpeakerName);
+        DialogueText.SetText(currentDialogueAction.DialogueText);
 
-        // Adicionar Animação da Caixa de Texto Aparecer
-        DialoguePanel.SetActive(true);
-
-        // Adicionar Animação de Escrever Texto
-        SpeakerNameText.SetText(_currentNode.SpeakerName);
-        DialogueText.SetText(_currentNode.DialogueText);
-
-        // Destroy any children of the button container
         foreach (Transform child in ChoiceButtonContainer)
         {
             Destroy(child.gameObject);
         }
 
-        if (_currentNode.Choices.Count > 0)
+        if (currentDialogueAction is QuestionAction questionAction)
         {
-            foreach (var choice in _currentNode.Choices)
+            Debug.Log("Choices count: " + questionAction.Choices.Count);
+
+            foreach (var choice in questionAction.Choices)
             {
                 Button button = Instantiate(ChoiceButton, ChoiceButtonContainer);
-
                 TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
 
                 if (buttonText != null)
@@ -113,11 +92,13 @@ public class DialogueManager : MonoBehaviour
                     {
                         if (!string.IsNullOrEmpty(choice.DestinationNodeID))
                         {
-                            ShowNode(choice.DestinationNodeID);
+                            NextLine(choice.DestinationNodeID);
                         }
                         else
                         {
                             EndDialogue();
+                            ActionManager.Instance.EndGraph();
+                            return;
                         }
                     });
                 }
@@ -125,19 +106,35 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void EndDialogue()
+    public void NextLine(string nodeID)
     {
-        _currentNode = null;
+        if (!ActionManager.Instance.NodeList.ContainsKey(nodeID))
+        {
+            EndDialogue();
+            ActionManager.Instance.EndGraph();
+            return;
+        }
+        else
+        {
+            if (ActionManager.Instance.NodeList[nodeID] is not BaseDialogueAction)
+            {
+                EndDialogue();
+            }
 
-        // Adicionar Animação de a Caixa de Texto a desaparecer
+            ActionManager.Instance.NextAction(nodeID);
+        }
+    }
+
+    public void EndDialogue()
+    {
+        currentDialogueAction = null;
+
+        isReading = false;
         DialoguePanel.SetActive(false);
 
-        // Destroy any children of the button container
         foreach (Transform child in ChoiceButtonContainer)
         {
             Destroy(child.gameObject);
         }
-
-        isReading = false;
     }
 }

@@ -7,6 +7,6 @@ public class TestDialogue : MonoBehaviour
 
     public void Click()
     {
-        manager.StartDialogue(graph);
+        //manager.StartDialogue(graph);
     }
 }

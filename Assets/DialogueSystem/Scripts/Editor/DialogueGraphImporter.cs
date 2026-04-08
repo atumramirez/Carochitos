@@ -36,18 +36,19 @@ public class DialogueGraphImporter : ScriptedImporter
         {
             if (INode is StartNode || INode is EndNode) continue;
 
-            var runtimeNode = new RuntimeDialogueNode { NodeID = nodeIDMap[INode] };
-
             if (INode is DialogueNode dialogueNode)
             {
+                var runtimeNode = new SpeakAction { NodeID = nodeIDMap[INode] };
                 ProcessDialogueNode(dialogueNode, runtimeNode, nodeIDMap);
+                runtimeGraph.AllNodes.Add(runtimeNode);
             }
+            
             else if (INode is ChoiceNode choiceNode)
             {
-                ProcessChoiceNode(choiceNode, runtimeNode, nodeIDMap);  
+                var runtimeNode = new QuestionAction { NodeID = nodeIDMap[INode] };
+                ProcessChoiceNode(choiceNode, runtimeNode, nodeIDMap);
+                runtimeGraph.AllNodes.Add(runtimeNode);
             }
-
-            runtimeGraph.AllNodes.Add(runtimeNode);
         }
 
         // Attach the new runtime data to the asset itselft, this let us drag and drop the graph in the inspector
@@ -55,7 +56,7 @@ public class DialogueGraphImporter : ScriptedImporter
         ctx.SetMainObject(runtimeGraph);
     }
 
-    private void ProcessDialogueNode(DialogueNode node, RuntimeDialogueNode runtimeNode, Dictionary<INode, string> nodeIDMap)
+    private void ProcessDialogueNode(DialogueNode node, SpeakAction runtimeNode, Dictionary<INode, string> nodeIDMap)
     {
         runtimeNode.SpeakerName = GetPortValue<string>(node.GetInputPortByName("Speaker"));
         runtimeNode.DialogueText = GetPortValue<string>(node.GetInputPortByName("Dialogue"));
@@ -68,7 +69,7 @@ public class DialogueGraphImporter : ScriptedImporter
         }
     }
 
-    private void ProcessChoiceNode(ChoiceNode node, RuntimeDialogueNode runtimeNode, Dictionary<INode, string> nodeIDMap)
+    private void ProcessChoiceNode(ChoiceNode node, QuestionAction runtimeNode, Dictionary<INode, string> nodeIDMap)
     {
         runtimeNode.SpeakerName = GetPortValue<string>(node.GetInputPortByName("Speaker"));
         runtimeNode.DialogueText = GetPortValue<string>(node.GetInputPortByName("Dialogue"));
@@ -80,11 +81,12 @@ public class DialogueGraphImporter : ScriptedImporter
             var index = outputPort.name.Substring("Choice ".Length);
             var textPort = node.GetInputPortByName($"Choice Text {index}");
 
-            var choiceData = new ChoiceData
+            var choiceData = new QuestionAction.ChoiceData
             {
                 ChoiceText = GetPortValue<string>(textPort),
                 DestinationNodeID = outputPort.firstConnectedPort != null ? nodeIDMap[outputPort.firstConnectedPort.GetNode()] : null
             };
+            
 
             runtimeNode.Choices.Add(choiceData);
         }
