@@ -42,11 +42,18 @@ public class DialogueGraphImporter : ScriptedImporter
                 ProcessDialogueNode(dialogueNode, runtimeNode, nodeIDMap);
                 runtimeGraph.AllNodes.Add(runtimeNode);
             }
-            
+
             else if (INode is ChoiceNode choiceNode)
             {
                 var runtimeNode = new QuestionAction { NodeID = nodeIDMap[INode] };
                 ProcessChoiceNode(choiceNode, runtimeNode, nodeIDMap);
+                runtimeGraph.AllNodes.Add(runtimeNode);
+            }
+
+            else if (INode is ItemNode itemNode)
+            {
+                var runtimeNode = new GiveItemAction { NodeID = nodeIDMap[INode] };
+                ProcessItemNode(itemNode, runtimeNode, nodeIDMap);
                 runtimeGraph.AllNodes.Add(runtimeNode);
             }
         }
@@ -89,6 +96,19 @@ public class DialogueGraphImporter : ScriptedImporter
             
 
             runtimeNode.Choices.Add(choiceData);
+        }
+    }
+
+    private void ProcessItemNode(ItemNode node, GiveItemAction runtimeNode, Dictionary<INode, string> nodeIDMap)
+    {
+        runtimeNode.Count = GetPortValue<int>(node.GetInputPortByName("Count"));
+        runtimeNode.Item = GetPortValue<Item>(node.GetInputPortByName("Item"));
+
+        var nextNodePort = node.GetOutputPortByName("Out")?.firstConnectedPort;
+
+        if (nextNodePort != null)
+        {
+            runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
         }
     }
 

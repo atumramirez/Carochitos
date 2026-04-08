@@ -18,7 +18,7 @@ public class DialogueManager : MonoBehaviour
     public Button ChoiceButton;
     public Transform ChoiceButtonContainer;
 
-    private bool isReading;
+    private bool isReading = false;
     private BaseDialogueAction currentDialogueAction;
 
     void Awake()
@@ -34,17 +34,11 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        isReading = false;
-        DialoguePanel.SetActive(false);
-    }
-
     private void Update()
     {
         if (currentDialogueAction != null)
         {
-            if (isReading == true && currentDialogueAction is SpeakAction speakAction)
+            if (isReading == true && currentDialogueAction is SpeakAction)
             {
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
@@ -74,8 +68,6 @@ public class DialogueManager : MonoBehaviour
 
         if (currentDialogueAction is QuestionAction questionAction)
         {
-            Debug.Log("Choices count: " + questionAction.Choices.Count);
-
             foreach (var choice in questionAction.Choices)
             {
                 Button button = Instantiate(ChoiceButton, ChoiceButtonContainer);
@@ -108,6 +100,7 @@ public class DialogueManager : MonoBehaviour
 
     public void NextLine(string nodeID)
     {
+        Debug.Log("Next");
         if (!ActionManager.Instance.NodeList.ContainsKey(nodeID))
         {
             EndDialogue();

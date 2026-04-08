@@ -46,3 +46,16 @@ public class QuestionAction : BaseDialogueAction
         DialogueManager.Instance.StartDialogue(this);
     }
 }
+
+[Serializable]
+public class GiveItemAction : BaseActionNode
+{
+    public int Count;
+    public Item Item;
+
+    public override void Perform()
+    {
+        Debug.Log("" + Count + Item);
+        ItemManager.Instance.OpenBox(this);
+    }
+}

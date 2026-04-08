@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using NUnit.Framework.Interfaces;
 using UnityEngine;
 
 public class ActionManager : MonoBehaviour
@@ -14,8 +13,6 @@ public class ActionManager : MonoBehaviour
 
     private BaseActionNode _currentNode;
 
-    public RuntimeDialogueGraph RuntimeGraph;
-
     void Awake()
     {
         if (Instance == null)
@@ -29,7 +26,7 @@ public class ActionManager : MonoBehaviour
         }
     }
 
-    public void StartGraph()
+    public void StartGraph(RuntimeDialogueGraph RuntimeGraph)
     {
         foreach (var node in RuntimeGraph.AllNodes)
         {
@@ -50,6 +47,17 @@ public class ActionManager : MonoBehaviour
         {
             EndGraph();
         }
+    }
+
+    public void EndAction()
+    {
+        if (!_nodeLookUp.ContainsKey(_currentNode.NextNodeID))
+        {
+            EndGraph();
+            return;
+        }
+
+        NextAction(_currentNode.NextNodeID);
     }
 
     public void NextAction(string nodeID)

@@ -52,8 +52,6 @@ public class ChoiceNode : Node
             context.AddInputPort<string>($"Choice Text {i}").Build();
             context.AddOutputPort($"Choice {i}").Build();
         }
-
-        Debug.Log("PortCount: " + portCount);
     }
 
     protected override void OnDefineOptions(IOptionDefinitionContext context)
