@@ -9114,6 +9114,9 @@ MonoBehaviour:
     _base: {fileID: 11400000, guid: 5a3e2a6d5a9ab7540b0eb3c7b54c35fd, type: 2}
     _level: 342
     _currentHP: 10
+  maxHp: 0
+  currentHp: 0
+  damage: 0
 --- !u!114 &1744978177
 MonoBehaviour:
   m_ObjectHideFlags: 0
