@@ -82,10 +82,10 @@ public class ActionManager : MonoBehaviour
             return;
         }
 
-        // 1. End current node
+        // End current node
         _currentNode.End();
 
-        // 2. Decide next node
+        // Decide next node
         string nextID = overrideNodeID ?? _currentNode.NextNodeID;
 
         if (string.IsNullOrEmpty(nextID))
@@ -94,14 +94,14 @@ public class ActionManager : MonoBehaviour
             return;
         }
 
-        // 3. Get next node
+        // Get next node
         if (!_nodeLookUp.TryGetValue(nextID, out _currentNode))
         {
             CloseGraph();
             return;
         }
 
-        // 4. Start next node
+        // Start next node
         _currentNode.Perform();
     }
 }

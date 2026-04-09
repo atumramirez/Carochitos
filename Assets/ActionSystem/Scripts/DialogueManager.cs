@@ -101,7 +101,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // Called from End() OR input
+    // Called from End() or Input
     public void NextLine(string overrideNodeID = null)
     {
         var current = ActionManager.Instance.CurrentNode;
@@ -134,7 +134,7 @@ public class DialogueManager : MonoBehaviour
             EndDialogue();
         }
 
-        // ONE unified call
+        // One unified call
         ActionManager.Instance.EndAction(overrideNodeID);
     }
 

@@ -5,6 +5,7 @@ public class IInteractable : MonoBehaviour
     [Header("Trigger")]
     public Trigger trigger = Trigger.ButtonPress;
 
+    [Header("Action Graphs")]
     public RuntimeDialogueGraph dialogueGraph;
     public enum Trigger
     {

@@ -1217,7 +1217,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 9c8006094b98f2e314b37b2f9b99b332
         m_Version: 2
-        m_Position: {x: 1419.9076, y: -1313.8441}
+        m_Position: {x: 1448.6576, y: -1317.2941}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -1280,11 +1280,11 @@ MonoBehaviour:
     - rid: 623863094003368010
       type: {class: 'Constant`1[[System.Int32, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: 0
+        m_Value: 23
     - rid: 623863094003368011
       type: {class: 'Constant`1[[Item, Assembly-CSharp]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 11400000, guid: 884612e8f06031b489d505eff48b1a15, type: 2}
     - rid: 623863094003368012
       type: {class: ItemNode, ns: , asm: Assembly-CSharp-Editor}
       data: 

@@ -20,8 +20,6 @@ public class BaseDialogueAction : BaseActionNode
 {
     public string SpeakerName;
     public string DialogueText;
-
-
 }
 
 [Serializable]
