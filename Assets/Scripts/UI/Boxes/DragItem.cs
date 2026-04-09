@@ -9,16 +9,19 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public Carochito carochito;
 
     public PartyHolder organizer;
+    public BoxesHolder boxesHolder;
 
     private void Start()
     {
         image = GetComponent<Image>();
         organizer = FindFirstObjectByType<PartyHolder>();
+        boxesHolder = FindFirstObjectByType<BoxesHolder>();
     }
 
     public void Refresh(Carochito car)
     {
         carochito = car;
+        // image.sprite = carochito.Base._sprite;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -42,6 +45,8 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         if (organizer != null)
         {
             organizer.Organize();
+            organizer.PopulateToList();
+            boxesHolder.PopulateToList();
         }
     }
 }

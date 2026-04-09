@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 6355268907308088448}
   - component: {fileID: 8611567718730609853}
   - component: {fileID: 1822344715853328776}
+  - component: {fileID: 7460024966534853409}
+  - component: {fileID: 7575061021866438701}
   m_Layer: 0
   m_Name: Personagem
   m_TagString: Untagged
@@ -145,6 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff8714521dcc0f64c8b51a05ebbbe9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  _playerMenu: {fileID: 0}
+  _playerSummoner: {fileID: 7575061021866438701}
+  _c: {fileID: 0}
 --- !u!114 &1822344715853328776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +164,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
   _interactArea: {fileID: 1061360476032909572}
   _interactAreaSize: 1
+--- !u!114 &7460024966534853409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210054832014156161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33be20a97555f8943be4454f740a23a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCapture
+  captureAreaPrefab: {fileID: 8798215958966654007, guid: 2d0c2572d5d6c164da0123f734874826, type: 3}
+  spawnPoint: {fileID: 1061360476032909572}
+  captureKey: 101
+  animator: {fileID: 260794908936600934}
+  captureDelay: 0
+  nig: 0
+--- !u!114 &7575061021866438701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210054832014156161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b56e5ed7d1c8794182d608fa25937e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSummoner
+  _characterSwap: {fileID: 0}
 --- !u!1 &4190163084179501097
 GameObject:
   m_ObjectHideFlags: 0

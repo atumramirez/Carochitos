@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class UseSkill : MonoBehaviour
 {
+    [Header("Skills")]
     public List<SkillBases> skills;
     public SkillBases currentSkill;
+
+    [Header("Modules")]
     public List<MeleeModule> meleeModules;
     public MeleeModule currentModule;
+
+    [Header("Cooldown")]
     public bool onColdown;
     public GameObject hitbox;
 
@@ -17,6 +22,7 @@ public class UseSkill : MonoBehaviour
         currentSkill = skills[0];
         currentModule = currentSkill.modules[0];
     }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))

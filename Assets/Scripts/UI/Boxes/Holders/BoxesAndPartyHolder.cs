@@ -5,7 +5,7 @@ public class BoxesAndPartyHolder : MonoBehaviour
 {
     public GameObject prefab;
 
-    public void Organize()
+    public void Organize() // Coloca em Ordem
     {
         List<Transform> items = new();
 

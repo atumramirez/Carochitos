@@ -27,11 +27,6 @@ public class CarochitoSelectionMenu : MonoBehaviour
     public Transform _contentParent; 
     public GameObject _sheetPrefab;
 
-    private void Start()
-    {
-        RefreshMenu();
-    }
-
     public void OpenMenu()
     { }
 

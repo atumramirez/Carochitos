@@ -9,13 +9,11 @@ public class PlayerInput : MonoBehaviour
     CharacterSwap _characterSwap;
     public PlayerMenu _playerMenu;
     public PlayerSummoner _playerSummoner;
-    public CarochitoParty _c;
 
     private void Awake()
     {
         _playerController = GetComponent<PlayerController>();
         _playerInteract = GetComponent<PlayerInteract>();
-
         _characterSwap = FindAnyObjectByType<CharacterSwap>();
     }
 
@@ -59,18 +57,12 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if (_c != null)
-            {
-                _c.Previous();
-            }  
+            CarochitoParty.Instance.Previous();  
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            if (_c != null)
-            {
-                _c.NextCarochito();
-            }
+            CarochitoParty.Instance.NextCarochito();
         }
     }
 }

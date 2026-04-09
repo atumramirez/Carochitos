@@ -19,17 +19,21 @@ public class PlayerSummoner : MonoBehaviour
 
     public void SpawnPrefab()
     {
-        _currentInstance = Instantiate(CarochitoParty.Instance.currentCarochito.Base.Model, Vector3.zero, Quaternion.identity);
+        if (CarochitoParty.Instance.carochitos.Count > 0)
+        {
+            CarochitoParty.Instance.currentCarochito ??= CarochitoParty.Instance.carochitos[0];
 
-        
-        if (_currentInstance.TryGetComponent<CarochitoHandle>(out var data))
-        {
-            data.carochito = CarochitoParty.Instance.currentCarochito;
-            _characterSwap.AddCharacter(data.transform);
-        }
-        else
-        {
-            Debug.LogWarning("MyPrefabData script not found on prefab!");
+            _currentInstance = Instantiate(CarochitoParty.Instance.currentCarochito.Base.Model, Vector3.zero, Quaternion.identity);
+
+            if (_currentInstance.TryGetComponent<CarochitoHandle>(out var data))
+            {
+                data.carochito = CarochitoParty.Instance.currentCarochito;
+                _characterSwap.AddCharacter(data.transform);
+            }
+            else
+            {
+                Debug.LogWarning("MyPrefabData script not found on prefab!");
+            }
         }
     }
 

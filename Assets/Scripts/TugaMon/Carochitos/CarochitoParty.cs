@@ -4,7 +4,6 @@ using UnityEngine;
 public class CarochitoParty : MonoBehaviour
 {
     public static CarochitoParty Instance;
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -23,18 +22,29 @@ public class CarochitoParty : MonoBehaviour
     public int currentIndex = 0;
 
     public CarochitoSelectionMenu _carochitoSelectionMenu;
+    public PartyHolder _partyHolder;
 
     private void Start()
     {
-        currentCarochito = carochitos[0];
-        _carochitoSelectionMenu.RefreshMenu();
+        if (carochitos.Count > 0)
+        {
+            currentCarochito = carochitos[0];
+            _carochitoSelectionMenu.RefreshMenu();
+        }
     }
 
     public void AddCarochito(Carochito carochito)
     {
-        if (carochitos.Count < 6)
+        if (carochitos.Count < 5)
         {
             carochitos.Add(carochito);
+
+            if (carochitos.Count == 1)
+            {
+                currentCarochito = carochitos[0];
+            }
+
+            _partyHolder.PopulateFromList();
         }
 
         else

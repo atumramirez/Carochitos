@@ -14,6 +14,7 @@ public class BoxesMenuOpen : MonoBehaviour
     public void ActivateMenu()
     {
         menu.SetActive(isOpened);
+
         partyHolderBoxes.PopulateFromList();
         partyHolderBoxes.Organize();
 

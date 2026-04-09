@@ -7,7 +7,7 @@ public class PlayerMenu : MonoBehaviour
     public GameObject _playerMenu; 
     public GameObject _inGameMenu;
 
-    public CarochitoPartyHolder _carochitoHolder;
+    //public CarochitoPartyHolder _carochitoHolder;
 
     private void Start()
     {
@@ -16,7 +16,7 @@ public class PlayerMenu : MonoBehaviour
 
     public void ActivateMenu()
     {
-        _carochitoHolder.RefreshParty();
+        //_carochitoHolder.RefreshParty();
 
         if (!isOpened)
         {
