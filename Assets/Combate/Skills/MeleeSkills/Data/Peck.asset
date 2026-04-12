@@ -15,8 +15,9 @@ MonoBehaviour:
   _name: 
   _description: 
   _elementalType: 0
-  power: 0
-  cooldown: 1
-  activetime: 0
-  modules: []
-  hurtBox: {fileID: 0}
+  power: 1
+  cooldown: 3
+  activetime: 1
+  modules:
+  - {fileID: 11400000, guid: 8a8cbc1ed2c550c429c8834fff9e3591, type: 2}
+  hurtBox: {fileID: -1280353789262765043, guid: da7ae64e6d8d9e7478be23cef7c3a1ad, type: 3}

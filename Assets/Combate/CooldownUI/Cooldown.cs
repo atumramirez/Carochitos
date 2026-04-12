@@ -14,6 +14,13 @@ public class Cooldown : MonoBehaviour
 
     public List<SkillCooldown> _cooldownIcons = new();
 
+    public void Start()
+    {
+        foreach (SkillCooldown cooldown in _cooldownIcons)
+        {
+            cooldown.image.fillAmount = 0;
+        }
+    }
     public void StartCooldown()
     {
         _cooldownIcons[0].image.fillAmount = 1;

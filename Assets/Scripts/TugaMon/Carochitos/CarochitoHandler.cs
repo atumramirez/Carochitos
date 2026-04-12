@@ -23,12 +23,13 @@ public class CarochitoHandler : MonoBehaviour
 
     public void TakeDamage(CarochitoHandler owner, Skill power)
     {
-        int damage = owner.carochito.Attack + power.Power; // Mudar
+        int damage = owner.carochito.Attack + power.Power; 
 
         carochito.CurrentHealth -= damage;
         healthBar.SetHealth(carochito.CurrentHealth);
     }
 
+    // Debug
     public void Damage(int damage)
     {
         carochito.CurrentHealth -= damage;
