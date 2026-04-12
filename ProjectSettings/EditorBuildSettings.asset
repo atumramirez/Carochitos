@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Teste/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Essential.unity
+    guid: d776df7596db99c49a91f716b574b076
+  - enabled: 1
+    path: Assets/Scenes/Blocagem/Cidade.unity
+    guid: e38d89fa76dc10a448ae5f7a26e24ad3
+  - enabled: 1
+    path: Assets/Scenes/Blocagem/Cais.unity
+    guid: 469908e2160aa9c449d80a3448878167
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

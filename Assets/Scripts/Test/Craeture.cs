@@ -5,9 +5,9 @@ public class Creature : MonoBehaviour
     public string creatureName;
 
     public Carochito carochito;
-    public int maxHp;
+    public int maxHp = 30;
     public int currentHp;
-    public int damage;
+    public int damage = 10;
 
     public void Capture()
     {
@@ -16,8 +16,16 @@ public class Creature : MonoBehaviour
 
     private void Start()
     {
-        maxHp = carochito.CurrentHP;
+        maxHp = carochito.CurrentHealth;
         currentHp = maxHp;
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            currentHp = currentHp - 10;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

@@ -1,11 +1,26 @@
+using UnityEditor;
 using UnityEngine;
 
-public class Skill
+public class Skill : ScriptableObject
 {
-    public SkillBase Base { get; set; }
+    [SerializeField] string _name;
 
-    public Skill(SkillBase chitobase)
+    [TextArea]
+    [SerializeField] string _description;
+
+    [SerializeField] ElementalTypes _elementalType;
+
+    [SerializeField] int power;
+    public int Power { get { return power; } }
+
+    [SerializeField] int cooldown;
+    public int Cooldown { get { return cooldown; } }
+
+    [SerializeField] int activetime;
+    public int ActiveTime { get { return activetime; } }
+
+    public virtual void Activate(GameObject parent)
     {
-        Base = chitobase;
+        Debug.Log("Skill Activated");
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class IInteractable : MonoBehaviour 
 {
@@ -7,6 +8,9 @@ public class IInteractable : MonoBehaviour
 
     [Header("Action Graphs")]
     public RuntimeDialogueGraph dialogueGraph;
+
+    [Header("Events")]
+    public UnityEvent onInteract;
     public enum Trigger
     {
         ButtonPress,
@@ -25,7 +29,15 @@ public class IInteractable : MonoBehaviour
 
     public void OnInteract()
     {
-        ActionManager.Instance.OpenGraph(dialogueGraph);
+        if (dialogueGraph != null)
+        {
+            ActionManager.Instance.OpenGraph(dialogueGraph);
+        }
+        else if (onInteract != null)
+        {
+            onInteract?.Invoke();
+            return;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

@@ -29,7 +29,7 @@ public class PlayerInput : MonoBehaviour
 
         _playerController.AddMoveVectorInput(moveVector);
 
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetKeyDown(KeyCode.I))
         {
             _playerInteract.Interact();
         }

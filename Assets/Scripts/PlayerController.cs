@@ -8,8 +8,15 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection;
     Vector3 rotationDirection;
 
-    private readonly float speed = 10f;
-    private readonly float rotationSpeed = 5f;
+    private readonly float speed = 8f;
+    private readonly float rotationSpeed = 7f;
+
+    [SerializeField] private float jumpForce = 7f;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance = 0.2f;
+    [SerializeField] private LayerMask groundMask;
+
+    private bool isGrounded;
 
     private Rigidbody _rigidbody;
     private PlayerAnimator _playerAnimator;
@@ -20,18 +27,25 @@ public class PlayerController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _playerAnimator = GetComponentInChildren<PlayerAnimator>();
         _camera = FindFirstObjectByType<Camera>();
-        
     }
 
     public void AddMoveVectorInput(Vector3 moveVector)
-    { 
-        moveVectorInput = moveVector; 
+    {
+        moveVectorInput = moveVector;
     }
 
     private void Update()
     {
+        CheckGround();
+
         HandleMovement();
         HandleRotation();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
+
         if (_playerAnimator != null)
         {
             HandleAnimation();
@@ -50,7 +64,7 @@ public class PlayerController : MonoBehaviour
             rotationDirection = moveDirection;
         }
 
-        if(rotationDirection != Vector3.zero)
+        if (rotationDirection != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(rotationDirection);
             Quaternion rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
@@ -67,8 +81,24 @@ public class PlayerController : MonoBehaviour
         moveDirection.Normalize();
 
         Vector3 moveVelocity = moveDirection * speed;
-        moveVelocity += Physics.gravity;
+        moveVelocity.y = _rigidbody.linearVelocity.y; // preserve vertical velocity
 
         _rigidbody.linearVelocity = moveVelocity;
+    }
+
+    private void CheckGround()
+    {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+    }
+
+    public void Jump()
+    {
+        if (!isGrounded) return;
+
+        Vector3 velocity = _rigidbody.linearVelocity;
+        velocity.y = 0f;
+        _rigidbody.linearVelocity = velocity;
+
+        _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 }

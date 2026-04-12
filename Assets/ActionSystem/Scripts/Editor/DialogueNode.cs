@@ -71,3 +71,17 @@ public class ItemNode : Node
         //context.AddInputPort<Item>("Item").Build();
     }
 }
+
+[Serializable]
+public class CarochitoNode : Node
+{
+    protected override void OnDefinePorts(IPortDefinitionContext context)
+    {
+        context.AddInputPort("In").Build();
+        context.AddOutputPort("Out").Build();
+
+        context.AddInputPort<CarochitoBase>("Carochito").Build();
+        context.AddInputPort<int>("Level").Build();
+        context.AddInputPort<int>("Current HP").Build();
+    }
+}

@@ -56,6 +56,13 @@ public class DialogueGraphImporter : ScriptedImporter
                 ProcessItemNode(itemNode, runtimeNode, nodeIDMap);
                 runtimeGraph.AllNodes.Add(runtimeNode);
             }
+
+            else if (INode is CarochitoNode carochitoNode)
+            {
+                var runtimeNode = new CarochitoAction { NodeID = nodeIDMap[INode] };
+                ProcessCarochitoNode(carochitoNode, runtimeNode, nodeIDMap);
+                runtimeGraph.AllNodes.Add(runtimeNode);
+            }
         }
 
         // Attach the new runtime data to the asset itselft, this let us drag and drop the graph in the inspector
@@ -103,6 +110,19 @@ public class DialogueGraphImporter : ScriptedImporter
     {
         runtimeNode.Count = GetPortValue<int>(node.GetInputPortByName("Count"));
         //runtimeNode.Item = GetPortValue<Item>(node.GetInputPortByName("Item"));
+
+        var nextNodePort = node.GetOutputPortByName("Out")?.firstConnectedPort;
+
+        if (nextNodePort != null)
+        {
+            runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
+        }
+    }
+
+    private void ProcessCarochitoNode(CarochitoNode node, CarochitoAction runtimeNode, Dictionary<INode, string> nodeIDMap)
+    {
+        runtimeNode.CarochitoBase = GetPortValue<CarochitoBase>(node.GetInputPortByName("Carochito"));
+        runtimeNode.Level = GetPortValue<int>(node.GetInputPortByName("Level"));
 
         var nextNodePort = node.GetOutputPortByName("Out")?.firstConnectedPort;
 

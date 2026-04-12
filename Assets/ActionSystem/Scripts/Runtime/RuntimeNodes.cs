@@ -23,6 +23,21 @@ public class BaseDialogueAction : BaseActionNode
 }
 
 [Serializable]
+public class CarochitoAction : BaseActionNode
+{
+    public CarochitoBase CarochitoBase;
+    public int Level;
+    public int MaxHealth;
+
+    public override void Perform()
+    {
+        Carochito carochito = new(CarochitoBase, Level);
+        CarochitoParty.Instance.AddCarochito(carochito);
+        ActionManager.Instance.EndAction();
+    }
+}
+
+[Serializable]
 public class SpeakAction : BaseDialogueAction
 {
     public override void Perform()

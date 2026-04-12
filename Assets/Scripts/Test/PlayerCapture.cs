@@ -10,7 +10,6 @@ public class PlayerCapture : MonoBehaviour
 
     public Animator animator;
     public int captureDelay = 10;
-    public float nig;
 
     void Update()
     {
@@ -24,7 +23,7 @@ public class PlayerCapture : MonoBehaviour
     {
 
         animator.SetTrigger("Murro");
-        yield return new WaitForSeconds(nig);
+        yield return new WaitForSeconds(2);
 
         Instantiate(captureAreaPrefab, spawnPoint.position, Quaternion.identity);
     }

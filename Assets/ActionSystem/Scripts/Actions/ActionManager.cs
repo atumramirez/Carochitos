@@ -43,6 +43,8 @@ public class ActionManager : MonoBehaviour
         }
 
         StartAction();
+
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     // Close Graph
@@ -53,6 +55,8 @@ public class ActionManager : MonoBehaviour
         _currentGraph = null;
 
         Debug.Log("Graph Closed");
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Start Action

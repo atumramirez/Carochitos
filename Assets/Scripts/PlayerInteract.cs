@@ -10,7 +10,7 @@ public class PlayerInteract : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            if (collider.TryGetComponent<Interactable>(out var interactable))
+            if (collider.TryGetComponent<IInteractable>(out var interactable))
             {
                 interactable.OnInteract();
                 break;

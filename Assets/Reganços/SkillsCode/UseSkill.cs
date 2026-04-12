@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UseSkill : MonoBehaviour
+public class UseSkill: MonoBehaviour
 {
     [Header("Skills")]
-    public List<SkillBases> skills;
-    public SkillBases currentSkill;
+    public List<MeleeSkill> skills;
+    public MeleeSkill currentSkill;
 
     [Header("Modules")]
     public List<MeleeModule> meleeModules;
@@ -16,6 +16,10 @@ public class UseSkill : MonoBehaviour
     public bool onColdown;
     public GameObject hitbox;
 
+    [Header("Loucuras")]
+    public CarochitoHandler owner;
+    public Skill skill;
+
     void Start()
     {
         onColdown = false;
@@ -23,16 +27,12 @@ public class UseSkill : MonoBehaviour
         currentModule = currentSkill.modules[0];
     }
 
-    void Update()
+    public void UseCurrentSkill()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (onColdown == false)
         {
-            if(onColdown == false)
-            {
-                StartCoroutine(AttackWithSkill());
-                onColdown=true;
-            }
-            
+            StartCoroutine(AttackWithSkill());
+            onColdown = true;
         }
     }
 
@@ -40,13 +40,13 @@ public class UseSkill : MonoBehaviour
     {
         foreach(MeleeModule mod in currentSkill.modules)
         {
-            Debug.Log("Current Skill" + mod.name);
+            // Debug.Log("Current Skill" + mod.name);
                 
             InstantiateAttack(mod);
 
             yield return new WaitForSeconds(mod.duration);
         }
-        yield return new WaitForSeconds(currentSkill.coldown);
+        yield return new WaitForSeconds(currentSkill.Cooldown);
         onColdown = false;
         
     }
@@ -55,6 +55,9 @@ public class UseSkill : MonoBehaviour
     {
         GameObject hitboxF = Instantiate(hitbox, transform.TransformPoint(new Vector3(0, 0, 1)), transform.rotation, transform);
         hitboxF.transform.localScale = mod.hitboxSize;
+
+        HurtBox hitboxDamage = hitboxF.GetComponent<HurtBox>();
+        hitboxDamage.owner = owner;
         
         Destroy(hitboxF, mod.duration);
     }

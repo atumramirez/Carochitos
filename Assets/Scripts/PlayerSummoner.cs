@@ -5,6 +5,8 @@ public class PlayerSummoner : MonoBehaviour
     private GameObject _currentInstance;
     public CharacterSwap _characterSwap;
 
+    public Transform spawnPoint;
+
     public void ActivateSummon()
     {
         if (_currentInstance != null)
@@ -23,9 +25,13 @@ public class PlayerSummoner : MonoBehaviour
         {
             CarochitoParty.Instance.currentCarochito ??= CarochitoParty.Instance.carochitos[0];
 
-            _currentInstance = Instantiate(CarochitoParty.Instance.currentCarochito.Base.Model, Vector3.zero, Quaternion.identity);
+            _currentInstance = Instantiate(
+            CarochitoParty.Instance.currentCarochito.Base.Model,
+            spawnPoint.position,
+            spawnPoint.rotation
+             );
 
-            if (_currentInstance.TryGetComponent<CarochitoHandle>(out var data))
+            if (_currentInstance.TryGetComponent<CarochitoHandler>(out var data))
             {
                 data.carochito = CarochitoParty.Instance.currentCarochito;
                 _characterSwap.AddCharacter(data.transform);
