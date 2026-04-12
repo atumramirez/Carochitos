@@ -16,6 +16,7 @@ MonoBehaviour:
   _description: 
   _elementalType: 0
   power: 0
-  cooldown: 0
+  cooldown: 1
   activetime: 0
   modules: []
+  hurtBox: {fileID: 0}

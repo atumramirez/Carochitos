@@ -280,6 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224930947}
   - component: {fileID: 224930948}
+  - component: {fileID: 224930949}
   m_Layer: 5
   m_Name: AbilityHolder
   m_TagString: Untagged
@@ -318,6 +319,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 224930946}
   m_CullTransparentMesh: 1
+--- !u!114 &224930949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224930946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ee66ab54d6e03409dc83c32797f4a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cooldown
+  _cooldownIcons:
+  - skill: {fileID: 11400000, guid: 98b73aac55657d14192f2b9d01681275, type: 2}
+    image: {fileID: 1945283079}
+  - skill: {fileID: 11400000, guid: 98b73aac55657d14192f2b9d01681275, type: 2}
+    image: {fileID: 1361687218}
+  - skill: {fileID: 11400000, guid: 98b73aac55657d14192f2b9d01681275, type: 2}
+    image: {fileID: 116746631}
+  - skill: {fileID: 11400000, guid: 98b73aac55657d14192f2b9d01681275, type: 2}
+    image: {fileID: 691006870}
 --- !u!1 &285388489
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,7 +2299,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillHolder
   _skills:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 98b73aac55657d14192f2b9d01681275, type: 2}
+  cooldown: {fileID: 224930949}
 --- !u!1001 &1827272860
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2457,7 +2480,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

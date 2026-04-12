@@ -8,6 +8,8 @@ public class SkillHolder : MonoBehaviour
     float _cooldownTime;
     float _activeTime;
 
+    public Cooldown cooldown;
+
     enum SkillState 
     {
         Ready,
@@ -39,6 +41,7 @@ public class SkillHolder : MonoBehaviour
                 else 
                 {
                     _state = SkillState.Cooldown;
+                    cooldown.StartCooldown();
                     _cooldownTime = _skills[0].Cooldown;
                 }
                 break;
