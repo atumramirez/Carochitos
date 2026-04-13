@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5221655aea4644abb96fe1ce27932f, type: 3}
   m_Name: Peck
   m_EditorClassIdentifier: Assembly-CSharp::Peck
-  _name: 
-  _description: 
+  _name: gjhgh
+  _description: ghjnfhfghgfh
   _elementalType: 0
   power: 1
-  cooldown: 3
+  cooldown: 1
   activetime: 1
   modules:
   - {fileID: 11400000, guid: 8a8cbc1ed2c550c429c8834fff9e3591, type: 2}

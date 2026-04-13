@@ -24,13 +24,13 @@ public class CharacterSwap : MonoBehaviour
     public void Swap()
     {
         character = possibleCharacters[whichCharacter];
-        character.GetComponent<PlayerInput>().enabled = true;
+        character.GetComponent<PlayerControls>().enabled = true;
 
         for (int i = 0; i < possibleCharacters.Count; i++)
         {
             if (possibleCharacters[i] != character)
             {
-                possibleCharacters[i].GetComponent<PlayerInput>().enabled = false;
+                possibleCharacters[i].GetComponent<PlayerControls>().enabled = false;
             }
         }
 
@@ -92,7 +92,7 @@ public class CharacterSwap : MonoBehaviour
         {
             possibleCharacters.Add(newCharacter);
 
-            var input = newCharacter.GetComponent<PlayerInput>();
+            var input = newCharacter.GetComponent<PlayerControls>();
             if (input != null)
                 input.enabled = false;
         }
