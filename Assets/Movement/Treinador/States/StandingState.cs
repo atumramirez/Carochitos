@@ -14,7 +14,7 @@ public class StandingState: State
 
     Vector3 cVelocity;
 
-    public StandingState(TrainerController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
+    public StandingState(TrainerController _character, StateMachine _stateMachine): base(_character, _stateMachine)
 	{
 		character = _character;
 		stateMachine = _stateMachine;
@@ -29,6 +29,7 @@ public class StandingState: State
         sprint = false;
         attack = false;
         roll = false;
+
         input = Vector2.zero;
         velocity = Vector3.zero;
         currentVelocity = Vector3.zero;

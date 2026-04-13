@@ -27,20 +27,14 @@ public class CrouchingState : State
         gravityVelocity.y = 0;
 
         playerSpeed = character.crouchSpeed;
-        character.controller.height = character.crouchColliderHeight;
-        character.controller.center = new Vector3(0f, character.crouchColliderHeight / 2f, 0f);
         grounded = character.controller.isGrounded;
         gravityValue = character.gravityValue;
-
-        
     }
 
     public override void Exit()
     {
         base.Exit();
 
-        character.controller.height = character.normalColliderHeight;
-        character.controller.center = new Vector3(0f, character.normalColliderHeight / 2f, 0f);
         gravityVelocity.y = 0f;
         character.playerVelocity = new Vector3(input.x, 0, input.y);
         character.animator.SetTrigger("move");

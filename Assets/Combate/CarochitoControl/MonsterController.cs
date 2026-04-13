@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MonsterInput : MonoBehaviour
+public class MonsterController : MonoBehaviour
 {
     PlayerController _playerController;
     PlayerInteract _playerInteract;
@@ -9,13 +9,11 @@ public class MonsterInput : MonoBehaviour
     CharacterSwap _characterSwap;
     public PlayerMenu _playerMenu;
     public PlayerSummoner _playerSummoner;
-    public UseSkill _useSkill;
     private void Awake()
     {
         _playerController = GetComponent<PlayerController>();
         _playerInteract = GetComponent<PlayerInteract>();
         _characterSwap = FindAnyObjectByType<CharacterSwap>();
-        _useSkill = GetComponent<UseSkill>();
     }
 
     private void Start()

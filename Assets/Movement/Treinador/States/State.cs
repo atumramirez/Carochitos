@@ -24,7 +24,6 @@ public class State
         stateMachine = _stateMachine;
 
         moveAction = character.playerInput.actions["Move"];
-        //lookAction = character.playerInput.actions["Look"];
         jumpAction = character.playerInput.actions["Jump"];
         crouchAction = character.playerInput.actions["Crouch"];
         sprintAction = character.playerInput.actions["Sprint"];
