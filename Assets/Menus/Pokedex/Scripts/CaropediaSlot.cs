@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class CaropediaSlot : MonoBehaviour
 {
-    public Carochito carochito;
+    public CarochitoBase carochito;
     public Button button;
 
     [Header("Info")]
@@ -30,7 +30,7 @@ public class CaropediaSlot : MonoBehaviour
 
     public void Refresh()
     {
-        _image.sprite = carochito.Base.Sprite;
+        _image.sprite = carochito.Sprite;
         _name.text = carochito.Name;
     }
 }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CarochitoDatabase
   m_EditorClassIdentifier: Assembly-CSharp::CarochitoDatabaseAsset
   carochitos:
+  - {fileID: 11400000, guid: 4676b337df2c43d4097b56248ea29867, type: 2}
   - {fileID: 11400000, guid: d8b525f07f507934d8be37896d5f483b, type: 2}
   - {fileID: 11400000, guid: a917d9b056599884b9560d4e56c2e7d8, type: 2}
   - {fileID: 11400000, guid: 5a3e2a6d5a9ab7540b0eb3c7b54c35fd, type: 2}

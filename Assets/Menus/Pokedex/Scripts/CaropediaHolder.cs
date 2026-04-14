@@ -18,9 +18,9 @@ public class CaropediaHolder : MonoBehaviour
         if (_currentSelectSlot != null)
         {
             _panel.SetActive(true);
-            _icon.sprite = _currentSelectSlot.carochito.Base.Sprite;
-            _name.text = _currentSelectSlot.carochito.Base.Name;
-            _description.text = _currentSelectSlot.carochito.Base.Description;
+            _icon.sprite = _currentSelectSlot.carochito.Sprite;
+            _name.text = _currentSelectSlot.carochito.Name;
+            _description.text = _currentSelectSlot.carochito.Description;
         }
         else
         {

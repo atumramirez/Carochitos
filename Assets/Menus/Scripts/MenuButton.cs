@@ -20,7 +20,14 @@ public class MenuButton : MonoBehaviour
 
     public void HideMenu()
     {
-        MenuToOpen.SetActive(true);
-        MenuToClose.SetActive(false);
+        if (MenuToOpen != null)
+        {
+            MenuToOpen.SetActive(true);
+        }
+
+        if (MenuToClose != null)
+        {
+            MenuToClose.SetActive(false);
+        }
     }
 }

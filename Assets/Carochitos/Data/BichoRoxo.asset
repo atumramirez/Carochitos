@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3578b0dc47cfbaf448de22549c44ea35, type: 3}
-  m_Name: BichoVermelho
+  m_Name: BichoRoxo
   m_EditorClassIdentifier: Assembly-CSharp::CarochitoBase
-  _name: Bicho Vermelho
-  _description: fdgpodjopsjdpof
+  _name: Bicho Roxo
+  _description: "dvsnxckxnc\xF1lkxncbvids,xm"
   _number: 1
   _isCapured: 0
   _sprite: {fileID: 21300000, guid: 2992feb4bfc78ca40bf9d6930838770e, type: 3}

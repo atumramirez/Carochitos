@@ -10,6 +10,7 @@ public class CaropediaManager : MonoBehaviour
     private void Start()
     {
         carochitoDatabase = GetComponent<CarochitoDatabase>();
+        Refresh();
     }
 
     public void Refresh()
@@ -18,6 +19,8 @@ public class CaropediaManager : MonoBehaviour
         {
             GameObject instance = Instantiate( _prefab, _caropediaHolder.transform.position, _caropediaHolder.transform.rotation, _caropediaHolder.transform);
             CaropediaSlot slot = instance.GetComponent<CaropediaSlot>();
+
+            slot.carochito = carochito;
 
             slot.Refresh();
         }
