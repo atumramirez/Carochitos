@@ -35,7 +35,7 @@ public class CarochitoSelectionMenu : MonoBehaviour
 
     public void RefreshMenu()
     {
-        main.sprite = CarochitoParty.Instance.currentCarochito.Base._sprite;
+        main.sprite = CarochitoParty.Instance.currentCarochito.Base.Sprite;
 
         _level.text = "Lv. " + CarochitoParty.Instance.currentCarochito.Level;
         _name.text = CarochitoParty.Instance.currentCarochito.Base.Name;

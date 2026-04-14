@@ -50,5 +50,4 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             onTabDeselected.Invoke(); 
         }
     }
-
 }
