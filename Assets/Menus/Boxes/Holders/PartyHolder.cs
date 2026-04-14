@@ -24,7 +24,7 @@ public class PartyHolder : BoxesAndPartyHolder
             GameObject newItem = Instantiate(prefab, slot);
             newItem.transform.SetAsLastSibling();
 
-            newItem.GetComponent<DragItem>().Refresh(CarochitoParty.Instance.carochitos[i]);
+            newItem.GetComponent<MonsterDragItem>().Setup(CarochitoParty.Instance.carochitos[i]);
         }
     }
 
@@ -38,7 +38,7 @@ public class PartyHolder : BoxesAndPartyHolder
 
             if (slot.childCount > 0)
             {
-                DragItem data = slot.GetChild(0).GetComponent<DragItem>() ;
+                MonsterDragItem data = slot.GetChild(0).GetComponent<MonsterDragItem>() ;
                 CarochitoParty.Instance.MoveToParty(data.carochito);
             }
         }

@@ -1,27 +1,37 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class MonsterDragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [HideInInspector] public Transform parentAfterDrag;
-    public Image image;
+
+    [Header("Monster")]
     public Carochito carochito;
+    public Image image;
+    public bool isOnParty;
+
+    [Header("Small Icon")]
+    public Image smallIconImage;
+    
+    [Header("Big Icon")]
+    public Image bigIconImage;
+    public TextMeshProUGUI level;
+    public Slider healthBar;
 
     public PartyHolder organizer;
     public BoxesHolder boxesHolder;
 
     private void Start()
     {
-        image = GetComponent<Image>();
         organizer = FindFirstObjectByType<PartyHolder>();
         boxesHolder = FindFirstObjectByType<BoxesHolder>();
     }
 
-    public void Refresh(Carochito car)
+    public void Setup(Carochito car)
     {
         carochito = car;
-        // image.sprite = carochito.Base._sprite;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -29,6 +39,7 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
+
         image.raycastTarget = false;
     }
 

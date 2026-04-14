@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87f3cc53b25d830499db5ba179066f2c, type: 3}
-  m_Name: SuperPotion
+  m_Name: Potion
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  _name: 
-  _description: 
+  _name: Potion
+  _description: "Esta po\xE7\xE3o cura\n."
+  _pocket: 0

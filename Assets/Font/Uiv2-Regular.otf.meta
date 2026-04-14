@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 03e7a0e3f5b6c27439ce6231a602f174
+guid: 5d363865614bda2438b1604a4228d8cf
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Carochitos_dialogo
+  - Uiv2
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

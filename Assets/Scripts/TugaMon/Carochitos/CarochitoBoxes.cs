@@ -17,7 +17,7 @@ public class CarochitoBoxes : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    [SerializeField] public List<Carochito> Box1;
+    public List<Carochito> Box1;
     public void AddCarochito(Carochito carochito)
     {
         Box1.Add(carochito);

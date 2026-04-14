@@ -1,21 +1,30 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour, IDropHandler
+public class MonsterSlot : MonoBehaviour, IDropHandler
 {
-    public PartyHolder organizer;
+    [Header("Boxes Menu")]
+    public BoxesMenu boxesMenu;
+
+    [Header("Containers")]
+    public GameObject partyContainer;
+    public GameObject boxesContainer;
+
     public virtual void OnDrop(PointerEventData eventData)
     {
         GameObject dropped = eventData.pointerDrag;
-        DragItem draggableItem = dropped.GetComponent<DragItem>();
+
+        MonsterDragItem draggableItem = dropped.GetComponent<MonsterDragItem>();
         Transform originalParent = draggableItem.parentAfterDrag;
 
+        /*
         if (transform.childCount == 0 && organizer.GetItemCount() == 0)  
         {
             Debug.Log("Este é o ultimo carochito! Tens que ter pelo menos 1 na equipa! ");
             draggableItem.parentAfterDrag = originalParent;
             return;
         }
+        */
 
         if (transform.childCount == 0)
         {
