@@ -35,10 +35,10 @@ public class CarochitoSelectionMenu : MonoBehaviour
 
     public void RefreshMenu()
     {
-        main.sprite = CarochitoParty.Instance.currentCarochito.Base.Sprite;
+        main.sprite = Party.Instance.currentCarochito.Base.Sprite;
 
-        _level.text = "Lv. " + CarochitoParty.Instance.currentCarochito.Level;
-        _name.text = CarochitoParty.Instance.currentCarochito.Base.Name;
+        _level.text = "Lv. " + Party.Instance.currentCarochito.Level;
+        _name.text = Party.Instance.currentCarochito.Base.Name;
 
         // Step 1: Clear existing UI elements
         for (int i = _contentParent.childCount - 1; i >= 0; i--)
@@ -49,7 +49,7 @@ public class CarochitoSelectionMenu : MonoBehaviour
         // Step 2: Track already added monsters (to prevent duplicates)
         HashSet<Carochito> addedMonsters = new();
 
-        foreach (Carochito member in CarochitoParty.Instance.carochitos)
+        foreach (Carochito member in Party.Instance.carochitos)
         {
             // Skip duplicates
             if (addedMonsters.Contains(member))

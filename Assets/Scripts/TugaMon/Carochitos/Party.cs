@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarochitoParty : MonoBehaviour
+public class Party : MonoBehaviour
 {
-    public static CarochitoParty Instance;
+    public static Party Instance;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -22,7 +22,8 @@ public class CarochitoParty : MonoBehaviour
     public int currentIndex = 0;
 
     public CarochitoSelectionMenu _carochitoSelectionMenu;
-    public PartyHolder _partyHolder;
+
+    //public PartyHolder _partyHolder;
 
     private void Start()
     {
@@ -44,12 +45,12 @@ public class CarochitoParty : MonoBehaviour
                 currentCarochito = carochitos[0];
             }
 
-            _partyHolder.PopulateFromList();
+            //_partyHolder.PopulateFromList();
         }
 
         else
         {
-            CarochitoBoxes.Instance.AddCarochito(carochito);
+            Boxes.Instance.AddCarochito(carochito);
         }
 
         CarochitoSelectionMenu.instance.RefreshMenu();

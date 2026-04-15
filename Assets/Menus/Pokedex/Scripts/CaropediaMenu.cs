@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CarochitoDatabase))]
-public class CaropediaManager : MonoBehaviour
+public class CaropediaMenu : MonoBehaviour
 {
     public GameObject _caropediaHolder;
     public GameObject _prefab;
@@ -17,12 +17,14 @@ public class CaropediaManager : MonoBehaviour
     {
         foreach (var carochito in carochitoDatabase.Carochitos)
         {
-            GameObject instance = Instantiate( _prefab, _caropediaHolder.transform.position, _caropediaHolder.transform.rotation, _caropediaHolder.transform);
+            GameObject instance = Instantiate( _prefab, _caropediaHolder.transform);
+
             CaropediaSlot slot = instance.GetComponent<CaropediaSlot>();
+
 
             slot.carochito = carochito;
 
-            slot.Refresh();
+            slot.Setup(carochito.IsCaptured);
         }
     }
 }

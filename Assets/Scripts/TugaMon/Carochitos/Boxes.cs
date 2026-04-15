@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarochitoBoxes : MonoBehaviour
+public class Boxes : MonoBehaviour
 {
-    public static CarochitoBoxes Instance;
+    public static Boxes Instance;
 
     private void Awake()
     {

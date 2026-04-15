@@ -32,7 +32,7 @@ public class CarochitoAction : BaseActionNode
     public override void Perform()
     {
         Carochito carochito = new(CarochitoBase, Level);
-        CarochitoParty.Instance.AddCarochito(carochito);
+        Party.Instance.AddCarochito(carochito);
         ActionManager.Instance.EndAction();
     }
 }

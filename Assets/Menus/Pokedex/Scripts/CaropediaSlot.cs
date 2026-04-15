@@ -28,9 +28,17 @@ public class CaropediaSlot : MonoBehaviour
         caropediaHolder.RefreshMenu();
     }
 
-    public void Refresh()
+    public void Setup(bool isCaptured)
     {
         _image.sprite = carochito.Sprite;
-        _name.text = carochito.Name;
+
+        if (isCaptured == true)
+        {
+            _name.text = carochito.Name;
+        }
+        else
+        {
+            _name.text = "???";
+        }   
     }
 }

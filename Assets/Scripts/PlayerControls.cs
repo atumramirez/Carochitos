@@ -57,12 +57,12 @@ public class PlayerControls : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            CarochitoParty.Instance.Previous();  
+            Party.Instance.Previous();  
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            CarochitoParty.Instance.NextCarochito();
+            Party.Instance.NextCarochito();
         }
     }
 }

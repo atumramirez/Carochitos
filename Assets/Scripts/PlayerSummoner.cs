@@ -21,19 +21,19 @@ public class PlayerSummoner : MonoBehaviour
 
     public void SpawnPrefab()
     {
-        if (CarochitoParty.Instance.carochitos.Count > 0)
+        if (Party.Instance.carochitos.Count > 0)
         {
-            CarochitoParty.Instance.currentCarochito ??= CarochitoParty.Instance.carochitos[0];
+            Party.Instance.currentCarochito ??= Party.Instance.carochitos[0];
 
             _currentInstance = Instantiate(
-            CarochitoParty.Instance.currentCarochito.Base.Model,
+            Party.Instance.currentCarochito.Base.Model,
             spawnPoint.position,
             spawnPoint.rotation
              );
 
             if (_currentInstance.TryGetComponent<CarochitoHandler>(out var data))
             {
-                data.carochito = CarochitoParty.Instance.currentCarochito;
+                data.carochito = Party.Instance.currentCarochito;
                 _characterSwap.AddCharacter(data.transform);
             }
             else
