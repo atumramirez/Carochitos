@@ -1,67 +1,44 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class TrainerController : MonoBehaviour
+using UnityEngine.InputSystem.UI;
+public class TrainerController : GenericController
 {
-    [Header("Controls")]
-    public float playerSpeed = 5.0f;
-    public float crouchSpeed = 2.0f;
-    public float sprintSpeed = 7.0f;
-    public float jumpHeight = 0.8f; 
-    public float gravityMultiplier = 2;
-    public float rotationSpeed = 5f;
-    public float crouchColliderHeight = 1.35f;
-
-    [Header("Animation Smoothing")]
-    [Range(0, 1)]
-    public float speedDampTime = 0.1f;
-    [Range(0, 1)]
-    public float velocityDampTime = 0.9f;
-    [Range(0, 1)]
-    public float rotationDampTime = 0.2f;
-    [Range(0, 1)]
-    public float airControl = 0.5f;
-
-    public StateMachine movementSM;
+    [Header("States")]
     public StandingState standing;
     public JumpingState jumping;
     public CrouchingState crouching;
     public LandingState landing;
     public SprintState sprinting;
-    public SprintJumpState sprintjumping;
     public CaptureState capture;
     public DiveRollState diveRoll;
+    public AiState aiState;
+    public SummonState summonState;
+    public SwapToMonsterState changeCharacterState;
 
-    [HideInInspector]
-    public float gravityValue = -9.81f;
-    [HideInInspector]
-    public float normalColliderHeight;
-    [HideInInspector]
-    public CharacterController controller;
-    [HideInInspector]
-    public PlayerInput playerInput;
-    [HideInInspector]
-    public Transform cameraTransform;
-    [HideInInspector]
-    public Animator animator;
-    [HideInInspector]
-    public Vector3 playerVelocity;
+    [Header("CharacterHandler")]
+    public CharacterHandler characterHandler;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
+
         cameraTransform = Camera.main.transform;
 
         movementSM = new StateMachine();
+
+        // Estados 
         standing = new StandingState(this, movementSM);
         jumping = new JumpingState(this, movementSM);
         crouching = new CrouchingState(this, movementSM);
         landing = new LandingState(this, movementSM);
         sprinting = new SprintState(this, movementSM);
-        sprintjumping = new SprintJumpState(this, movementSM);
         capture = new CaptureState(this, movementSM);
         diveRoll = new DiveRollState(this, movementSM);
+        aiState = new AiState(this, movementSM);
+        summonState = new SummonState(this, movementSM);
+        changeCharacterState = new SwapToMonsterState(this, movementSM);
 
         movementSM.Initialize(standing);
 
@@ -78,5 +55,15 @@ public class TrainerController : MonoBehaviour
     private void FixedUpdate()
     {
         movementSM.currentState.PhysicsUpdate();
+    }
+
+    public void Summon()
+    {
+        characterHandler.Summon();
+    }
+
+    public void Swap()
+    {
+        characterHandler.SwapCharacter();
     }
 }

@@ -1,9 +1,8 @@
-using UnityEditor;
 using UnityEngine;
 
-public class CaptureState : State
+public class SummonState : State
 {
-    public CaptureState(TrainerController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
+    public SummonState(GenericController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
     {
         character = _character;
         stateMachine = _stateMachine;
@@ -11,20 +10,22 @@ public class CaptureState : State
 
     public override void Enter()
     {
-        base.Enter();
+        Debug.Log("enter state: " + this.ToString());
 
         character.animator.SetTrigger("attack");
     }
 
     public override void LogicUpdate()
     {
-        base.LogicUpdate();
-
         AnimatorStateInfo stateInfo = character.animator.GetCurrentAnimatorStateInfo(0);
 
+        // Wait for animation to finish
         if (stateInfo.IsName("Attack") && stateInfo.normalizedTime >= 1f)
         {
             Debug.Log("Animation finished");
+
+            // Summon
+            character.GetComponent<TrainerController>().Summon();
 
             character.animator.SetTrigger("move");
             stateMachine.ChangeState(character.GetComponent<TrainerController>().standing);

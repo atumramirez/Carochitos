@@ -30,7 +30,7 @@ public class Party : MonoBehaviour
         if (carochitos.Count > 0)
         {
             currentCarochito = carochitos[0];
-            _carochitoSelectionMenu.RefreshMenu();
+            // _carochitoSelectionMenu.RefreshMenu();
         }
     }
 

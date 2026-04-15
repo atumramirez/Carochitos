@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CrouchingState : State
+public class CrouchingState: State
 {
     float playerSpeed;
     bool belowCeiling;
@@ -9,7 +9,6 @@ public class CrouchingState : State
     bool grounded;
     float gravityValue;
     Vector3 currentVelocity;
-
 
     public CrouchingState(TrainerController _character, StateMachine _stateMachine):base(_character, _stateMachine)
 	{
@@ -63,7 +62,7 @@ public class CrouchingState : State
 
         if (crouchHeld)
 		{
-            stateMachine.ChangeState(character.standing);
+            stateMachine.ChangeState(character.GetComponent<TrainerController>().standing);
         }
     }
 
@@ -81,6 +80,7 @@ public class CrouchingState : State
         {
             gravityVelocity.y = 0f;
         }
+
         currentVelocity = Vector3.Lerp(currentVelocity, velocity, character.velocityDampTime);
 
         character.controller.Move(playerSpeed * Time.deltaTime * currentVelocity + gravityVelocity * Time.deltaTime);
@@ -97,6 +97,7 @@ public class CrouchingState : State
         layerMask = ~layerMask;
 
         Vector3 direction = targetPositon - character.transform.position;
+
         if (Physics.Raycast(character.transform.position, direction, out RaycastHit hit, character.normalColliderHeight, layerMask))
         {
             Debug.DrawRay(character.transform.position, direction * hit.distance, Color.yellow);

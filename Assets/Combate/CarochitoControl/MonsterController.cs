@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class MonsterController : MonoBehaviour
+public class MonsterControllerBeta : MonoBehaviour
 {
+    /*
     PlayerController _playerController;
     PlayerInteract _playerInteract;
     Vector3 moveVector;
@@ -54,4 +55,5 @@ public class MonsterController : MonoBehaviour
             }
         }
     }
+    */
 }

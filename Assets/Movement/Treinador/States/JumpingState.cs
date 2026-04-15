@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class JumpingState:State
+public class JumpingState: State
 {
     bool grounded;
 
@@ -21,6 +21,7 @@ public class JumpingState:State
 		base.Enter();
 
 		grounded = false;
+
         gravityValue = character.gravityValue;
         jumpHeight = character.jumpHeight;
         playerSpeed = character.playerSpeed;
@@ -31,10 +32,10 @@ public class JumpingState:State
 
         Jump();
 	}
+    
 	public override void HandleInput()
 	{
 		base.HandleInput();
-
         input = moveAction.ReadValue<Vector2>();
     }
 
@@ -42,10 +43,13 @@ public class JumpingState:State
     {
         base.LogicUpdate();
 
+        // Adcionar Logica de Animação aqui
+
         if (grounded)
 		{
-            stateMachine.ChangeState(character.landing);
+            stateMachine.ChangeState(character.GetComponent<TrainerController>().landing);
         }
+        
     }
 
     public override void PhysicsUpdate()
@@ -65,14 +69,15 @@ public class JumpingState:State
 
             Vector3 moveDir = airVelocity * character.airControl + velocity * (1 - character.airControl);
 
-            // MOVE
+            // Mexer no ar
             character.controller.Move(
                 gravityVelocity * Time.deltaTime +
                 playerSpeed * Time.deltaTime * moveDir
             );
 
-            // ROTATE
+            // Rodar no ar
             moveDir.y = 0f;
+
             if (moveDir.sqrMagnitude > 0.001f)
             {
                 character.transform.rotation = Quaternion.Slerp(
@@ -85,8 +90,6 @@ public class JumpingState:State
 
         gravityVelocity.y += gravityValue * Time.deltaTime;
         grounded = character.controller.isGrounded;
-
-
     }
 
     void Jump()

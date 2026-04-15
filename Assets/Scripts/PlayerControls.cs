@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
+    /*
     PlayerController _playerController;
     PlayerInteract _playerInteract;
     Vector3 moveVector;
@@ -65,4 +66,5 @@ public class PlayerControls : MonoBehaviour
             Party.Instance.NextCarochito();
         }
     }
+    */
 }

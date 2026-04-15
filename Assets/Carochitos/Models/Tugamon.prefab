@@ -102,13 +102,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3300613445335760049}
-  - component: {fileID: 7632039496388923353}
-  - component: {fileID: 721203536200328974}
   - component: {fileID: 3689033990616115430}
-  - component: {fileID: 7227241316815150015}
   - component: {fileID: 143129872680149981}
-  - component: {fileID: 7466694816595963599}
   - component: {fileID: 1734755446144118057}
+  - component: {fileID: 7466694816595963599}
+  - component: {fileID: -6743210904171491830}
+  - component: {fileID: 1025759615790175884}
+  - component: {fileID: -9065737689233360465}
+  - component: {fileID: -7870435289899094469}
   m_Layer: 0
   m_Name: Tugamon
   m_TagString: Untagged
@@ -135,56 +136,6 @@ Transform:
   - {fileID: 7421510583959791409}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &7632039496388923353
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000153353145618415}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.19786817
-  m_Height: 0.85026014
-  m_Direction: 1
-  m_Center: {x: 0, y: -0.62, z: 0}
---- !u!54 &721203536200328974
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000153353145618415}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!114 &3689033990616115430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +143,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000153353145618415}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adbddf7fcf8707b4d934d0bb85ee6e89, type: 3}
   m_Name: 
@@ -204,20 +155,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   _camera: {fileID: 0}
---- !u!114 &7227241316815150015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000153353145618415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff8714521dcc0f64c8b51a05ebbbe9a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  _playerMenu: {fileID: 0}
-  _playerSummoner: {fileID: 0}
 --- !u!114 &143129872680149981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,13 +162,35 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000153353145618415}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e818d62c8174dc143807f38578c5e22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
   _interactArea: {fileID: 7421510583959791409}
   _interactAreaSize: 1
+--- !u!114 &1734755446144118057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000153353145618415}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca041822647a297499502f4c0fa36b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UseSkill
+  skills:
+  - {fileID: 11400000, guid: 04c4de37abeff684cb6bddcc7003bbcf, type: 2}
+  - {fileID: 11400000, guid: f3400955a432e414d8183a4b0d796b8f, type: 2}
+  currentSkill: {fileID: 0}
+  meleeModules: []
+  currentModule: {fileID: 0}
+  onColdown: 0
+  hitbox: {fileID: 7737261997652888080, guid: da7ae64e6d8d9e7478be23cef7c3a1ad, type: 3}
+  owner: {fileID: 0}
+  skill: {fileID: 0}
 --- !u!114 &7466694816595963599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,10 +204,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarochitoHandler
   carochito:
-    _base: {fileID: 0}
-    _level: 0
-    _currentHP: 0
---- !u!114 &1734755446144118057
+    _base: {fileID: 11400000, guid: 5a3e2a6d5a9ab7540b0eb3c7b54c35fd, type: 2}
+    _nickname: 
+    _level: 1
+    _currentHealth: 0
+  healthBar: {fileID: 0}
+--- !u!114 &-6743210904171491830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -257,17 +218,105 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000153353145618415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca041822647a297499502f4c0fa36b07, type: 3}
+  m_Script: {fileID: 11500000, guid: 95e6bc8704a70ee40b5eac6661284d54, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UseSkill
-  skills:
-  - {fileID: 11400000, guid: 04c4de37abeff684cb6bddcc7003bbcf, type: 2}
-  - {fileID: 11400000, guid: f3400955a432e414d8183a4b0d796b8f, type: 2}
-  currentSkill: {fileID: 0}
-  meleeModules: []
-  currentModule: {fileID: 0}
-  onColdown: 0
-  hitbox: {fileID: 7737261997652888080, guid: da7ae64e6d8d9e7478be23cef7c3a1ad, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterController
+  playerSpeed: 5
+  crouchSpeed: 2
+  sprintSpeed: 7
+  jumpHeight: 0.8
+  gravityMultiplier: 2
+  rotationSpeed: 5
+  crouchColliderHeight: 1.35
+  speedDampTime: 0.1
+  velocityDampTime: 0.9
+  rotationDampTime: 0.2
+  airControl: 0.5
+  gravityValue: -9.81
+  normalColliderHeight: 0
+  controller: {fileID: 0}
+  playerInput: {fileID: 0}
+  cameraTransform: {fileID: 0}
+  animator: {fileID: 0}
+  playerVelocity: {x: 0, y: 0, z: 0}
+  characterHandler: {fileID: 0}
+--- !u!143 &1025759615790175884
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000153353145618415}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 0
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: -0.74, z: 0}
+--- !u!95 &-9065737689233360465
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000153353145618415}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-7870435289899094469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000153353145618415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Trainer
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &9050284151003414391
 PrefabInstance:
   m_ObjectHideFlags: 0

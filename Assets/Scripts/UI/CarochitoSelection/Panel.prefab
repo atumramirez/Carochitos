@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2783363016447867980}
   - component: {fileID: 7808153672268954032}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: ObjetiveText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 27.868288, y: -26.8783}
+  m_AnchoredPosition: {x: 27.868288, y: -19}
   m_SizeDelta: {x: 919.1985, y: 88.2438}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2783363016447867980
@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Objetivo
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 11062c37158231945b00a127dc77299a, type: 2}
+  m_sharedMaterial: {fileID: -5331967267780517614, guid: 11062c37158231945b00a127dc77299a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 65
+  m_fontSizeBase: 65
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 4172467025229169904}
   - component: {fileID: 8739587628091375431}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,8 +171,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -375, y: 46}
-  m_SizeDelta: {x: 224.2799, y: 60.1317}
+  m_AnchoredPosition: {x: -334.7442, y: 60}
+  m_SizeDelta: {x: 304.7915, y: 60.1317}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4172467025229169904
 CanvasRenderer:
@@ -204,8 +204,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Objetivo
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 11062c37158231945b00a127dc77299a, type: 2}
+  m_sharedMaterial: {fileID: -5331967267780517614, guid: 11062c37158231945b00a127dc77299a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -229,8 +229,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.9
-  m_fontSizeBase: 44.9
+  m_fontSize: 74.3
+  m_fontSizeBase: 74.3
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

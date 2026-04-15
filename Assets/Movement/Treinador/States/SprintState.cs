@@ -33,14 +33,15 @@ public class SprintState : State
 
     public override void HandleInput()
     {
-        base.Enter();
+        base.HandleInput();
+
         input = moveAction.ReadValue<Vector2>();
         velocity = new Vector3(input.x, 0, input.y);
 
         velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized;
         velocity.y = 0f;
-
-        if (sprintAction.triggered) // Mudar aqui para reconhecer quando o jogador parar de presionar o butão
+        
+        if (sprintAction.triggered || input.sqrMagnitude == 0f) // Mudar aqui para reconhecer quando o jogador parar de presionar o butão
         {
             sprint = false;
         }
@@ -48,7 +49,7 @@ public class SprintState : State
         {
             sprint = true;
         }
-
+        
 		if (jumpAction.triggered)
 		{
             sprintJump = true;
@@ -64,12 +65,12 @@ public class SprintState : State
 		}
 		else
 		{
-            stateMachine.ChangeState(character.standing);
+            stateMachine.ChangeState(character.GetComponent<TrainerController>().standing);
         }
 
 		if (sprintJump)
 		{
-            stateMachine.ChangeState(character.sprintjumping);
+            stateMachine.ChangeState(character.GetComponent<TrainerController>().jumping);
         }
     }
 

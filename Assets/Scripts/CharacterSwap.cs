@@ -1,9 +1,11 @@
-using UnityEngine;
 using System.Collections.Generic;
 using Unity.Cinemachine;
+using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class CharacterSwap : MonoBehaviour
 {
+    /*
     public Transform character;
     public List<Transform> possibleCharacters;
 
@@ -19,7 +21,6 @@ public class CharacterSwap : MonoBehaviour
         }
 
         Swap();
-
     }
     public void Swap()
     {
@@ -97,4 +98,34 @@ public class CharacterSwap : MonoBehaviour
                 input.enabled = false;
         }
     }
+    
+
+    public static CharacterSwap Instance;
+
+    [Header("Controllers")]
+    public TrainerController trainerController;
+    public MonsterController monsterController;
+    private GenericController currentController;
+
+    [Header("Camera")]
+    public CinemachineCamera cam;
+
+    private void Start()
+    {
+        if (trainerController != null)
+        {
+            currentController = trainerController;
+        }
+    }
+
+    public void SwapCharacter(GenericController newCurrentCharacter)
+    {
+        if (newCurrentCharacter == null) return;
+
+        currentController = newCurrentCharacter;
+
+        cam.LookAt = currentController.transform;
+        cam.Follow = currentController.transform;
+    }
+    */
 }
