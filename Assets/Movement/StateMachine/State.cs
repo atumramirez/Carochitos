@@ -19,6 +19,7 @@ public class State
     public InputAction rollAction;
     public InputAction summonAction;
     public InputAction changeAction;
+    public InputAction menuAction;
 
     [Header("Monster Controls")]
     public InputAction switchAction;
@@ -42,6 +43,7 @@ public class State
         rollAction = character.playerInput.actions["Roll"];
         summonAction = character.playerInput.actions["Summon"];
         changeAction = character.playerInput.actions["Change"];
+        menuAction = character.playerInput.actions["Menu"];
 
         // Monster
         switchAction = character.playerInput.actions["Switch"];

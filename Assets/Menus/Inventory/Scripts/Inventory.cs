@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    [Header("Currency")]
+    public int Currency = 0;
+
+    [Header("Items")]
     public List<ItemInInventory> inventory = new();
 
     public void AddItem(ItemBase item, int count)

@@ -74,12 +74,15 @@ public class MonsterStandingState : State
         {
             stateMachine.ChangeState(character.GetComponent<TrainerController>().jumping);
         }
+        */
 
+        /*
         if (attack)
         {
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().capture);
+            stateMachine.ChangeState(character.GetComponent<MonsterController>().lockOnState);
         }
         */
+        
 
         if (swap)
         {

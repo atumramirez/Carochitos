@@ -9,8 +9,13 @@ public class CharacterHandler : MonoBehaviour
 
     [Header("MonsterData")]
     public bool isMonsterOut = false;
+    public GameObject monster;
     public GameObject prefab;
     public Transform spawnPoint;
+
+    [Header("Menu")]
+    public GameObject monsterHUD;
+    public GameObject playerHUD;
 
     [Header("Camera")]
     public CinemachineCamera cam;
@@ -18,13 +23,18 @@ public class CharacterHandler : MonoBehaviour
     private void Start()
     {
         currentCharacter = tarinerCharacter;
+
+        if (monsterController != null)
+        {
+            monster = monsterController.gameObject;
+        }
     }
 
     public void Summon()
     {
         if(isMonsterOut == false)
         {
-            GameObject monster = Instantiate(
+            monster = Instantiate(
                 Party.Instance.currentCarochito.Base.Model,
                 spawnPoint.position,
                 spawnPoint.rotation
@@ -36,9 +46,17 @@ public class CharacterHandler : MonoBehaviour
         }
         else
         {
-            Debug.Log("Vou me atirar");
+            Destroy(monster);
+
             isMonsterOut = false;
+            monster = null;
+            monsterController = null;
         }
+    }
+
+    public void TakeAway()
+    {
+        tarinerCharacter.movementSM.ChangeState(tarinerCharacter.summonState);
     }
 
     public void SwapCharacter()
@@ -51,6 +69,9 @@ public class CharacterHandler : MonoBehaviour
             monsterController.movementSM.ChangeState(monsterController.standingState);
 
             currentCharacter = monsterController;
+
+            monsterHUD.SetActive(true);
+            playerHUD.SetActive(false);
         }
         else
         {
@@ -58,6 +79,9 @@ public class CharacterHandler : MonoBehaviour
             monsterController.movementSM.ChangeState(monsterController.monsterAiState);
 
             currentCharacter = tarinerCharacter;
+
+            monsterHUD.SetActive(false);
+            playerHUD.SetActive(true);
         }
 
         // Update camera logic later

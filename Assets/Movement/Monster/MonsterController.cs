@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,9 +9,11 @@ public class MonsterController : GenericController
     public MonsterStandingState standingState;
     public MonsterAiState monsterAiState;
     public SwapToTrainerState swapToTrainerState;
+    public MonsterLockOnState lockOnState;
 
 
     public CharacterHandler characterHandler;
+
     private void Start()
     {
         characterHandler = FindFirstObjectByType<CharacterHandler>();
@@ -24,6 +29,7 @@ public class MonsterController : GenericController
         standingState = new MonsterStandingState(this, movementSM);
         monsterAiState = new MonsterAiState(this, movementSM);
         swapToTrainerState = new SwapToTrainerState(this, movementSM);
+        lockOnState = new MonsterLockOnState(this, movementSM);
 
 
         movementSM.Initialize(monsterAiState);

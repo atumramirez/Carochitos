@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 1025759615790175884}
   - component: {fileID: -9065737689233360465}
   - component: {fileID: -7870435289899094469}
+  - component: {fileID: 1035617466951019869}
   m_Layer: 0
   m_Name: Tugamon
   m_TagString: Untagged
@@ -229,9 +230,9 @@ MonoBehaviour:
   rotationSpeed: 5
   crouchColliderHeight: 1.35
   speedDampTime: 0.1
-  velocityDampTime: 0.9
+  velocityDampTime: 0.1
   rotationDampTime: 0.2
-  airControl: 0.5
+  airControl: 1
   gravityValue: -9.81
   normalColliderHeight: 0
   controller: {fileID: 0}
@@ -317,6 +318,22 @@ MonoBehaviour:
   m_DefaultActionMap: Trainer
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1035617466951019869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000153353145618415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace04a5cda7111742b3d3d3dfbb8c32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TargetFinder
+  playerCamera: {fileID: 0}
+  targetCamera: {fileID: 0}
+  characterHandler: {fileID: 0}
+  poolView: []
 --- !u!1001 &9050284151003414391
 PrefabInstance:
   m_ObjectHideFlags: 0

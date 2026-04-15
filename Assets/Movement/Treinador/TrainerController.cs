@@ -14,15 +14,22 @@ public class TrainerController : GenericController
     public AiState aiState;
     public SummonState summonState;
     public SwapToMonsterState changeCharacterState;
+    public MenuState menuState;
 
     [Header("CharacterHandler")]
     public CharacterHandler characterHandler;
+
+    [Header("Menu")]
+    public PlayerMenu menuHolder;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
+
+
+        menuHolder = FindFirstObjectByType<PlayerMenu>();
 
         cameraTransform = Camera.main.transform;
 
@@ -39,6 +46,7 @@ public class TrainerController : GenericController
         aiState = new AiState(this, movementSM);
         summonState = new SummonState(this, movementSM);
         changeCharacterState = new SwapToMonsterState(this, movementSM);
+        menuState = new MenuState(this, movementSM);
 
         movementSM.Initialize(standing);
 

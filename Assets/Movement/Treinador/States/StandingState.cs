@@ -12,6 +12,7 @@ public class StandingState: State
     bool sprint;
     bool summon;
     bool change;
+    bool menu;
 
     Vector3 currentVelocity;
     bool grounded;
@@ -36,6 +37,7 @@ public class StandingState: State
         roll = false;
         summon = false;
         change = false;
+        menu = false;
 
         input = Vector2.zero;
         velocity = Vector3.zero;
@@ -79,6 +81,10 @@ public class StandingState: State
         {
             change = true;
         }
+        if (menuAction.triggered)
+        {
+            menu = true;
+        }
 
         input = moveAction.ReadValue<Vector2>();
         velocity = new Vector3(input.x, 0, input.y);
@@ -120,6 +126,10 @@ public class StandingState: State
         if (change)
         {
             stateMachine.ChangeState(character.GetComponent<TrainerController>().changeCharacterState);
+        }
+        if (menu)
+        {
+            stateMachine.ChangeState(character.GetComponent<TrainerController>().menuState);
         }
     }
 

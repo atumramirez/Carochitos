@@ -16,10 +16,10 @@ public class Party : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    [SerializeField] public List<Carochito> carochitos;
-
+    [Header("Carochitos")]
     public Carochito currentCarochito;
     public int currentIndex = 0;
+    public List<Carochito> carochitos;
 
     public CarochitoSelectionMenu _carochitoSelectionMenu;
 

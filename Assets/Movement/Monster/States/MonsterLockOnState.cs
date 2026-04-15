@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class MonsterLockOnState : State
@@ -8,22 +10,6 @@ public class MonsterLockOnState : State
         stateMachine = _stateMachine;
     }
 
-    public override void Enter()
-    {
-    }
-
-    public override void HandleInput()
-    {
-    }
-
-    public override void LogicUpdate()
-    {
-    }
-
-    public override void PhysicsUpdate()
-    {
-    }
-    public override void Exit()
-    {
-    }
+   
 }
+

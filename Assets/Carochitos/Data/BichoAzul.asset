@@ -17,7 +17,7 @@ MonoBehaviour:
   _number: 3
   _isCapured: 0
   _sprite: {fileID: 21300000, guid: 2992feb4bfc78ca40bf9d6930838770e, type: 3}
-  _model: {fileID: 1000153353145618415, guid: ae315666219c7bc4682c2b517a252b67, type: 3}
+  _model: {fileID: 0}
   _elementalType1: 0
   _elementalType2: 0
   _maxHealth: 0

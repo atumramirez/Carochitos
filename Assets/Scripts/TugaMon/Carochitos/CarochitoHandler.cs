@@ -9,6 +9,7 @@ public class CarochitoHandler : MonoBehaviour
 
     private void Start()
     {
+        healthBar = GameObject.Find("HealthSlider").GetComponent<HealthBar>();
         carochito.CurrentHealth = carochito.Base.MaxHealth;
         healthBar.SetMaxHealth(carochito);
     }
