@@ -22,9 +22,6 @@ public class GenericController : MonoBehaviour
     [Range(0, 1)]
     public float airControl = 0.5f;
 
-    [Header("State Machine")]
-    public StateMachine movementSM;
-
     [HideInInspector]
     public float gravityValue = -9.81f;
     [HideInInspector]

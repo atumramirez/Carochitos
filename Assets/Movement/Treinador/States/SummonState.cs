@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/*
 public class SummonState : State
 {
     public SummonState(GenericController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
@@ -32,3 +33,4 @@ public class SummonState : State
         }
     }
 }
+*/

@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class DiveRollState: State
+
+public class RollState: State<TrainerController>
 {
-    public DiveRollState(TrainerController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
+    public RollState(TrainerController _character, StateMachine<TrainerController> _stateMachine) : base(_character, _stateMachine)
     {
         character = _character;
         stateMachine = _stateMachine;
@@ -27,7 +28,7 @@ public class DiveRollState: State
             Debug.Log("Animation finished");
 
             character.animator.SetTrigger("move");
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().standing); 
+            stateMachine.ChangeState(character.standing); 
         }
     }
 

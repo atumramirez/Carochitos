@@ -2,6 +2,8 @@ using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
 
+
+/*
 public class MenuState : State
 {
     public MenuState(GenericController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
@@ -50,3 +52,4 @@ public class MenuState : State
         character.GetComponent<TrainerController>().menuHolder.CloseMenu(); ;
     }
 }
+*/

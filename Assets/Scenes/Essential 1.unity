@@ -805,7 +805,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterHandler
   tarinerCharacter: {fileID: 1933072032}
-  monsterController: {fileID: 1014967706}
   currentCharacter: {fileID: 0}
   isMonsterOut: 1
   monster: {fileID: 0}
@@ -3197,6 +3196,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tugamon
       objectReference: {fileID: 0}
+    - target: {fileID: 1000153353145618415, guid: ae315666219c7bc4682c2b517a252b67, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1035617466951019869, guid: ae315666219c7bc4682c2b517a252b67, type: 3}
       propertyPath: playerCamera
       value: 
@@ -3261,17 +3264,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1014967716}
   m_SourcePrefab: {fileID: 100100000, guid: ae315666219c7bc4682c2b517a252b67, type: 3}
---- !u!114 &1014967706 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -6743210904171491830, guid: ae315666219c7bc4682c2b517a252b67, type: 3}
-  m_PrefabInstance: {fileID: 1014967705}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 287126995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95e6bc8704a70ee40b5eac6661284d54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MonsterController
 --- !u!114 &1014967716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7392,9 +7384,33 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: jump
+      value: 
+      objectReference: {fileID: -3473469738766507112, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: move
+      value: 
+      objectReference: {fileID: 6721698985769660647, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: crouch
+      value: 
+      objectReference: {fileID: -7451614802905769317, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: sprint
+      value: 
+      objectReference: {fileID: 88281692635411422, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: jumpHeight
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
       propertyPath: characterHandler
       value: 
       objectReference: {fileID: 115019678}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: gravityMultiplier
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9024443176317286715, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.80555

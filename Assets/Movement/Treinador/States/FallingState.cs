@@ -1,27 +1,31 @@
 using UnityEngine;
 
-public class JumpingState: State<TrainerController>
+public class FallingState : State<TrainerController>
 {
+    private bool grounded;
     private Vector3 airVelocity;
 
-    public JumpingState(TrainerController _character, StateMachine<TrainerController> _stateMachine) : base(_character, _stateMachine)
-	{
-		character = _character;
-		stateMachine = _stateMachine;
-	}
+    public FallingState(TrainerController _character, StateMachine<TrainerController> _stateMachine)
+        : base(_character, _stateMachine)
+    {
+
+    }
 
     public override void Enter()
     {
         base.Enter();
 
+        grounded = false;
         gravityVelocity.y = 0;
 
-        gravityVelocity.y += Mathf.Sqrt(
-            character.jumpHeight * -3.0f * character.gravityValue
-        );
+        // character.animator.SetBool("isFalling", true);
+    }
 
-        character.animator.SetFloat("speed", 0);
-        character.animator.SetTrigger("jump");
+    public override void Exit()
+    {
+        base.Exit();
+
+        // character.animator.SetBool("isFalling", false);
     }
 
     public override void LogicUpdate()
@@ -30,9 +34,9 @@ public class JumpingState: State<TrainerController>
 
         input = character.move.action.ReadValue<Vector2>();
 
-        if (gravityVelocity.y < 0)
+        if (grounded)
         {
-            stateMachine.ChangeState(character.airTime);
+            stateMachine.ChangeState(character.landing);
         }
     }
 
@@ -44,6 +48,7 @@ public class JumpingState: State<TrainerController>
 
         airVelocity = new Vector3(input.x, 0, input.y);
 
+        // Camera-relative movement
         velocity = velocity.x * character.cameraTransform.right.normalized +
                    velocity.z * character.cameraTransform.forward.normalized;
 
@@ -73,7 +78,7 @@ public class JumpingState: State<TrainerController>
 
         // Apply gravity
         gravityVelocity.y += character.gravityValue * Time.deltaTime;
+        grounded = character.controller.isGrounded;
+
     }
 }
-
-

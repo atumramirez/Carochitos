@@ -1,26 +1,17 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class StandingState: State
+public class StandingState: State<TrainerController>
 {
+    bool grounded;
+
+    float playerSpeed;
     float gravityValue;
 
-    // Ações
-    bool jump;   
-    bool crouch;
-    bool attack;
-    bool roll;
-    bool sprint;
-    bool summon;
-    bool change;
-    bool menu;
-
     Vector3 currentVelocity;
-    bool grounded;
-    float playerSpeed;
-
     Vector3 cVelocity;
 
-    public StandingState(TrainerController _character, StateMachine _stateMachine): base(_character, _stateMachine)
+    public StandingState(TrainerController _character, StateMachine<TrainerController> _stateMachine): base(_character, _stateMachine)
 	{
 		character = _character;
 		stateMachine = _stateMachine;
@@ -30,15 +21,6 @@ public class StandingState: State
     {
         base.Enter();
 
-        jump = false;
-        crouch = false;
-        sprint = false;
-        attack = false;
-        roll = false;
-        summon = false;
-        change = false;
-        menu = false;
-
         input = Vector2.zero;
         velocity = Vector3.zero;
         currentVelocity = Vector3.zero;
@@ -46,113 +28,96 @@ public class StandingState: State
 
         playerSpeed = character.playerSpeed;
         grounded = character.controller.isGrounded;
-        gravityValue = character.gravityValue;    
+        gravityValue = character.gravityValue;
+
+        character.jump.action.started += PressJump;
+        character.crouch.action.started += PressCrouch;
+        character.sprint.action.performed += HeldSprint;
     }
 
-    public override void HandleInput()
+    private void HeldSprint(InputAction.CallbackContext context)
     {
-        base.HandleInput();
+        Debug.Log("You started holding the Sprint button");
+        stateMachine.ChangeState(character.sprinting);
+    }
 
-        if (jumpAction.triggered)
-        {
-            jump = true;
-		}
-		if (crouchAction.triggered)
-		{
-            crouch = true;
-		}
-		if (sprintAction.triggered)
-		{
-            sprint = true;
-		}
-        if (attackAction.triggered)
-        {
-            attack = true;
-        }
-        if (rollAction.triggered)
-        { 
-            roll = true;
-        }
-        if (summonAction.triggered)
-        {
-            summon = true;
-        }
-        if (changeAction.triggered)
-        {
-            change = true;
-        }
-        if (menuAction.triggered)
-        {
-            menu = true;
-        }
+    private void PressCrouch(InputAction.CallbackContext context)
+    {
+        Debug.Log("The Crouch Button was pressed");
+        stateMachine.ChangeState(character.crouching);
+    }
 
-        input = moveAction.ReadValue<Vector2>();
-        velocity = new Vector3(input.x, 0, input.y);
-
-        velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized;
-        velocity.y = 0f;
+    private void PressJump(InputAction.CallbackContext context)
+    {
+        Debug.Log("The Jump Button was pressed");
+        stateMachine.ChangeState(character.jumping);  
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        character.animator.SetFloat("speed", input.magnitude, character.speedDampTime, Time.deltaTime);
+        input = character.move.action.ReadValue<Vector2>();
 
-        if (sprint)
-		{
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().sprinting);
-        }    
-        if (jump)
+        velocity = new Vector3(input.x, 0, input.y);
+
+        velocity = velocity.x * character.cameraTransform.right.normalized +
+                   velocity.z * character.cameraTransform.forward.normalized;
+
+        velocity.y = 0f;
+
+        if (!grounded && gravityVelocity.y < 0)
         {
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().jumping);
+            stateMachine.ChangeState(character.airTime);
+            return;
         }
-		if (crouch)
-		{
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().crouching);
-        }
-        if (attack)
-        {
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().capture);
-        }
-        if (roll)
-        {
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().diveRoll);
-        }
-        if (summon)
-        {
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().summonState);
-        }
-        if (change)
-        {
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().changeCharacterState);
-        }
-        if (menu)
-        {
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().menuState);
-        }
+
+        character.animator.SetFloat(
+            "speed",
+            input.magnitude,
+            character.speedDampTime,
+            Time.deltaTime
+        );
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
 
-        gravityVelocity.y += gravityValue * Time.deltaTime;
         grounded = character.controller.isGrounded;
 
+        // Apply gravity
+        gravityVelocity.y += character.gravityValue * Time.deltaTime;
+
+        // Stick to ground
         if (grounded && gravityVelocity.y < 0)
         {
-            gravityVelocity.y = 0f;
+            gravityVelocity.y = -2f;
         }
-       
-        currentVelocity = Vector3.SmoothDamp(currentVelocity, velocity, ref cVelocity, character.velocityDampTime);
-        character.controller.Move(playerSpeed * Time.deltaTime * currentVelocity + gravityVelocity * Time.deltaTime);
-  
-		if (velocity.sqrMagnitude > 0)
-		{
-            character.transform.rotation = Quaternion.Slerp(character.transform.rotation, Quaternion.LookRotation(velocity),character.rotationDampTime);
+
+        // Smooth movement
+        currentVelocity = Vector3.SmoothDamp(
+            currentVelocity,
+            velocity,
+            ref cVelocity,
+            character.velocityDampTime
+        );
+
+        // Move character
+        character.controller.Move(
+            character.playerSpeed * Time.deltaTime * currentVelocity +
+            gravityVelocity * Time.deltaTime
+        );
+
+        // Rotate toward movement
+        if (velocity.sqrMagnitude > 0.001f)
+        {
+            character.transform.rotation = Quaternion.Slerp(
+                character.transform.rotation,
+                Quaternion.LookRotation(velocity),
+                character.rotationDampTime
+            );
         }
-        
     }
 
     public override void Exit()
@@ -166,6 +131,10 @@ public class StandingState: State
         {
             character.transform.rotation = Quaternion.LookRotation(velocity);
         }
+
+        character.jump.action.started -= PressJump;
+        character.crouch.action.started -= PressCrouch;
+        character.sprint.action.performed -= HeldSprint;
     }
 
 }

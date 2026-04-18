@@ -1,20 +1,40 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 public class TrainerController : GenericController
 {
+    [Header("State Machine")]
+    public StateMachine<TrainerController> stateMachine;
+
     [Header("States")]
     public StandingState standing;
+
     public JumpingState jumping;
-    public CrouchingState crouching;
+    public FallingState airTime;
     public LandingState landing;
+
+    public CrouchingState crouching;
+    public RollState diveRoll;
+
     public SprintState sprinting;
+
+    /*
+    
+    
+    
     public CaptureState capture;
-    public DiveRollState diveRoll;
+    
     public AiState aiState;
     public SummonState summonState;
     public SwapToMonsterState changeCharacterState;
     public MenuState menuState;
+    */
+
+    [Header("Player Inputs")]
+    public InputActionReference move;
+    public InputActionReference jump;
+    public InputActionReference crouch;
+    public InputActionReference sprint;
 
     [Header("CharacterHandler")]
     public CharacterHandler characterHandler;
@@ -28,27 +48,31 @@ public class TrainerController : GenericController
         animator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
 
-
         menuHolder = FindFirstObjectByType<PlayerMenu>();
 
         cameraTransform = Camera.main.transform;
 
-        movementSM = new StateMachine();
+        stateMachine = new StateMachine<TrainerController>();
+        
+        standing = new StandingState(this, stateMachine);
+        jumping = new JumpingState(this, stateMachine);
+        airTime = new FallingState(this, stateMachine);
+        landing = new LandingState(this, stateMachine);
+        crouching = new CrouchingState(this, stateMachine);
+        sprinting = new SprintState(this, stateMachine);
+        diveRoll = new RollState(this, stateMachine);
 
-        // Estados 
-        standing = new StandingState(this, movementSM);
-        jumping = new JumpingState(this, movementSM);
-        crouching = new CrouchingState(this, movementSM);
-        landing = new LandingState(this, movementSM);
-        sprinting = new SprintState(this, movementSM);
+        /*
+        
         capture = new CaptureState(this, movementSM);
-        diveRoll = new DiveRollState(this, movementSM);
+        
         aiState = new AiState(this, movementSM);
         summonState = new SummonState(this, movementSM);
         changeCharacterState = new SwapToMonsterState(this, movementSM);
         menuState = new MenuState(this, movementSM);
+        */
 
-        movementSM.Initialize(standing);
+        stateMachine.Initialize(standing);
 
         normalColliderHeight = controller.height;
         gravityValue *= gravityMultiplier;
@@ -56,13 +80,12 @@ public class TrainerController : GenericController
 
     private void Update()
     {
-        movementSM.currentState.HandleInput();
-        movementSM.currentState.LogicUpdate();
+        stateMachine.currentState.LogicUpdate();
     }
 
     private void FixedUpdate()
     {
-        movementSM.currentState.PhysicsUpdate();
+        stateMachine.currentState.PhysicsUpdate();
     }
 
     public void Summon()

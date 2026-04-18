@@ -1,52 +1,18 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class State
+public class State<T> where T : GenericController
 {
-    public GenericController character;
-    public StateMachine stateMachine;
+    public T character;
+    public StateMachine<T> stateMachine;
 
     protected Vector3 gravityVelocity;
     protected Vector3 velocity;
     protected Vector2 input;
 
-    public InputAction moveAction;
-    public InputAction lookAction;
-    public InputAction jumpAction;
-    public InputAction crouchAction;
-    public InputAction sprintAction;
-    public InputAction attackAction;
-    public InputAction rollAction;
-    public InputAction summonAction;
-    public InputAction changeAction;
-    public InputAction menuAction;
-
-    [Header("Monster Controls")]
-    public InputAction switchAction;
-
-    public State(GenericController _character, StateMachine _stateMachine)
+    public State(T _character, StateMachine<T> _stateMachine)
 	{
         character = _character;
         stateMachine = _stateMachine;
-
-        var playerMap = character.playerInput.actions.FindActionMap("Trainer");
-        var monsterMap = character.playerInput.actions.FindActionMap("Monster");
-
-        playerMap.Enable();
-        monsterMap.Enable();
-
-        moveAction = character.playerInput.actions["Move"];
-        jumpAction = character.playerInput.actions["Jump"];
-        crouchAction = character.playerInput.actions["Crouch"];
-        sprintAction = character.playerInput.actions["Sprint"];
-        attackAction = character.playerInput.actions["Attack"];
-        rollAction = character.playerInput.actions["Roll"];
-        summonAction = character.playerInput.actions["Summon"];
-        changeAction = character.playerInput.actions["Change"];
-        menuAction = character.playerInput.actions["Menu"];
-
-        // Monster
-        switchAction = character.playerInput.actions["Switch"];
     }
 
     public virtual void Enter()
@@ -54,20 +20,19 @@ public class State
         Debug.Log("enter state: " + this.ToString());
     }
 
-    public virtual void HandleInput()
+    public virtual void LogicUpdate() // O mesmo que Update()
     {
+
     }
 
-    public virtual void LogicUpdate()
+    public virtual void PhysicsUpdate() // O mesmo que FixedUpdate()
     {
-    }
 
-    public virtual void PhysicsUpdate()
-    {
     }
 
     public virtual void Exit()
     {
+
     }
 }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/*
 public class MonsterAiState : State
 {
     public MonsterAiState(MonsterController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
@@ -27,3 +28,4 @@ public class MonsterAiState : State
     {
     }
 }
+*/

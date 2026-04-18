@@ -1,16 +1,18 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class CrouchingState: State
+public class CrouchingState: State<TrainerController>
 {
     float playerSpeed;
     bool belowCeiling;
-    bool crouchHeld;
 
     bool grounded;
     float gravityValue;
     Vector3 currentVelocity;
 
-    public CrouchingState(TrainerController _character, StateMachine _stateMachine):base(_character, _stateMachine)
+    public CrouchingState(TrainerController _character, StateMachine<TrainerController> _stateMachine):base(_character, _stateMachine)
 	{
 		character = _character;
 		stateMachine = _stateMachine;
@@ -21,49 +23,55 @@ public class CrouchingState: State
         base.Enter();
 
         character.animator.SetTrigger("crouch");  
+
         belowCeiling = false;
-        crouchHeld = false;
         gravityVelocity.y = 0;
 
         playerSpeed = character.crouchSpeed;
         grounded = character.controller.isGrounded;
         gravityValue = character.gravityValue;
+
+        character.crouch.action.started += HeldCrouch;
+        character.jump.action.started += PressJump;
+    }
+
+    private void PressJump(InputAction.CallbackContext context)
+    {
+        stateMachine.ChangeState(character.diveRoll);
+    }
+
+    private void HeldCrouch(InputAction.CallbackContext context)
+    {
+        if (!belowCeiling)
+        {
+            stateMachine.ChangeState(character.standing);
+        }
     }
 
     public override void Exit()
     {
         base.Exit();
 
+        character.animator.SetTrigger("move");
+
         gravityVelocity.y = 0f;
         character.playerVelocity = new Vector3(input.x, 0, input.y);
-        character.animator.SetTrigger("move");
-    }
 
-    public override void HandleInput()
-    {
-        base.HandleInput();
-
-		if (crouchAction.triggered && !belowCeiling)
-		{
-            crouchHeld = true;
-        }
-
-        input = moveAction.ReadValue<Vector2>();
-        velocity = new Vector3(input.x, 0, input.y);
-
-        velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized;
-        velocity.y = 0f;
+        character.crouch.action.started -= HeldCrouch;
+        character.jump.action.started -= PressJump;
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        character.animator.SetFloat("speed", input.magnitude, character.speedDampTime, Time.deltaTime);
 
-        if (crouchHeld)
-		{
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().standing);
-        }
+        input = character.move.action.ReadValue<Vector2>();
+        velocity = new Vector3(input.x, 0, input.y);
+
+        velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized;
+        velocity.y = 0f;
+
+        character.animator.SetFloat("speed", input.magnitude, character.speedDampTime, Time.deltaTime);
     }
 
     public override void PhysicsUpdate()
@@ -109,6 +117,5 @@ public class CrouchingState: State
             return false;
         }       
     }
-
-
 }
+

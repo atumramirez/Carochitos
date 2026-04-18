@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/*
 public class MonsterCheck : MonoBehaviour
 {
     public TrainerController controller;
@@ -7,7 +8,8 @@ public class MonsterCheck : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            controller.movementSM.ChangeState(controller.crouching);
+            controller.stateMachine.ChangeState(controller.crouching);
         }
     }
 }
+*/

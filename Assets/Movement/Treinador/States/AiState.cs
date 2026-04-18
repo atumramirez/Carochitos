@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/*
 public class AiState : State
 {
     public AiState(TrainerController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
@@ -30,4 +31,5 @@ public class AiState : State
     }
 
 }
+*/
     

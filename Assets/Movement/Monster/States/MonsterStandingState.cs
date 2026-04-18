@@ -1,4 +1,6 @@
 using UnityEngine;
+
+/*
 public class MonsterStandingState : State
 {
     float gravityValue;
@@ -83,7 +85,7 @@ public class MonsterStandingState : State
         }
         */
         
-
+/*
         if (swap)
         {
             stateMachine.ChangeState(character.GetComponent<MonsterController>().swapToTrainerState);
@@ -124,3 +126,4 @@ public class MonsterStandingState : State
         }
     }
 }
+*/

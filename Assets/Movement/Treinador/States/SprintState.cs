@@ -1,15 +1,16 @@
+using System;
 using UnityEngine;
-public class SprintState : State
+using UnityEngine.InputSystem;
+
+public class SprintState : State<TrainerController>
 {
     float gravityValue;
     Vector3 currentVelocity;
 
     bool grounded;
-    bool sprint;
     float playerSpeed;
-    bool sprintJump;
     Vector3 cVelocity;
-    public SprintState(TrainerController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
+    public SprintState(TrainerController _character, StateMachine<TrainerController> _stateMachine) : base(_character, _stateMachine)
     {
         character = _character;
         stateMachine = _stateMachine;
@@ -19,8 +20,6 @@ public class SprintState : State
     {
         base.Enter();
 
-        sprint = false;
-        sprintJump = false;
         input = Vector2.zero;
         velocity = Vector3.zero;
         currentVelocity = Vector3.zero;
@@ -28,50 +27,32 @@ public class SprintState : State
 
         playerSpeed = character.sprintSpeed;
         grounded = character.controller.isGrounded;
-        gravityValue = character.gravityValue;        
+        gravityValue = character.gravityValue;
+
+
+        character.sprint.action.canceled += StopSprinting;
+        character.jump.action.started += PressJump;
     }
 
-    public override void HandleInput()
+    private void PressJump(InputAction.CallbackContext context)
     {
-        base.HandleInput();
+        stateMachine.ChangeState(character.jumping);
+    }
 
-        input = moveAction.ReadValue<Vector2>();
-        velocity = new Vector3(input.x, 0, input.y);
-
-        velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized;
-        velocity.y = 0f;
-        
-        if (sprintAction.triggered || input.sqrMagnitude == 0f) // Mudar aqui para reconhecer quando o jogador parar de presionar o butão
-        {
-            sprint = false;
-        }
-        else
-        {
-            sprint = true;
-        }
-        
-		if (jumpAction.triggered)
-		{
-            sprintJump = true;
-        }
-
+    private void StopSprinting(InputAction.CallbackContext context)
+    {
+        stateMachine.ChangeState(character.standing);
     }
 
     public override void LogicUpdate()
     {
-        if (sprint)
-        {
-            character.animator.SetFloat("speed", input.magnitude + 0.5f, character.speedDampTime, Time.deltaTime);
-		}
-		else
-		{
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().standing);
-        }
+        input = character.move.action.ReadValue<Vector2>();
+        velocity = new Vector3(input.x, 0, input.y);
 
-		if (sprintJump)
-		{
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().jumping);
-        }
+        velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized;
+        velocity.y = 0f;
+
+        character.animator.SetFloat("speed", input.magnitude + 0.5f, character.speedDampTime, Time.deltaTime);
     }
 
     public override void PhysicsUpdate()
@@ -94,5 +75,13 @@ public class SprintState : State
         {
             character.transform.rotation = Quaternion.Slerp(character.transform.rotation, Quaternion.LookRotation(velocity), character.rotationDampTime);
         }
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        character.sprint.action.canceled -= StopSprinting;
+        character.jump.action.started -= PressJump;
     }
 }

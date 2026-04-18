@@ -4,6 +4,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+/*
 public class MonsterController : GenericController
 {
     public MonsterStandingState standingState;
@@ -24,15 +26,15 @@ public class MonsterController : GenericController
 
         cameraTransform = Camera.main.transform;
 
-        movementSM = new StateMachine();
+        stateMachine = new StateMachine();
 
-        standingState = new MonsterStandingState(this, movementSM);
-        monsterAiState = new MonsterAiState(this, movementSM);
-        swapToTrainerState = new SwapToTrainerState(this, movementSM);
-        lockOnState = new MonsterLockOnState(this, movementSM);
+        standingState = new MonsterStandingState(this, stateMachine);
+        monsterAiState = new MonsterAiState(this, stateMachine);
+        swapToTrainerState = new SwapToTrainerState(this, stateMachine);
+        lockOnState = new MonsterLockOnState(this, stateMachine);
 
 
-        movementSM.Initialize(monsterAiState);
+        stateMachine.Initialize(monsterAiState);
 
         normalColliderHeight = controller.height;
         gravityValue *= gravityMultiplier;
@@ -40,12 +42,13 @@ public class MonsterController : GenericController
 
     private void Update()
     {
-        movementSM.currentState.HandleInput();
-        movementSM.currentState.LogicUpdate();
+        stateMachine.currentState.HandleInput();
+        stateMachine.currentState.LogicUpdate();
     }
 
     private void FixedUpdate()
     {
-        movementSM.currentState.PhysicsUpdate();
+        stateMachine.currentState.PhysicsUpdate();
     }
 }
+*/

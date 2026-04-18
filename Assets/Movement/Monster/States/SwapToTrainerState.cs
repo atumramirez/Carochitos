@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/*
 public class SwapToTrainerState : State
 {
     public SwapToTrainerState(GenericController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
@@ -15,3 +16,4 @@ public class SwapToTrainerState : State
         character.GetComponent<MonsterController>().characterHandler.SwapCharacter();
     }
 }
+*/

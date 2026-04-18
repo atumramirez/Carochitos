@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class LandingState: State
+public class LandingState: State<TrainerController>
 {
     float timePassed;
     float landingTime;
 
-    public LandingState(TrainerController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
+    public LandingState(TrainerController _character, StateMachine<TrainerController> _stateMachine) : base(_character, _stateMachine)
 	{
 		character = _character;
 		stateMachine = _stateMachine;
@@ -28,7 +28,7 @@ public class LandingState: State
 		if (timePassed > landingTime)
 		{
             character.animator.SetTrigger("move");
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().standing);
+            stateMachine.ChangeState(character.standing);
         }
 
         timePassed += Time.deltaTime;

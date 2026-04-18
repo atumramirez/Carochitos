@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
+/*
 public class CaptureState : State
 {
     public CaptureState(TrainerController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
@@ -31,3 +32,4 @@ public class CaptureState : State
         }
     }
 }
+*/
