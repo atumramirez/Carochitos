@@ -1179,8 +1179,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: NAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fdaddb0d64b998d43b106d976d3980de, type: 2}
-  m_sharedMaterial: {fileID: -2468188311399145355, guid: fdaddb0d64b998d43b106d976d3980de, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2481,8 +2481,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Lv. 100
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fdaddb0d64b998d43b106d976d3980de, type: 2}
-  m_sharedMaterial: {fileID: -2468188311399145355, guid: fdaddb0d64b998d43b106d976d3980de, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2760,6 +2760,14 @@ PrefabInstance:
       propertyPath: cooldown
       value: 
       objectReference: {fileID: 224930949}
+    - target: {fileID: 6602319563668613644, guid: 5ec58bb91843c4448b1dd2baab9644a8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8978181314333223363, guid: 5ec58bb91843c4448b1dd2baab9644a8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

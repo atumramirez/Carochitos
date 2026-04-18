@@ -22,4 +22,10 @@ public class Inventory : MonoBehaviour
             inventory.Add(new ItemInInventory { Item = item, Count = count });
         }
     }
+
+    public void BuyItem(ItemBase item, int count, int cost)
+    {
+        Currency -= cost;
+        AddItem(item, count);
+    }
 }

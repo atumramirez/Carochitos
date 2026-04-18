@@ -7,6 +7,7 @@ public class ItemBase : ScriptableObject
     [TextArea]
     public string _description;
     public Pocket _pocket;
+    public int cost;
 }
 
 public enum Pocket 

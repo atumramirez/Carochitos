@@ -15,3 +15,4 @@ MonoBehaviour:
   _name: Super Potion
   _description: "Esta po\xE7\xE3o cura muito."
   _pocket: 0
+  cost: 12

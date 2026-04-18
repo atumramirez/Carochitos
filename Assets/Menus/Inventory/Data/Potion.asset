@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Potion
   m_EditorClassIdentifier: Assembly-CSharp::Item
   _name: Potion
-  _description: "Esta po\xE7\xE3o cura\n."
+  _description: "Esta po\xE7\xE3o cura."
   _pocket: 0
+  cost: 12
