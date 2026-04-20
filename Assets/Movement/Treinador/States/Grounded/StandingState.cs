@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,8 @@ public class StandingState: State<TrainerController>
 
     float playerSpeed;
     float gravityValue;
+
+    private float airTime;
 
     Vector3 currentVelocity;
     Vector3 cVelocity;
@@ -21,6 +24,8 @@ public class StandingState: State<TrainerController>
     {
         base.Enter();
 
+        airTime = 0f;
+
         input = Vector2.zero;
         velocity = Vector3.zero;
         currentVelocity = Vector3.zero;
@@ -32,7 +37,15 @@ public class StandingState: State<TrainerController>
 
         character.jump.action.started += PressJump;
         character.crouch.action.started += PressCrouch;
+        character.capture.action.started += PressCapture;
+
         character.sprint.action.performed += HeldSprint;
+    }
+
+    private void PressCapture(InputAction.CallbackContext context)
+    {
+        Debug.Log("The Capture Button was pressed");
+        stateMachine.ChangeState(character.capturing);
     }
 
     private void HeldSprint(InputAction.CallbackContext context)
@@ -65,14 +78,9 @@ public class StandingState: State<TrainerController>
                    velocity.z * character.cameraTransform.forward.normalized;
 
         velocity.y = 0f;
-
-        if (!grounded && gravityVelocity.y < 0)
-        {
-            stateMachine.ChangeState(character.airTime);
-            return;
-        }
-
-        character.animator.SetFloat(
+        
+        character.animator.SetFloat
+        (
             "speed",
             input.magnitude,
             character.speedDampTime,
@@ -85,17 +93,13 @@ public class StandingState: State<TrainerController>
         base.PhysicsUpdate();
 
         grounded = character.controller.isGrounded;
-
-        // Apply gravity
         gravityVelocity.y += character.gravityValue * Time.deltaTime;
 
-        // Stick to ground
         if (grounded && gravityVelocity.y < 0)
         {
             gravityVelocity.y = -2f;
         }
 
-        // Smooth movement
         currentVelocity = Vector3.SmoothDamp(
             currentVelocity,
             velocity,
@@ -103,16 +107,16 @@ public class StandingState: State<TrainerController>
             character.velocityDampTime
         );
 
-        // Move character
-        character.controller.Move(
+        character.controller.Move
+        (
             character.playerSpeed * Time.deltaTime * currentVelocity +
             gravityVelocity * Time.deltaTime
         );
 
-        // Rotate toward movement
         if (velocity.sqrMagnitude > 0.001f)
         {
-            character.transform.rotation = Quaternion.Slerp(
+            character.transform.rotation = Quaternion.Slerp
+            (
                 character.transform.rotation,
                 Quaternion.LookRotation(velocity),
                 character.rotationDampTime
@@ -134,7 +138,8 @@ public class StandingState: State<TrainerController>
 
         character.jump.action.started -= PressJump;
         character.crouch.action.started -= PressCrouch;
+        character.capture.action.started -= PressCapture;
+
         character.sprint.action.performed -= HeldSprint;
     }
-
 }

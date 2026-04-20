@@ -37,7 +37,7 @@ public class CrouchingState: State<TrainerController>
 
     private void PressJump(InputAction.CallbackContext context)
     {
-        stateMachine.ChangeState(character.diveRoll);
+        stateMachine.ChangeState(character.roll);
     }
 
     private void HeldCrouch(InputAction.CallbackContext context)

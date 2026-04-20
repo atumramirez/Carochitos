@@ -32,7 +32,7 @@ public class JumpingState: State<TrainerController>
 
         if (gravityVelocity.y < 0)
         {
-            stateMachine.ChangeState(character.airTime);
+            stateMachine.ChangeState(character.falling);
         }
     }
 

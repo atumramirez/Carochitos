@@ -1,10 +1,8 @@
-using UnityEditor;
 using UnityEngine;
 
-/*
-public class CaptureState : State
+public class CaptureState : State<TrainerController>
 {
-    public CaptureState(TrainerController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
+    public CaptureState(TrainerController _character, StateMachine<TrainerController> _stateMachine) : base(_character, _stateMachine)
     {
         character = _character;
         stateMachine = _stateMachine;
@@ -28,8 +26,14 @@ public class CaptureState : State
             Debug.Log("Animation finished");
 
             character.animator.SetTrigger("move");
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().standing);
+            stateMachine.ChangeState(character.standing);
         }
+        Debug.Log("Sei lá, mano");
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
     }
 }
-*/
+

@@ -10,19 +10,17 @@ public class TrainerController : GenericController
     public StandingState standing;
 
     public JumpingState jumping;
-    public FallingState airTime;
+    public FallingState falling;
     public LandingState landing;
 
     public CrouchingState crouching;
-    public RollState diveRoll;
+    public RollState roll;
 
     public SprintState sprinting;
 
+    public CaptureState capturing;
+
     /*
-    
-    
-    
-    public CaptureState capture;
     
     public AiState aiState;
     public SummonState summonState;
@@ -35,6 +33,8 @@ public class TrainerController : GenericController
     public InputActionReference jump;
     public InputActionReference crouch;
     public InputActionReference sprint;
+
+    public InputActionReference capture;
 
     [Header("CharacterHandler")]
     public CharacterHandler characterHandler;
@@ -54,23 +54,20 @@ public class TrainerController : GenericController
 
         stateMachine = new StateMachine<TrainerController>();
         
+        // Grounded
         standing = new StandingState(this, stateMachine);
-        jumping = new JumpingState(this, stateMachine);
-        airTime = new FallingState(this, stateMachine);
-        landing = new LandingState(this, stateMachine);
         crouching = new CrouchingState(this, stateMachine);
         sprinting = new SprintState(this, stateMachine);
-        diveRoll = new RollState(this, stateMachine);
+        roll = new RollState(this, stateMachine);
 
-        /*
-        
-        capture = new CaptureState(this, movementSM);
-        
-        aiState = new AiState(this, movementSM);
-        summonState = new SummonState(this, movementSM);
-        changeCharacterState = new SwapToMonsterState(this, movementSM);
-        menuState = new MenuState(this, movementSM);
-        */
+        // Jumping and Air Time
+        jumping = new JumpingState(this, stateMachine);
+        falling = new FallingState(this, stateMachine);
+        landing = new LandingState(this, stateMachine);
+
+        // Actions
+        capturing = new CaptureState(this, stateMachine);
+
 
         stateMachine.Initialize(standing);
 
