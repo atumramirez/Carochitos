@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OutlineShader
-  m_Shader: {fileID: -6465566751694194690, guid: c736cbd115bc6d44d986a5bdd4b2e7a7, type: 3}
+  m_Name: WaterShader
+  m_Shader: {fileID: -6465566751694194690, guid: 425b41259460d224a9a0f4968408ddef, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -38,15 +38,23 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Fade_Distance: 75
-    - _OutlineThickness: 2
+    - _FoamAmount: 0.5
+    - _FoamCutOff: 1
+    - _FoamScale: 100
+    - _FoamSpeed: 1
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _RefractionScale: 1
+    - _RefractionSpeed: 0.05
+    - _RefractionStrenght: 2
+    - _WaterDepht: 10
     m_Colors:
-    - _Outline_Colour: {r: 0, g: 0, b: 0, a: 1}
+    - _DeepWater: {r: 0.0240299, g: 0.12113804, b: 0.33962253, a: 0.79607844}
+    - _FoamColour: {r: 1, g: 1, b: 1, a: 0.5882353}
+    - _ShallowWater: {r: 0.16862746, g: 0.7254902, b: 0.6055234, a: 0.2784314}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &6532119717676417784
+--- !u!114 &4649415288510980576
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
