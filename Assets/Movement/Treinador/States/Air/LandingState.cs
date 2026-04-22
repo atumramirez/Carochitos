@@ -17,21 +17,22 @@ public class LandingState: State<TrainerController>
 
         timePassed = 0f;
 
-        // character.animator.SetTrigger("land");
-        // landingTime = 0f;
+
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-		if (timePassed > landingTime)
-		{
+        AnimatorStateInfo stateInfo = character.animator.GetCurrentAnimatorStateInfo(0);
+
+        if (stateInfo.IsName("Landing") && stateInfo.normalizedTime >= 1f)
+        {
+            Debug.Log("Landing");
+
             character.animator.SetTrigger("move");
             stateMachine.ChangeState(character.standing);
         }
-
-        timePassed += Time.deltaTime;
     }
 }
 

@@ -16,9 +16,11 @@ public class JumpingState: State<TrainerController>
 
         gravityVelocity.y = 0;
 
-        gravityVelocity.y += Mathf.Sqrt(
-            character.jumpHeight * -3.0f * character.gravityValue
-        );
+        gravityVelocity.y += Mathf.Sqrt
+            (
+                character.jumpHeight * -3.0f * character.gravityValue
+            );
+
 
         character.animator.SetFloat("speed", 0);
         character.animator.SetTrigger("jump");
@@ -29,11 +31,15 @@ public class JumpingState: State<TrainerController>
         base.LogicUpdate();
 
         input = character.move.action.ReadValue<Vector2>();
+        
+        AnimatorStateInfo stateInfo = character.animator.GetCurrentAnimatorStateInfo(0);
 
         if (gravityVelocity.y < 0)
         {
+            character.animator.SetTrigger("fall");
             stateMachine.ChangeState(character.falling);
         }
+        
     }
 
     public override void PhysicsUpdate()

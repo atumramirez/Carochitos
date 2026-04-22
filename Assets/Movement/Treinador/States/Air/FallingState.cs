@@ -36,6 +36,7 @@ public class FallingState : State<TrainerController>
 
         if (grounded)
         {
+            character.animator.SetTrigger("land");
             stateMachine.ChangeState(character.landing);
         }
     }
