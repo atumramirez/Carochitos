@@ -72,7 +72,18 @@ public class EnemyAi : MonoBehaviour
     }
     private void AttackPlayer()
     {
-        skill.UseCurrentSkill();
+        //transform.LookAt(player.position);
+        if(!alreadyAttacked)
+        {
+            skill.UseCurrentSkill();
+            alreadyAttacked = true;
+            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+        }
+        
+    }
+    public void ResetAttack()
+    {
+        alreadyAttacked = false;
     }
     // Update is called once per frame
     
