@@ -169,6 +169,7 @@ MonoBehaviour:
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
   timeBetweenAttacks: 0
+  skill: {fileID: 1030485990}
   sightRange: 10
   attackRange: 2
   playerInSightRnage: 0
@@ -327,7 +328,42 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1000153353145618415, guid: 8d19228ca52698f458c04c19b03a8649, type: 3}
       insertIndex: -1
       addedObject: {fileID: 397507646}
+    - targetCorrespondingSourceObject: {fileID: 1000153353145618415, guid: 8d19228ca52698f458c04c19b03a8649, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1030485990}
   m_SourcePrefab: {fileID: 100100000, guid: 8d19228ca52698f458c04c19b03a8649, type: 3}
+--- !u!114 &1030485989 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7466694816595963599, guid: 8d19228ca52698f458c04c19b03a8649, type: 3}
+  m_PrefabInstance: {fileID: 1030485988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397507645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaff53c686321747a63aefe06a2e934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarochitoHandler
+--- !u!114 &1030485990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397507645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca041822647a297499502f4c0fa36b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UseSkill
+  skills:
+  - {fileID: 11400000, guid: f3400955a432e414d8183a4b0d796b8f, type: 2}
+  currentSkill: {fileID: 0}
+  meleeModules: []
+  currentModule: {fileID: 0}
+  onColdown: 0
+  hitbox: {fileID: 7737261997652888080, guid: da7ae64e6d8d9e7478be23cef7c3a1ad, type: 3}
+  owner: {fileID: 1030485989}
+  skill: {fileID: 0}
 --- !u!1 &1389646024
 GameObject:
   m_ObjectHideFlags: 0

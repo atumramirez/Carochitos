@@ -13,6 +13,8 @@ public class EnemyAi : MonoBehaviour
     public float timeBetweenAttacks;
     bool alreadyAttacked;
 
+    public UseSkill skill;
+
     public float sightRange, attackRange;
     public bool playerInSightRnage, playerInAttackRange;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -70,7 +72,7 @@ public class EnemyAi : MonoBehaviour
     }
     private void AttackPlayer()
     {
-
+        skill.UseCurrentSkill();
     }
     // Update is called once per frame
     
