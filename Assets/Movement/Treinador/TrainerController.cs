@@ -20,6 +20,9 @@ public class TrainerController : GenericController
 
     public CaptureState capturing;
 
+    // Aiming
+    public ThrowingState throwing;
+
     /*
     
     public AiState aiState;
@@ -35,12 +38,16 @@ public class TrainerController : GenericController
     public InputActionReference sprint;
 
     public InputActionReference capture;
+    public InputActionReference throwin;
 
     [Header("CharacterHandler")]
     public CharacterHandler characterHandler;
 
     [Header("Menu")]
     public PlayerMenu menuHolder;
+
+    [Header("Cameras")]
+    public Transform combatCameraTransform; 
 
     private void Start()
     {
@@ -67,6 +74,9 @@ public class TrainerController : GenericController
 
         // Actions
         capturing = new CaptureState(this, stateMachine);
+
+        // Throwing
+        throwing = new ThrowingState(this, stateMachine);
 
 
         stateMachine.Initialize(standing);

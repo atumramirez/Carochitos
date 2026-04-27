@@ -40,6 +40,8 @@ public class StandingState: State<TrainerController>
         character.capture.action.started += PressCapture;
 
         character.sprint.action.performed += HeldSprint;
+
+        character.throwin.action.started += PressAim;
     }
 
     private void PressCapture(InputAction.CallbackContext context)
@@ -66,62 +68,42 @@ public class StandingState: State<TrainerController>
         stateMachine.ChangeState(character.jumping);  
     }
 
-    public override void LogicUpdate()
+    private void PressAim(InputAction.CallbackContext context)
     {
-        base.LogicUpdate();
-
-        input = character.move.action.ReadValue<Vector2>();
-
-        velocity = new Vector3(input.x, 0, input.y);
-
-        velocity = velocity.x * character.cameraTransform.right.normalized +
-                   velocity.z * character.cameraTransform.forward.normalized;
-
-        velocity.y = 0f;
-        
-        character.animator.SetFloat
-        (
-            "speed",
-            input.magnitude,
-            character.speedDampTime,
-            Time.deltaTime
-        );
+        Debug.Log("The Throw Button was pressed");
+        stateMachine.ChangeState(character.throwing);
     }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
+    public override void LogicUpdate() 
+    { 
+        base.LogicUpdate(); 
+        input = character.move.action.ReadValue<Vector2>(); 
 
-        grounded = character.controller.isGrounded;
-        gravityVelocity.y += character.gravityValue * Time.deltaTime;
+        velocity = new Vector3(input.x, 0, input.y); 
+        velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized; 
+        velocity.y = 0f; 
 
-        if (grounded && gravityVelocity.y < 0)
-        {
-            gravityVelocity.y = -2f;
-        }
+        character.animator.SetFloat("speed", input.magnitude, character.speedDampTime, Time.deltaTime); 
+    }
+    public override void PhysicsUpdate() 
+    { 
+        base.PhysicsUpdate(); 
 
-        currentVelocity = Vector3.SmoothDamp(
-            currentVelocity,
-            velocity,
-            ref cVelocity,
-            character.velocityDampTime
-        );
+        grounded = character.controller.isGrounded; 
+        gravityVelocity.y += character.gravityValue * Time.deltaTime; 
 
-        character.controller.Move
-        (
-            character.playerSpeed * Time.deltaTime * currentVelocity +
-            gravityVelocity * Time.deltaTime
-        );
+        if (grounded && gravityVelocity.y < 0) 
+        { 
+            gravityVelocity.y = -2f; 
+        } 
 
-        if (velocity.sqrMagnitude > 0.001f)
-        {
-            character.transform.rotation = Quaternion.Slerp
-            (
-                character.transform.rotation,
-                Quaternion.LookRotation(velocity),
-                character.rotationDampTime
-            );
-        }
+        currentVelocity = Vector3.SmoothDamp(currentVelocity, velocity, ref cVelocity, character.velocityDampTime); 
+        character.controller.Move(character.playerSpeed * Time.deltaTime * currentVelocity + gravityVelocity * Time.deltaTime);
+        
+        if (velocity.sqrMagnitude > 0.001f) 
+        { 
+            character.transform.rotation = Quaternion.Slerp(character.transform.rotation, Quaternion.LookRotation(velocity), character.rotationDampTime); 
+        } 
     }
 
     public override void Exit()
@@ -141,5 +123,7 @@ public class StandingState: State<TrainerController>
         character.capture.action.started -= PressCapture;
 
         character.sprint.action.performed -= HeldSprint;
+
+        character.throwin.action.started -= PressAim;
     }
 }

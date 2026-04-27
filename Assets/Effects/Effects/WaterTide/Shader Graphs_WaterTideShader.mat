@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_TornadoShader
-  m_Shader: {fileID: -6465566751694194690, guid: e6d22b3784e8ac045b3b7e1743791c45, type: 3}
+  m_Name: Shader Graphs_WaterTideShader
+  m_Shader: {fileID: -6465566751694194690, guid: 377074baeb9cf254187c75265cf83a5b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -38,21 +38,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Dissolve: 0.867
-    - _NoiseScale: 20
-    - _Power: 1.6
+    - _CartoonFoamPower: 25
+    - _Dissapear: 0
+    - _Dissolve: 2
+    - _Egde: 0.13
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _TwirlAmount: 11.54
     m_Colors:
-    - _Colour: {r: 0.1804913, g: 0.9811321, b: 0.5592891, a: 1}
-    - _ColourString: {r: 0.12691346, g: 0.8679245, b: 0.5999516, a: 1}
-    - _Speed: {r: 0, g: 2, b: 0, a: 0}
-    - _TwirlCenter: {r: 0.5, g: -0.5, b: 0, a: 0}
-    - _TwirlSpeed: {r: 0, g: 0.5, b: 0, a: 0}
+    - _Colour: {r: 0.23082057, g: 0.7990794, b: 0.8584906, a: 1}
+    - _FoamSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _WaveSpeed: {r: -4, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &3281310275940551795
+--- !u!114 &4337997321312300754
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
