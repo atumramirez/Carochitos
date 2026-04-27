@@ -1,4 +1,5 @@
 using System;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class TrainerController : GenericController
@@ -47,7 +48,15 @@ public class TrainerController : GenericController
     public PlayerMenu menuHolder;
 
     [Header("Cameras")]
-    public Transform combatCameraTransform; 
+    public CinemachineCamera[] cameras;
+
+    public CinemachineCamera thirdPersonCam;
+    public CinemachineCamera combatCam;
+
+    public CinemachineCamera startCamera;
+    private CinemachineCamera currentCamera;
+
+    private Transform combatCameraTransform; 
 
     private void Start()
     {
@@ -57,7 +66,23 @@ public class TrainerController : GenericController
 
         menuHolder = FindFirstObjectByType<PlayerMenu>();
 
-        cameraTransform = Camera.main.transform;
+        // Cameras
+
+        currentCamera = startCamera;
+
+        for (int i = 0; i < cameras.Length; i++)
+        {
+            if (cameras[i] == currentCamera)
+            {
+                cameras[i].Priority = 20;
+            }
+            else
+            {
+                cameras[i].Priority = 10;
+            }
+        }
+
+        cameraTransform = currentCamera.transform;
 
         stateMachine = new StateMachine<TrainerController>();
         
@@ -103,5 +128,20 @@ public class TrainerController : GenericController
     public void Swap()
     {
         characterHandler.SwapCharacter();
+    }
+
+    public void SwitchCamera(CinemachineCamera newCam)
+    {
+        currentCamera = newCam;
+
+        currentCamera.Priority = 20;
+
+        for (int i = 0; i < cameras.Length; i++)
+        {
+            if (cameras[i] != currentCamera)
+            {
+                cameras[i].Priority = 10;
+            }
+        }
     }
 }

@@ -1456,7 +1456,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 112.011375
+  field of view: 45
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1482,8 +1482,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.08620209, y: 0.10223196, z: -0.008892832, w: 0.9909787}
-  m_LocalPosition: {x: -1.2010863, y: 19.502666, z: -0.96423584}
+  m_LocalRotation: {x: -0.09468357, y: 0.12626228, z: 0.012107595, w: 0.9873937}
+  m_LocalPosition: {x: 0, y: 19.33, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4922,7 +4922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1368023256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6414,7 +6414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1747125847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6606,7 +6606,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 9606418}
     CustomLookAtTarget: 1
   Lens:
-    FieldOfView: 112.011375
+    FieldOfView: 45
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -8196,6 +8196,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -5330079417779625532, guid: c6b3381f38ce31249980950385565d7d, type: 3}
     - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: combatCam
+      value: 
+      objectReference: {fileID: 1747125851}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
       propertyPath: jumpHeight
       value: 1.5
       objectReference: {fileID: 0}
@@ -8204,6 +8208,14 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: startCamera
+      value: 
+      objectReference: {fileID: 1368023260}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: thirdPersonCam
+      value: 
+      objectReference: {fileID: 1368023260}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
       propertyPath: characterHandler
       value: 
       objectReference: {fileID: 115019678}
@@ -8211,6 +8223,18 @@ PrefabInstance:
       propertyPath: gravityMultiplier
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: cameras.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: 'cameras.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1368023260}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: 'cameras.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1747125851}
     - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
       propertyPath: combatCameraTransform
       value: 
