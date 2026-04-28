@@ -44,7 +44,7 @@ public class EnemyAi : MonoBehaviour
         if (playerInSightRnage && playerInAttackRange) AttackPlayer();
     }
 
-    bool IsInFieldOfView()
+    bool IsInFieldOfView() // Deteta se o Jogador está em Field of View 
     {
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
         float angle = Vector3.Angle(transform.forward, directionToPlayer);
@@ -52,7 +52,7 @@ public class EnemyAi : MonoBehaviour
         return angle < viewAngle / 2f;
     }
 
-    bool HasLineOfSight()
+    bool HasLineOfSight() // Dete se o Jogador está em Line Of Sight, detecta obstaculos
     {
         Vector3 origin = transform.position + Vector3.up;
         Vector3 direction = (player.position - origin).normalized;
@@ -71,7 +71,7 @@ public class EnemyAi : MonoBehaviour
         return false;
     }
 
-    private void Patroling()
+    private void Patroling() // Anda pelo mapa
     {
         if (!walkPointSet) Search();
 
@@ -87,7 +87,7 @@ public class EnemyAi : MonoBehaviour
         }
     }
 
-    private void Search()
+    private void Search() // Arranjar um Walk Point valido
     {
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
@@ -100,12 +100,12 @@ public class EnemyAi : MonoBehaviour
         }
     }
 
-    private void ChasePlayer()
+    private void ChasePlayer() // Persiguir o Jogador
     {
         agent.SetDestination(player.position);
     }
 
-    private void AttackPlayer()
+    private void AttackPlayer() // Atacar o Jogador
     {
         if (!alreadyAttacked)
         {
@@ -115,10 +115,12 @@ public class EnemyAi : MonoBehaviour
         }
     }
 
-    public void ResetAttack()
+    public void ResetAttack() // Cooldown do Ataque
     {
         alreadyAttacked = false;
     }
+
+    // -------- DEBUG --------
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

@@ -98,9 +98,10 @@ public class ThrowingState : State<TrainerController>
             gravityVelocity * Time.deltaTime
         );
 
-        // -------- ROTATION LOGIC (TPS STYLE) --------
+        // -------- ROTATION LOGIC --------
 
         // Face camera forward while aiming
+
         Vector3 aimDirection = character.cameraTransform.forward;
         aimDirection.y = 0f;
 

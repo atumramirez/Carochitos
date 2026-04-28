@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class SummonState : State<TrainerController>
+public class DismissState : State<TrainerController>
 {
-    public SummonState(TrainerController _character, StateMachine<TrainerController> _stateMachine) : base(_character, _stateMachine)
+    public DismissState(TrainerController _character, StateMachine<TrainerController> _stateMachine) : base(_character, _stateMachine)
     {
         character = _character;
         stateMachine = _stateMachine;
@@ -21,9 +21,9 @@ public class SummonState : State<TrainerController>
 
         if (stateInfo.IsName("Attack") && stateInfo.normalizedTime >= 1f)
         {
-            Debug.Log("Summoning animation finished!");
+            Debug.Log("Dismising animation finished!");
 
-            character.Summon();
+            character.Dismiss();
 
             character.animator.SetTrigger("move");
             stateMachine.ChangeState(character.standing);

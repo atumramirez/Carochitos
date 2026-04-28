@@ -1,40 +1,43 @@
-using System.Collections.Generic;
-using Unity.Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-
-/*
 public class MonsterController : GenericController
 {
+    [Header("State Machine")]
+    public StateMachine<MonsterController> stateMachine;
+
+    [Header("States")]
     public MonsterStandingState standingState;
-    public MonsterAiState monsterAiState;
-    public SwapToTrainerState swapToTrainerState;
-    public MonsterLockOnState lockOnState;
+    public MonsterFollowState followState;
 
+    [Header("Player Inputs")]
+    public InputActionReference move;
+    public InputActionReference attack;
 
-    public CharacterHandler characterHandler;
+    [Header("Following")]
+    public Transform owner;
+    public NavMeshAgent navMeshAgent;
 
     private void Start()
     {
-        characterHandler = FindFirstObjectByType<CharacterHandler>();
-
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
 
-        cameraTransform = Camera.main.transform;
+        // Nav Mesh Agent
+        navMeshAgent = GetComponent<NavMeshAgent>();
 
-        stateMachine = new StateMachine();
+        stateMachine = new StateMachine<MonsterController>();
 
+        // Grounded
+        followState = new MonsterFollowState(this, stateMachine);
         standingState = new MonsterStandingState(this, stateMachine);
-        monsterAiState = new MonsterAiState(this, stateMachine);
-        swapToTrainerState = new SwapToTrainerState(this, stateMachine);
-        lockOnState = new MonsterLockOnState(this, stateMachine);
+
+        stateMachine.Initialize(followState);
 
 
-        stateMachine.Initialize(monsterAiState);
+        cameraTransform = Camera.main.transform;
 
         normalColliderHeight = controller.height;
         gravityValue *= gravityMultiplier;
@@ -42,7 +45,6 @@ public class MonsterController : GenericController
 
     private void Update()
     {
-        stateMachine.currentState.HandleInput();
         stateMachine.currentState.LogicUpdate();
     }
 
@@ -50,5 +52,10 @@ public class MonsterController : GenericController
     {
         stateMachine.currentState.PhysicsUpdate();
     }
+
+    public void GetOwner(Transform transform)
+    {
+        owner = transform;
+    }
 }
-*/
+

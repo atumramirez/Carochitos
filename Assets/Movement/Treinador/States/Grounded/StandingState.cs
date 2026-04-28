@@ -41,9 +41,36 @@ public class StandingState: State<TrainerController>
         character.crouch.action.started += PressCrouch;
         character.capture.action.started += PressCapture;
 
+        // Summoning and Dismissing the monster
+        character.summon.action.started += PressSummon;
+        character.dismiss.action.started += PressDismiss;
+
         character.sprint.action.performed += HeldSprint;
 
         character.throwin.action.started += PressAim;
+    }
+
+    private void PressDismiss(InputAction.CallbackContext context)
+    {
+        if (character.isMonsterSpawned == true)
+        {
+            Debug.Log("Dismissig Monster");
+            stateMachine.ChangeState(character.dismissing);
+        }
+    }
+
+    private void PressSummon(InputAction.CallbackContext context)
+    {
+        if (character.isMonsterSpawned == false)
+        {
+            Debug.Log("Summonig Monster");
+            stateMachine.ChangeState(character.summoning);
+        }
+        else
+        {
+            Debug.Log("Swaping Monster");
+            stateMachine.ChangeState(character.swaping);
+        }
     }
 
     private void PressCapture(InputAction.CallbackContext context)
