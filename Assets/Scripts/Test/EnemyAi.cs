@@ -54,7 +54,7 @@ public class EnemyAi : MonoBehaviour
 
     bool HasLineOfSight()
     {
-        Vector3 origin = transform.position + Vector3.up; // eye height
+        Vector3 origin = transform.position + Vector3.up;
         Vector3 direction = (player.position - origin).normalized;
         float distance = Vector3.Distance(origin, player.position);
 
@@ -62,7 +62,6 @@ public class EnemyAi : MonoBehaviour
 
         if (Physics.Raycast(origin, direction, out hit, distance))
         {
-            // DEBUG RAY
             Debug.DrawRay(origin, direction * distance, Color.red);
 
             if (hit.transform == player)
@@ -122,15 +121,10 @@ public class EnemyAi : MonoBehaviour
     }
     private void OnDrawGizmosSelected()
     {
-        // Sight range
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
-
-        // Attack range
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-
-        // FOV cone lines
         Vector3 leftBoundary = Quaternion.Euler(0, -viewAngle / 2, 0) * transform.forward;
         Vector3 rightBoundary = Quaternion.Euler(0, viewAngle / 2, 0) * transform.forward;
 
