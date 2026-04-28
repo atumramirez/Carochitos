@@ -24,6 +24,8 @@ public class StandingState: State<TrainerController>
     {
         base.Enter();
 
+        character.SwitchCamera(character.thirdPersonCam);
+
         airTime = 0f;
 
         input = Vector2.zero;

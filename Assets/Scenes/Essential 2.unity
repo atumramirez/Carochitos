@@ -1557,7 +1557,7 @@ MonoBehaviour:
     DefaultMode: 2
   DefaultBlend:
     Style: 1
-    Time: 2
+    Time: 0.2
     CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -8204,6 +8204,10 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: throwPoint
+      value: 
+      objectReference: {fileID: 1616849863}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
       propertyPath: sprintSpeed
       value: 9
       objectReference: {fileID: 0}
@@ -8211,6 +8215,10 @@ PrefabInstance:
       propertyPath: startCamera
       value: 
       objectReference: {fileID: 1368023260}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: objectToThrow
+      value: 
+      objectReference: {fileID: 5752073903000775106, guid: 3f7800026dc0a954fb1bcc9e44f2331b, type: 3}
     - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
       propertyPath: thirdPersonCam
       value: 

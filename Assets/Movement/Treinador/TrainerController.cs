@@ -144,4 +144,27 @@ public class TrainerController : GenericController
             }
         }
     }
+
+    [Header("Throwing")]
+    public GameObject objectToThrow;
+    public Transform throwPoint;
+    public float throwForce = 10f;
+
+    public void Throw()
+    {
+        GameObject obj = Instantiate(objectToThrow, throwPoint.position, Quaternion.identity);
+
+        if (obj.TryGetComponent<Rigidbody>(out var rb))
+        {
+            Transform cam = Camera.main.transform;
+
+            Vector3 forward = cam.forward;
+
+            float upwardForce = 0.5f;
+
+            Vector3 throwDirection = (forward + Vector3.up * upwardForce).normalized;
+
+            rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+        }
+    }
 }
