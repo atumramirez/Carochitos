@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ThrowingState : State<TrainerController>
 {
@@ -21,6 +22,23 @@ public class ThrowingState : State<TrainerController>
     public override void Enter()
     {
         base.Enter();
+
+        character.SwitchCamera(character.combatCam);
+
+        character.throwin.action.started += PressAim;
+        character.jump.action.started += Throw;
+    }
+
+    private void PressAim(InputAction.CallbackContext context)
+    {
+        Debug.Log("The Throw Button was pressed");
+        stateMachine.ChangeState(character.standing);
+    }
+
+    private void Throw(InputAction.CallbackContext context)
+    {
+        Debug.Log("The Throw Button was pressed");
+        character.Throw();
     }
 
     public override void LogicUpdate()
@@ -97,5 +115,13 @@ public class ThrowingState : State<TrainerController>
                 character.rotationDampTime
             );
         }
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        character.throwin.action.started -= PressAim;
+        character.jump.action.started -= Throw;
     }
 }
