@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using static Skill;
 
 public class MonsterController : GenericController
 {
@@ -30,6 +31,10 @@ public class MonsterController : GenericController
 
     [Header("Carochito")]
     public CarochitoHandler handler;
+
+    [Header("Skills")]
+    float _cooldownTime;
+    float _activeTime;
 
     private void Start()
     {
@@ -84,6 +89,23 @@ public class MonsterController : GenericController
     public void GetOwner(Transform transform)
     {
         owner = transform;
+    }
+
+    public void Attack(Skill skill)
+    {
+        foreach (Skill skills in handler.carochito.Skills)
+        {
+            if (skill == skills)
+            {
+                if (skills.State == SkillsState.Ready)
+                {
+                    skills.Base.Activate(gameObject);
+                    skills.State = SkillsState.Active;
+                    _activeTime = skills.Base.ActiveTime;
+                }
+            }
+        }
+
     }
 }
 
