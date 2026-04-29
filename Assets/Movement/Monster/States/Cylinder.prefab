@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7400708448335500600}
   - component: {fileID: 6784798744416467792}
   - component: {fileID: 8920418104094918548}
-  - component: {fileID: 5452526151405723323}
   - component: {fileID: 8751945332465711477}
   - component: {fileID: 7702980359702086962}
   - component: {fileID: 7151908374047369674}
@@ -95,29 +94,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5452526151405723323
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4466683883361734911}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!143 &8751945332465711477
 CharacterController:
   m_ObjectHideFlags: 0
@@ -172,7 +148,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4466683883361734911}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -192,7 +168,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: Monster
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &5538847399692799969
@@ -225,7 +201,32 @@ MonoBehaviour:
   cameraTransform: {fileID: 0}
   animator: {fileID: 0}
   playerVelocity: {x: 0, y: 0, z: 0}
-  move: {fileID: 0}
-  attack: {fileID: 0}
+  move:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 35aec18d-0953-422e-8239-95404bbdc51f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  attack:
+    m_Name: Attack
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0420a912-6efb-476b-9585-ae3f29b4593e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  swap:
+    m_Name: Swap
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: cb48d944-3f8d-4c5c-9b43-aeb20d83159a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   owner: {fileID: 0}
   navMeshAgent: {fileID: 7702980359702086962}

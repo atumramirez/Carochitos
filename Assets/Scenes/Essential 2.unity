@@ -7424,6 +7424,24 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1933072041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328356482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8ba6f9c9ee10d48850c7fc8ac53a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraHandler
+  cameras:
+  - {fileID: 1368023260}
+  - {fileID: 1747125851}
+  thirdPersonCam: {fileID: 1368023260}
+  combatCam: {fileID: 1747125851}
+  startCamera: {fileID: 1368023260}
 --- !u!1 &1935315349 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1048523553694817756, guid: 1a2c3127bb30f7046abe944fc2a40c7d, type: 3}
@@ -8373,6 +8391,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 819748983009901568, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1933072038}
+    - targetCorrespondingSourceObject: {fileID: 819748983009901568, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1933072041}
   m_SourcePrefab: {fileID: 100100000, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
 --- !u!1 &2050659781
 GameObject:
@@ -9036,7 +9057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4466683883361734911, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5538847399692799969, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: owner

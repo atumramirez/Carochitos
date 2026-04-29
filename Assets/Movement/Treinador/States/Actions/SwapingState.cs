@@ -13,14 +13,9 @@ public class SwapingState : State<TrainerController>
     {
         Debug.Log("enter state: " + this.ToString());
 
-        if (character.isControllingMonster == true)
-        {
-            character.SwapToTrainer();
-        }
-        else
-        {
-            character.SwapToMonster();
-        }
+        Debug.Log("Swaping to Monster!");
+        
+        character.SwapToMonster();
     }
 }
 

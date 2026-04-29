@@ -1,9 +1,9 @@
 using UnityEngine;
 
-/*
-public class SwapToTrainerState : State
+
+public class MonsterSwapingState : State<MonsterController>
 {
-    public SwapToTrainerState(GenericController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
+    public MonsterSwapingState(MonsterController _character, StateMachine<MonsterController> _stateMachine) : base(_character, _stateMachine)
     {
         character = _character;
         stateMachine = _stateMachine;
@@ -13,7 +13,11 @@ public class SwapToTrainerState : State
     {
         base.Enter();
 
-        character.GetComponent<MonsterController>().characterHandler.SwapCharacter();
+        Debug.Log("enter state: " + this.ToString());
+
+        Debug.Log("Swaping to Trainer!");
+
+        character.owner.GetComponent<TrainerController>().SwapToTrainer();
     }
 }
-*/
+

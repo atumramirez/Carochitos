@@ -24,7 +24,7 @@ public class StandingState: State<TrainerController>
     {
         base.Enter();
 
-        character.SwitchCamera(character.thirdPersonCam);
+        character.cameraHandler.SwitchCamera(character.cameraHandler.thirdPersonCam);
 
         airTime = 0f;
 
@@ -63,7 +63,7 @@ public class StandingState: State<TrainerController>
     {
         if (character.isMonsterSpawned == false)
         {
-            Debug.Log("Summonig Monster");
+            Debug.Log("Summoning Monster");
             stateMachine.ChangeState(character.summoning);
         }
         else

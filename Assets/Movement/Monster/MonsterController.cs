@@ -10,10 +10,12 @@ public class MonsterController : GenericController
     [Header("States")]
     public MonsterStandingState standingState;
     public MonsterFollowState followState;
+    public MonsterSwapingState swapState;
 
     [Header("Player Inputs")]
-    public InputActionReference move;
-    public InputActionReference attack;
+    public InputAction move;
+    public InputAction attack;
+    public InputAction swap;
 
     [Header("Following")]
     public Transform owner;
@@ -23,7 +25,7 @@ public class MonsterController : GenericController
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
-        playerInput = GetComponent<PlayerInput>();
+        
 
         // Nav Mesh Agent
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -33,8 +35,16 @@ public class MonsterController : GenericController
         // Grounded
         followState = new MonsterFollowState(this, stateMachine);
         standingState = new MonsterStandingState(this, stateMachine);
+        swapState = new MonsterSwapingState(this, stateMachine);
 
         stateMachine.Initialize(followState);
+
+        // PLayer Input
+        playerInput = GetComponent<PlayerInput>();
+
+        move = playerInput.actions.FindActionMap("Monster").FindAction("Move");
+        swap = playerInput.actions.FindActionMap("Monster").FindAction("Switch");
+
 
 
         cameraTransform = Camera.main.transform;

@@ -22,15 +22,10 @@ public class TrainerController : GenericController
     public CaptureState capturing;
     public SwapingState swaping;
 
-
-
     // Aiming
      public ThrowingState throwing;
 
     /*
-    public AiState aiState;
-    public SummonState summonState;
-    public SwapToMonsterState changeCharacterState;
     public MenuState menuState;
     */
 
@@ -47,13 +42,7 @@ public class TrainerController : GenericController
     public PlayerMenu menuHolder;
 
     [Header("Cameras")]
-    public CinemachineCamera[] cameras;
-
-    public CinemachineCamera thirdPersonCam;
-    public CinemachineCamera combatCam;
-
-    public CinemachineCamera startCamera;
-    private CinemachineCamera currentCamera;
+    public CameraHandler cameraHandler;
 
     private Transform combatCameraTransform;
 
@@ -66,7 +55,11 @@ public class TrainerController : GenericController
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+
+        // Player Input
         playerInput = GetComponent<PlayerInput>();
+        playerInput.actions.FindActionMap("Trainer").Enable();
+        playerInput.actions.FindActionMap("Monster").Disable();
 
         menuHolder = FindFirstObjectByType<PlayerMenu>();
 
@@ -75,22 +68,10 @@ public class TrainerController : GenericController
         navMeshAgent.enabled = false;
 
         // Cameras
+        cameraHandler.Initialize();
+        cameraHandler.LookAt(transform);
 
-        currentCamera = startCamera;
-
-        for (int i = 0; i < cameras.Length; i++)
-        {
-            if (cameras[i] == currentCamera)
-            {
-                cameras[i].Priority = 20;
-            }
-            else
-            {
-                cameras[i].Priority = 10;
-            }
-        }
-
-        cameraTransform = currentCamera.transform;
+        cameraTransform = cameraHandler.CurrentCamera.transform;
 
         stateMachine = new StateMachine<TrainerController>();
         
@@ -109,7 +90,6 @@ public class TrainerController : GenericController
         capturing = new CaptureState(this, stateMachine);
         swaping = new SwapingState(this, stateMachine);
         
-
         // Throwing
         throwing = new ThrowingState(this, stateMachine);
 
@@ -117,7 +97,7 @@ public class TrainerController : GenericController
         summoning = new SummonState(this, stateMachine);  
         dismissing = new DismissState(this, stateMachine);
 
-        // Swaping characters
+        // SFollowing
         following = new FollowingState(this, stateMachine);
 
         stateMachine.Initialize(standing);
@@ -136,6 +116,7 @@ public class TrainerController : GenericController
         stateMachine.currentState.PhysicsUpdate();
     }
 
+    /*
     public void SwitchCamera(CinemachineCamera newCam)
     {
         currentCamera = newCam;
@@ -150,8 +131,10 @@ public class TrainerController : GenericController
             }
         }
     }
+    */
 
     [Header("Throwing")]
+
     public GameObject objectToThrow;
     public Transform throwPoint;
     public float throwForce = 10f;
@@ -182,9 +165,11 @@ public class TrainerController : GenericController
     }
 
     [Header("Monster")]
+
     public GameObject monster;
 
     [Header("Summoning")]
+
     public InputActionReference summon;
     public InputActionReference dismiss;
 
@@ -212,21 +197,35 @@ public class TrainerController : GenericController
     }
 
     [Header("Swaping")]
+
     public FollowingState following;
     public NavMeshAgent navMeshAgent;
     public bool isControllingMonster = false;
 
     public void SwapToMonster()
     {
+        playerInput.actions.FindActionMap("Trainer").Disable();
+        playerInput.actions.FindActionMap("Monster").Enable();
+
         navMeshAgent.enabled = true;
 
         stateMachine.ChangeState(following);
         monster.GetComponent<MonsterController>().stateMachine.ChangeState(monster.GetComponent<MonsterController>().standingState);
 
+        cameraHandler.LookAt(monster.transform);
+
+        // Adicionar a modificação do Rig da Camera em Runtime
+
         isControllingMonster = true;
     }
+
     public void SwapToTrainer()
     {
+        playerInput.actions.FindActionMap("Monster").Disable();
+        playerInput.actions.FindActionMap("Trainer").Enable();
+
+        cameraHandler.LookAt(transform);
+
         navMeshAgent.enabled = false;
 
         stateMachine.ChangeState(standing);
@@ -234,5 +233,4 @@ public class TrainerController : GenericController
 
         isControllingMonster = false;
     }
-
 }

@@ -23,7 +23,7 @@ public class ThrowingState : State<TrainerController>
     {
         base.Enter();
 
-        character.SwitchCamera(character.combatCam);
+        character.cameraHandler.SwitchCamera(character.cameraHandler.combatCam);
 
         character.throwin.action.started += PressAim;
         character.jump.action.started += Throw;
