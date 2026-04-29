@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeSkill: Skill
+public class MeleeSkill: SkillBase
 {
     [Header("Modules")]
     public List<MeleeModule> modules;

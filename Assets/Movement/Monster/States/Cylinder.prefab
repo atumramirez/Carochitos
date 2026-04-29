@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7702980359702086962}
   - component: {fileID: 7151908374047369674}
   - component: {fileID: 5538847399692799969}
+  - component: {fileID: 4087015717365295847}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -34,7 +35,8 @@ Transform:
   m_LocalPosition: {x: 4.03931, y: 2.75, z: 7.77146}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1609564517245878072}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6784798744416467792
@@ -52,7 +54,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4466683883361734911}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -183,17 +185,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e6bc8704a70ee40b5eac6661284d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterController
-  playerSpeed: 5
+  playerSpeed: 7
   crouchSpeed: 2
-  sprintSpeed: 7
+  sprintSpeed: 9
   jumpHeight: 0.8
   gravityMultiplier: 2
   rotationSpeed: 5
   crouchColliderHeight: 1.35
   speedDampTime: 0.1
-  velocityDampTime: 0.9
+  velocityDampTime: 0.121
   rotationDampTime: 0.2
-  airControl: 0.5
+  airControl: 1
   gravityValue: -9.81
   normalColliderHeight: 0
   controller: {fileID: 0}
@@ -228,5 +230,125 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  ability1:
+    m_Name: Ability 1
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 98b498f1-0798-456e-95f8-d58eb82d45f1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  ability2:
+    m_Name: Ability 2
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 7aeffffe-0306-434a-9d94-64958b6cb1cf
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  ability3:
+    m_Name: Ability 3
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 18ceeaf3-ba29-4046-bbe9-d8d004fa7202
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  ability4:
+    m_Name: Ability 4
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e55f9c13-846e-416f-8b1a-4745177a69fb
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   owner: {fileID: 0}
   navMeshAgent: {fileID: 7702980359702086962}
+  handler: {fileID: 0}
+--- !u!114 &4087015717365295847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4466683883361734911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaff53c686321747a63aefe06a2e934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarochitoHandler
+  carochito:
+    _base: {fileID: 11400000, guid: 5a3e2a6d5a9ab7540b0eb3c7b54c35fd, type: 2}
+    _nickname: 
+    _level: 63
+    _currentHealth: 20
+    _skills:
+    - _base: {fileID: 11400000, guid: 98b73aac55657d14192f2b9d01681275, type: 2}
+      _state: 0
+  healthBar: {fileID: 0}
+--- !u!1001 &1287162098798696659
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7400708448335500600}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 03b1b0f63c24080469af79beb293a444, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 03b1b0f63c24080469af79beb293a444, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.374
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 03b1b0f63c24080469af79beb293a444, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 03b1b0f63c24080469af79beb293a444, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 03b1b0f63c24080469af79beb293a444, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 03b1b0f63c24080469af79beb293a444, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 03b1b0f63c24080469af79beb293a444, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 03b1b0f63c24080469af79beb293a444, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 03b1b0f63c24080469af79beb293a444, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 03b1b0f63c24080469af79beb293a444, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 03b1b0f63c24080469af79beb293a444, type: 3}
+      propertyPath: m_Name
+      value: Sardinha
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 03b1b0f63c24080469af79beb293a444, type: 3}
+--- !u!4 &1609564517245878072 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 03b1b0f63c24080469af79beb293a444, type: 3}
+  m_PrefabInstance: {fileID: 1287162098798696659}
+  m_PrefabAsset: {fileID: 0}

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SkillHolder : MonoBehaviour
 {
-    public List<Skill> _skills = new();
+    public List<SkillBase> _skills = new();
 
     float _cooldownTime;
     float _activeTime;
@@ -34,6 +34,7 @@ public class SkillHolder : MonoBehaviour
                 break;
 
             case SkillState.Active:
+
                 if (_activeTime > 0)
                 {
                     _activeTime -= Time.deltaTime;

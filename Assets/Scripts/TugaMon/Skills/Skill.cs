@@ -1,28 +1,23 @@
 using UnityEngine;
 
-public class Skill : ScriptableObject
+[System.Serializable]
+public class Skill
 {
-    [Header("Basic Info")]
-    [SerializeField] string _name;
+    [SerializeField] SkillBase _base;
+    public SkillBase Base { get { return _base; } }
 
-    [TextArea]
-    [SerializeField] string _description;
-
-    [Header("Combat Info")]
-    [SerializeField] ElementalTypes _elementalType;
-
-    [SerializeField] int power;
-    public int Power { get { return power; } }
-
-    [Header("Timers")]
-    [SerializeField] int cooldown;
-    public int Cooldown { get { return cooldown; } }
-
-    [SerializeField] int activetime;
-    public int ActiveTime { get { return activetime; } }
-
-    public virtual void Activate(GameObject parent)
+    public Skill(SkillBase chitoBase)
     {
-        Debug.Log("Skill Activated");
+        _base = chitoBase;
     }
+
+    public enum SkillsState
+    {
+        Ready,
+        Active,
+        Cooldown,
+    }
+
+    [SerializeField] SkillsState _state = SkillsState.Ready;
+    public SkillsState State { get { return _state; } set { _state = value; } }
 }

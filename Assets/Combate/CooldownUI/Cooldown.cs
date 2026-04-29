@@ -8,7 +8,7 @@ public class Cooldown : MonoBehaviour
     [Serializable]
     public class SkillCooldown
     {
-        public Skill skill;
+        public SkillBase skill;
         public Image image;
     }
 

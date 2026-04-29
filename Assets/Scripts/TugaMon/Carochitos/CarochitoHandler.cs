@@ -7,6 +7,7 @@ public class CarochitoHandler : MonoBehaviour
     [Header("UI")]
     public HealthBar healthBar;
 
+
     private void Start()
     {
         healthBar = GameObject.Find("HealthSlider").GetComponent<HealthBar>();
@@ -22,7 +23,7 @@ public class CarochitoHandler : MonoBehaviour
         }
     }
 
-    public void TakeDamage(CarochitoHandler owner, Skill power)
+    public void TakeDamage(CarochitoHandler owner, SkillBase power)
     {
         int damage = owner.carochito.Attack + power.Power; 
 

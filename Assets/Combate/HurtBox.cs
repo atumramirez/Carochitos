@@ -5,7 +5,7 @@ public class HurtBox : MonoBehaviour
     public int damage = 10;
 
     public CarochitoHandler owner;
-    public Skill skill;
+    public SkillBase skill;
 
     private void OnTriggerEnter(Collider other)
     {

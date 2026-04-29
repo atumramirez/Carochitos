@@ -8288,6 +8288,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 78bc8074e27c8714fbbee1059bd6ddf7, type: 2}
     - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: cameraHandler
+      value: 
+      objectReference: {fileID: 1933072041}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
       propertyPath: monsterPrefab
       value: 
       objectReference: {fileID: 4466683883361734911, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}

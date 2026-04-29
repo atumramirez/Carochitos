@@ -116,23 +116,6 @@ public class TrainerController : GenericController
         stateMachine.currentState.PhysicsUpdate();
     }
 
-    /*
-    public void SwitchCamera(CinemachineCamera newCam)
-    {
-        currentCamera = newCam;
-
-        currentCamera.Priority = 20;
-
-        for (int i = 0; i < cameras.Length; i++)
-        {
-            if (cameras[i] != currentCamera)
-            {
-                cameras[i].Priority = 10;
-            }
-        }
-    }
-    */
-
     [Header("Throwing")]
 
     public GameObject objectToThrow;
@@ -208,6 +191,7 @@ public class TrainerController : GenericController
         playerInput.actions.FindActionMap("Monster").Enable();
 
         navMeshAgent.enabled = true;
+        monster.GetComponent<MonsterController>().navMeshAgent.enabled = false;
 
         stateMachine.ChangeState(following);
         monster.GetComponent<MonsterController>().stateMachine.ChangeState(monster.GetComponent<MonsterController>().standingState);
@@ -227,6 +211,7 @@ public class TrainerController : GenericController
         cameraHandler.LookAt(transform);
 
         navMeshAgent.enabled = false;
+        monster.GetComponent<MonsterController>().navMeshAgent.enabled = true;
 
         stateMachine.ChangeState(standing);
         monster.GetComponent<MonsterController>().stateMachine.ChangeState(monster.GetComponent<MonsterController>().followState);

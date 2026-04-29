@@ -17,7 +17,10 @@ public class MonsterSwapingState : State<MonsterController>
 
         Debug.Log("Swaping to Trainer!");
 
-        character.owner.GetComponent<TrainerController>().SwapToTrainer();
+        if (character.owner.GetComponent<TrainerController>().isControllingMonster == true)
+        {
+            character.owner.GetComponent<TrainerController>().SwapToTrainer();
+        }
     }
 }
 

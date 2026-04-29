@@ -12,21 +12,33 @@ public class MonsterController : GenericController
     public MonsterFollowState followState;
     public MonsterSwapingState swapState;
 
+    public MonsterAttackState attackState;
+
     [Header("Player Inputs")]
     public InputAction move;
     public InputAction attack;
     public InputAction swap;
 
+    public InputAction ability1;
+    public InputAction ability2;
+    public InputAction ability3;
+    public InputAction ability4;
+
     [Header("Following")]
     public Transform owner;
     public NavMeshAgent navMeshAgent;
+
+    [Header("Carochito")]
+    public CarochitoHandler handler;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
-        
 
+        // Handler
+        handler = GetComponent<CarochitoHandler>();
+        
         // Nav Mesh Agent
         navMeshAgent = GetComponent<NavMeshAgent>();
 
@@ -37,15 +49,21 @@ public class MonsterController : GenericController
         standingState = new MonsterStandingState(this, stateMachine);
         swapState = new MonsterSwapingState(this, stateMachine);
 
+        attackState = new MonsterAttackState(this, stateMachine);
+
         stateMachine.Initialize(followState);
 
-        // PLayer Input
+        // PLayer Input 
         playerInput = GetComponent<PlayerInput>();
 
         move = playerInput.actions.FindActionMap("Monster").FindAction("Move");
         swap = playerInput.actions.FindActionMap("Monster").FindAction("Switch");
 
-
+        // Attacks s
+        ability1 = playerInput.actions.FindActionMap("Monster").FindAction("Ability1");
+        ability2 = playerInput.actions.FindActionMap("Monster").FindAction("Ability2");
+        ability3 = playerInput.actions.FindActionMap("Monster").FindAction("Ability3");
+        ability4 = playerInput.actions.FindActionMap("Monster").FindAction("Ability4");
 
         cameraTransform = Camera.main.transform;
 
