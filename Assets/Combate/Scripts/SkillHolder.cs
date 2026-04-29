@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class SkillHolder : MonoBehaviour
 {
-    public List<SkillBase> _skills = new();
+    /*
+    public SkillBase _skills;
 
     float _cooldownTime;
     float _activeTime;
@@ -26,9 +27,9 @@ public class SkillHolder : MonoBehaviour
             case SkillState.Ready:
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
-                    _skills[0].Activate(gameObject);
+                    _skills.Activate(gameObject);
                     _state = SkillState.Active;
-                    _activeTime = _skills[0].ActiveTime;
+                    _activeTime = _skills.ActiveTime;
 
                 }
                 break;
@@ -43,7 +44,7 @@ public class SkillHolder : MonoBehaviour
                 {
                     _state = SkillState.Cooldown;
                     cooldown.StartCooldown();
-                    _cooldownTime = _skills[0].Cooldown;
+                    _cooldownTime = _skills.Cooldown;
                 }
                 break;
 
@@ -59,4 +60,5 @@ public class SkillHolder : MonoBehaviour
                 break;
         }
     }
+    */
 }

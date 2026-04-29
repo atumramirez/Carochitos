@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -30,11 +31,10 @@ public class MonsterController : GenericController
     public NavMeshAgent navMeshAgent;
 
     [Header("Carochito")]
-    public CarochitoHandler handler;
+    public Carochito carochito;
+    public HealthBar healthBar;
 
-    [Header("Skills")]
-    float _cooldownTime;
-    float _activeTime;
+    public CarochitoHandler handler;
 
     private void Start()
     {
@@ -70,6 +70,9 @@ public class MonsterController : GenericController
         ability3 = playerInput.actions.FindActionMap("Monster").FindAction("Ability3");
         ability4 = playerInput.actions.FindActionMap("Monster").FindAction("Ability4");
 
+        // Skills
+        AssignSkillsToSlots();
+
         cameraTransform = Camera.main.transform;
 
         normalColliderHeight = controller.height;
@@ -79,6 +82,11 @@ public class MonsterController : GenericController
     private void Update()
     {
         stateMachine.currentState.LogicUpdate();
+
+        for (int i = 0; i < skills.Count; i++)
+        {
+            HandleSkill(i);
+        }
     }
 
     private void FixedUpdate()
@@ -91,21 +99,83 @@ public class MonsterController : GenericController
         owner = transform;
     }
 
-    public void Attack(Skill skill)
-    {
-        foreach (Skill skills in handler.carochito.Skills)
-        {
-            if (skill == skills)
-            {
-                if (skills.State == SkillsState.Ready)
-                {
-                    skills.Base.Activate(gameObject);
-                    skills.State = SkillsState.Active;
-                    _activeTime = skills.Base.ActiveTime;
-                }
-            }
-        }
+    [Header("Skills")]
+    public List<SkillSlot> skills = new(4);
 
+    [System.Serializable]
+    public class SkillSlot
+    {
+        public SkillBase skill;
+        public Cooldown cooldownUI;
+
+        [HideInInspector] public float cooldownTime;
+        [HideInInspector] public float activeTime;
+        [HideInInspector] public SkillState state = SkillState.Ready;
+    }
+
+    void AssignSkillsToSlots()
+    {
+        skills.Clear();
+
+        for (int i = 0; i < carochito.Skills.Count && i < 4; i++)
+        {
+            SkillSlot newSlot = new();
+            newSlot.skill = carochito.Skills[i];
+
+            skills.Add(newSlot);
+        }
+    }
+
+    public void Attack(int index)
+    {
+        SkillSlot slot = skills[index];
+
+        if (slot.state == SkillState.Ready && slot.skill != null)
+        {
+            stateMachine.ChangeState(attackState);
+
+            slot.skill.Activate(gameObject);
+            slot.state = SkillState.Active;
+            slot.activeTime = slot.skill.ActiveTime;
+        }
+    }
+
+    void HandleSkill(int index)
+    {
+        SkillSlot slot = skills[index];
+
+        switch (slot.state)
+        {
+            case SkillState.Active:
+                if (slot.activeTime > 0)
+                {
+                    slot.activeTime -= Time.deltaTime;
+                }
+                else
+                {
+                    slot.state = SkillState.Cooldown;
+                    slot.cooldownTime = slot.skill.Cooldown;
+
+                    stateMachine.ChangeState(standingState);
+
+                    if (slot.cooldownUI != null)
+                    {
+                        slot.cooldownUI.StartCooldown();
+                    }    
+                }
+                break;
+
+            case SkillState.Cooldown:
+                if (slot.cooldownTime > 0)
+                {
+                    slot.cooldownTime -= Time.deltaTime;
+                }
+                else
+                {
+                    slot.state = SkillState.Ready;
+                }
+                break;
+        }
     }
 }
 

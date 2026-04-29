@@ -268,7 +268,19 @@ MonoBehaviour:
     m_Flags: 0
   owner: {fileID: 0}
   navMeshAgent: {fileID: 7702980359702086962}
+  carochito:
+    _base: {fileID: 11400000, guid: 5a3e2a6d5a9ab7540b0eb3c7b54c35fd, type: 2}
+    _nickname: 
+    _level: 54
+    _currentHealth: 0
+    _skills:
+    - {fileID: 11400000, guid: 98b73aac55657d14192f2b9d01681275, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  healthBar: {fileID: 0}
   handler: {fileID: 0}
+  skills: []
 --- !u!114 &4087015717365295847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +288,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4466683883361734911}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: caaff53c686321747a63aefe06a2e934, type: 3}
   m_Name: 
@@ -287,8 +299,7 @@ MonoBehaviour:
     _level: 63
     _currentHealth: 20
     _skills:
-    - _base: {fileID: 11400000, guid: 98b73aac55657d14192f2b9d01681275, type: 2}
-      _state: 0
+    - {fileID: 0}
   healthBar: {fileID: 0}
 --- !u!1001 &1287162098798696659
 PrefabInstance:

@@ -24,8 +24,8 @@ public class Carochito
     }
 
     // Skills
-    [SerializeField] List<Skill> _skills = new();
-    public List<Skill> Skills { get { return _skills; } set { _skills = value; } }
+    [SerializeField] List<SkillBase> _skills = new();
+    [HideInInspector] public List<SkillBase> Skills { get { return _skills; } set { _skills = value; } }
 
 
     // Stats

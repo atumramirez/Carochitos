@@ -37,8 +37,7 @@ public class MonsterStandingState : State<MonsterController>
 
     private void PressSummon(InputAction.CallbackContext context)
     {
-        Debug.Log("Press Atack");
-        character.stateMachine.ChangeState(character.attackState);
+        character.Attack(0);
     }
 
     private void PressSwap(InputAction.CallbackContext context)

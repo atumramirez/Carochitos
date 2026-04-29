@@ -18,22 +18,11 @@ public class MonsterAttackState: State<MonsterController>
     public override void Enter()
     {
         base.Enter();
-
-
+        Debug.Log("Attacaste");
     }
 
     public override void Exit()
     {
         base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
-
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }
