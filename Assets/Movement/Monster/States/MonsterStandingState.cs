@@ -1,14 +1,10 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-/*
-public class MonsterStandingState : State
+public class MonsterStandingState : State<MonsterController>
 {
     float gravityValue;
-
-    // Ações
-    bool jump;
-    bool attack;
-    bool swap;
 
     Vector3 currentVelocity;
     bool grounded;
@@ -16,7 +12,7 @@ public class MonsterStandingState : State
 
     Vector3 cVelocity;
 
-    public MonsterStandingState(MonsterController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
+    public MonsterStandingState(MonsterController _character, StateMachine<MonsterController> _stateMachine) : base(_character, _stateMachine)
     {
         character = _character;
         stateMachine = _stateMachine;
@@ -26,10 +22,6 @@ public class MonsterStandingState : State
     {
         base.Enter();
 
-        jump = false;
-        attack = false;
-        swap = false;
-
         input = Vector2.zero;
         velocity = Vector3.zero;
         currentVelocity = Vector3.zero;
@@ -38,80 +30,54 @@ public class MonsterStandingState : State
         playerSpeed = character.playerSpeed;
         grounded = character.controller.isGrounded;
         gravityValue = character.gravityValue;
+
+        character.swap.performed += PressSwap;
+        character.ability1.performed += PressSummon;
     }
 
-    public override void HandleInput()
+    private void PressSummon(InputAction.CallbackContext context)
     {
-        base.HandleInput();
+        character.Attack(0);
+    }
 
-        if (jumpAction.triggered)
-        {
-            jump = true;
-        }
-        if (attackAction.triggered)
-        {
-            attack = true;
-        }
-        if (switchAction.triggered)
-        {
-            swap = true;
-        }
-
-        input = moveAction.ReadValue<Vector2>();
-        velocity = new Vector3(input.x, 0, input.y);
-
-        velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized;
-        velocity.y = 0f;
-
+    private void PressSwap(InputAction.CallbackContext context)
+    {
+        Debug.Log("Swap button pressed!");
+        character.stateMachine.ChangeState(character.swapState);
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
+        input = character.move.ReadValue<Vector2>();
+
+        velocity = new Vector3(input.x, 0, input.y);
+        velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized;
+        velocity.y = 0f;
+
         // character.animator.SetFloat("speed", input.magnitude, character.speedDampTime, Time.deltaTime);
-
-        /*
-        if (jump)
-        {
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().jumping);
-        }
-        */
-
-        /*
-        if (attack)
-        {
-            stateMachine.ChangeState(character.GetComponent<MonsterController>().lockOnState);
-        }
-        */
-        
-/*
-        if (swap)
-        {
-            stateMachine.ChangeState(character.GetComponent<MonsterController>().swapToTrainerState);
-        }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
 
-        gravityVelocity.y += gravityValue * Time.deltaTime;
         grounded = character.controller.isGrounded;
+        gravityVelocity.y += character.gravityValue * Time.deltaTime;
 
         if (grounded && gravityVelocity.y < 0)
         {
-            gravityVelocity.y = 0f;
+            gravityVelocity.y = -2f;
         }
 
         currentVelocity = Vector3.SmoothDamp(currentVelocity, velocity, ref cVelocity, character.velocityDampTime);
-        character.controller.Move(playerSpeed * Time.deltaTime * currentVelocity + gravityVelocity * Time.deltaTime);
+        character.controller.Move(character.playerSpeed * Time.deltaTime * currentVelocity + gravityVelocity * Time.deltaTime);
 
-        if (velocity.sqrMagnitude > 0)
+        if (velocity.sqrMagnitude > 0.001f)
         {
             character.transform.rotation = Quaternion.Slerp(character.transform.rotation, Quaternion.LookRotation(velocity), character.rotationDampTime);
         }
-
     }
     public override void Exit()
     {
@@ -124,6 +90,9 @@ public class MonsterStandingState : State
         {
             character.transform.rotation = Quaternion.LookRotation(velocity);
         }
+
+        character.swap.performed -= PressSwap;
+        character.ability1.performed -= PressSummon;
     }
+        
 }
-*/

@@ -18,7 +18,7 @@ public class UseSkill: MonoBehaviour
 
     [Header("Loucuras")]
     public CarochitoHandler owner;
-    public Skill skill;
+    public SkillBase skill;
 
     void Start()
     {

@@ -23,7 +23,7 @@ public class ThrowingState : State<TrainerController>
     {
         base.Enter();
 
-        character.SwitchCamera(character.combatCam);
+        character.cameraHandler.SwitchCamera(character.cameraHandler.combatCam);
 
         character.throwin.action.started += PressAim;
         character.jump.action.started += Throw;
@@ -98,9 +98,10 @@ public class ThrowingState : State<TrainerController>
             gravityVelocity * Time.deltaTime
         );
 
-        // -------- ROTATION LOGIC (TPS STYLE) --------
+        // -------- ROTATION LOGIC --------
 
         // Face camera forward while aiming
+
         Vector3 aimDirection = character.cameraTransform.forward;
         aimDirection.y = 0f;
 

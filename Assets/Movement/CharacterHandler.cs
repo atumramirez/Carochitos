@@ -4,7 +4,7 @@ public class CharacterHandler : MonoBehaviour
 {
     [Header("Available Characters")]
     public TrainerController tarinerCharacter;
-    //public MonsterController monsterController = null;
+    public MonsterController monsterController = null;
     public GenericController currentCharacter;
 
     [Header("MonsterData")]
@@ -24,12 +24,12 @@ public class CharacterHandler : MonoBehaviour
     {
         currentCharacter = tarinerCharacter;
 
-        /*
+        
         if (monsterController != null)
         {
             monster = monsterController.gameObject;
         }
-        */
+        
     }
 
     public void Summon()
@@ -42,7 +42,7 @@ public class CharacterHandler : MonoBehaviour
                 spawnPoint.rotation
              );
 
-            //monsterController = monster.GetComponent<MonsterController>();
+            monsterController = monster.GetComponent<MonsterController>();
 
             isMonsterOut = true;
         }
@@ -52,13 +52,13 @@ public class CharacterHandler : MonoBehaviour
 
             isMonsterOut = false;
             monster = null;
-            //monsterController = null;
+            monsterController = null;
         }
     }
 
     public void TakeAway()
     {
-        //tarinerCharacter.stateMachine.ChangeState(tarinerCharacter.summonState);
+        tarinerCharacter.stateMachine.ChangeState(tarinerCharacter.summoning);
     }
 
     public void SwapCharacter()
@@ -67,10 +67,10 @@ public class CharacterHandler : MonoBehaviour
 
         if (currentCharacter == tarinerCharacter)
         {
-            // tarinerCharacter.stateMachine.ChangeState(tarinerCharacter.aiState);
-            //monsterController.stateMachine.ChangeState(monsterController.standingState);
+            //tarinerCharacter.stateMachine.ChangeState(tarinerCharacter.aiState);
+            monsterController.stateMachine.ChangeState(monsterController.standingState);
 
-            //currentCharacter = monsterController;
+            currentCharacter = monsterController;
 
             monsterHUD.SetActive(true);
             playerHUD.SetActive(false);
@@ -78,7 +78,7 @@ public class CharacterHandler : MonoBehaviour
         else
         {
             tarinerCharacter.stateMachine.ChangeState(tarinerCharacter.standing);
-            //monsterController.stateMachine.ChangeState(monsterController.monsterAiState);
+            monsterController.stateMachine.ChangeState(monsterController.followState);
 
             currentCharacter = tarinerCharacter;
 

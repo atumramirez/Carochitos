@@ -1,7 +1,7 @@
-using System;
-using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using Unity.Cinemachine;
 public class TrainerController : GenericController
 {
     [Header("State Machine")]
@@ -20,15 +20,12 @@ public class TrainerController : GenericController
     public SprintState sprinting;
 
     public CaptureState capturing;
+    public SwapingState swaping;
 
     // Aiming
-    public ThrowingState throwing;
+     public ThrowingState throwing;
 
     /*
-    
-    public AiState aiState;
-    public SummonState summonState;
-    public SwapToMonsterState changeCharacterState;
     public MenuState menuState;
     */
 
@@ -41,48 +38,40 @@ public class TrainerController : GenericController
     public InputActionReference capture;
     public InputActionReference throwin;
 
-    [Header("CharacterHandler")]
-    public CharacterHandler characterHandler;
-
     [Header("Menu")]
     public PlayerMenu menuHolder;
 
     [Header("Cameras")]
-    public CinemachineCamera[] cameras;
+    public CameraHandler cameraHandler;
 
-    public CinemachineCamera thirdPersonCam;
-    public CinemachineCamera combatCam;
+    private Transform combatCameraTransform;
 
-    public CinemachineCamera startCamera;
-    private CinemachineCamera currentCamera;
+    [Header("Player Data")]
+    public Inventory inventory;
 
-    private Transform combatCameraTransform; 
-
+    [Header("Bola de Berlim")]
+    public ItemBase bolaDeBeerlim;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+
+        // Player Input
         playerInput = GetComponent<PlayerInput>();
+        playerInput.actions.FindActionMap("Trainer").Enable();
+        playerInput.actions.FindActionMap("Monster").Disable();
 
         menuHolder = FindFirstObjectByType<PlayerMenu>();
 
+        // Nav Mesh
+        navMeshAgent = GetComponentInChildren<NavMeshAgent>();
+        navMeshAgent.enabled = false;
+
         // Cameras
+        cameraHandler.Initialize();
+        cameraHandler.LookAt(transform);
 
-        currentCamera = startCamera;
-
-        for (int i = 0; i < cameras.Length; i++)
-        {
-            if (cameras[i] == currentCamera)
-            {
-                cameras[i].Priority = 20;
-            }
-            else
-            {
-                cameras[i].Priority = 10;
-            }
-        }
-
-        cameraTransform = currentCamera.transform;
+        cameraTransform = cameraHandler.CurrentCamera.transform;
 
         stateMachine = new StateMachine<TrainerController>();
         
@@ -99,10 +88,17 @@ public class TrainerController : GenericController
 
         // Actions
         capturing = new CaptureState(this, stateMachine);
-
+        swaping = new SwapingState(this, stateMachine);
+        
         // Throwing
         throwing = new ThrowingState(this, stateMachine);
 
+        // Summoning and Dismissing
+        summoning = new SummonState(this, stateMachine);  
+        dismissing = new DismissState(this, stateMachine);
+
+        // SFollowing
+        following = new FollowingState(this, stateMachine);
 
         stateMachine.Initialize(standing);
 
@@ -120,51 +116,106 @@ public class TrainerController : GenericController
         stateMachine.currentState.PhysicsUpdate();
     }
 
-    public void Summon()
-    {
-        characterHandler.Summon();
-    }
-
-    public void Swap()
-    {
-        characterHandler.SwapCharacter();
-    }
-
-    public void SwitchCamera(CinemachineCamera newCam)
-    {
-        currentCamera = newCam;
-
-        currentCamera.Priority = 20;
-
-        for (int i = 0; i < cameras.Length; i++)
-        {
-            if (cameras[i] != currentCamera)
-            {
-                cameras[i].Priority = 10;
-            }
-        }
-    }
-
     [Header("Throwing")]
+
     public GameObject objectToThrow;
     public Transform throwPoint;
     public float throwForce = 10f;
 
     public void Throw()
     {
-        GameObject obj = Instantiate(objectToThrow, throwPoint.position, Quaternion.identity);
-
-        if (obj.TryGetComponent<Rigidbody>(out var rb))
+        if (inventory.CanRemoveItem(bolaDeBeerlim) == true)
         {
-            Transform cam = Camera.main.transform;
+            Debug.Log("Lançar Bola de Berlim!");
 
-            Vector3 forward = cam.forward;
+            GameObject obj = Instantiate(objectToThrow, throwPoint.position, Quaternion.identity);
 
-            float upwardForce = 0.5f;
+            if (obj.TryGetComponent<Rigidbody>(out var rb))
+            {
+                Transform cam = Camera.main.transform;
 
-            Vector3 throwDirection = (forward + Vector3.up * upwardForce).normalized;
+                Vector3 forward = cam.forward;
 
-            rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+                float upwardForce = 0.5f;
+
+                Vector3 throwDirection = (forward + Vector3.up * upwardForce).normalized;
+
+                rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+            }
+
+            inventory.RemoveItem(bolaDeBeerlim, 1);
         }
+    }
+
+    [Header("Monster")]
+
+    public GameObject monster;
+
+    [Header("Summoning")]
+
+    public InputActionReference summon;
+    public InputActionReference dismiss;
+
+    public SummonState summoning;
+    public DismissState dismissing;
+
+    public bool isMonsterSpawned = false;
+    public Transform monsterSpawnPoint;
+    public GameObject monsterPrefab;
+    public void Summon()
+    {
+        monster = Instantiate(monsterPrefab, monsterSpawnPoint.position, monsterSpawnPoint.rotation);
+        monster.GetComponent<MonsterController>().GetOwner(this.transform);
+
+        isMonsterSpawned = true;
+    }
+
+    public void Dismiss()
+    {
+
+        Destroy(monster);
+        monster = null; // Destruir o Objecto, sem depois deixar ele como Null pode causar problemas. 
+
+        isMonsterSpawned = false;
+    }
+
+    [Header("Swaping")]
+
+    public FollowingState following;
+    public NavMeshAgent navMeshAgent;
+    public bool isControllingMonster = false;
+
+    public void SwapToMonster()
+    {
+        playerInput.actions.FindActionMap("Trainer").Disable();
+        playerInput.actions.FindActionMap("Monster").Enable();
+
+        navMeshAgent.enabled = true;
+        monster.GetComponent<MonsterController>().navMeshAgent.enabled = false;
+
+        stateMachine.ChangeState(following);
+        monster.GetComponent<MonsterController>().stateMachine.ChangeState(monster.GetComponent<MonsterController>().standingState);
+
+        cameraHandler.LookAt(monster.transform);
+
+        // Adicionar a modificação do Rig da Camera em Runtime
+
+        isControllingMonster = true;
+    }
+
+    public void SwapToTrainer()
+    {
+        playerInput.actions.FindActionMap("Monster").Disable();
+        playerInput.actions.FindActionMap("Trainer").Enable();
+
+        cameraHandler.LookAt(transform);
+
+        navMeshAgent.enabled = false;
+        monster.GetComponent<MonsterController>().navMeshAgent.enabled = true;
+
+        stateMachine.ChangeState(standing);
+        monster.GetComponent<MonsterController>().stateMachine.ChangeState(monster.GetComponent<MonsterController>().followState);
+
+        isControllingMonster = false;
     }
 }

@@ -1,9 +1,8 @@
 using UnityEngine;
 
-/*
-public class SummonState : State
+public class SummonState : State<TrainerController>
 {
-    public SummonState(GenericController _character, StateMachine _stateMachine) : base(_character, _stateMachine)
+    public SummonState(TrainerController _character, StateMachine<TrainerController> _stateMachine) : base(_character, _stateMachine)
     {
         character = _character;
         stateMachine = _stateMachine;
@@ -20,17 +19,15 @@ public class SummonState : State
     {
         AnimatorStateInfo stateInfo = character.animator.GetCurrentAnimatorStateInfo(0);
 
-        // Wait for animation to finish
         if (stateInfo.IsName("Attack") && stateInfo.normalizedTime >= 1f)
         {
-            Debug.Log("Animation finished");
+            Debug.Log("Summoning animation finished!");
 
-            // Summon
-            character.GetComponent<TrainerController>().Summon();
+            character.Summon();
 
             character.animator.SetTrigger("move");
-            stateMachine.ChangeState(character.GetComponent<TrainerController>().standing);
+            stateMachine.ChangeState(character.standing);
         }
     }
 }
-*/
+

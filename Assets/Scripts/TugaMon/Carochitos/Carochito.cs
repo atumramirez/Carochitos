@@ -22,7 +22,13 @@ public class Carochito
         _base = chitoBase;
         _level = chitoLevel;
     }
-    public List<Skill> Skills { get; set; }
+
+    // Skills
+    [SerializeField] List<SkillBase> _skills = new();
+    [HideInInspector] public List<SkillBase> Skills { get { return _skills; } set { _skills = value; } }
+
+
+    // Stats
     public string Name { get { if (_nickname != "") { return _nickname; } else { return _base.Name; } } }
     public int Attack { get { return (_base.Attack * _level / 100) + 5; } }
     public int Defense { get { return (_base.Defense * _level / 100) + 5; } }

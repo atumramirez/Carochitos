@@ -17,7 +17,7 @@ public class State<T> where T : GenericController
 
     public virtual void Enter()
     {
-        Debug.Log("enter state: " + this.ToString());
+
     }
 
     public virtual void LogicUpdate() // O mesmo que Update()
