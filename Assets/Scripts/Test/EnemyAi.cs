@@ -18,7 +18,14 @@ public class EnemyAi : MonoBehaviour
     public UseSkill skill;
 
     public float sightRange, attackRange;
-    public float viewAngle = 90f; 
+    public float viewAngle = 90f;
+
+    public Transform ball;
+    public LayerMask whatIsBall;
+
+    public float investigationTime = 3f;
+    private float investigateTimer;
+    private bool investigatingBall;
 
     public bool playerInSightRnage, playerInAttackRange;
 
@@ -30,45 +37,96 @@ public class EnemyAi : MonoBehaviour
 
     void Update()
     {
-        bool inSightSphere = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        bool inAttackSphere = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        FindBall();
+        
+        bool playerInSphere = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        bool playerVisible = playerInSphere && IsInFieldOfView(player.position) && HasLineOfSight(player);
 
-        bool inFOV = IsInFieldOfView();
-        bool hasLOS = HasLineOfSight();
+        bool playerInAttack = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer)
+                              && IsInFieldOfView(player.position)
+                              && HasLineOfSight(player);
 
-        playerInSightRnage = inSightSphere && inFOV && hasLOS;
-        playerInAttackRange = inAttackSphere && inFOV && hasLOS;
+        
+        bool ballInSphere = ball != null && Physics.CheckSphere(transform.position, sightRange, whatIsBall);
+        bool ballVisible = ballInSphere && IsInFieldOfView(ball.position) && HasLineOfSight(ball);
 
-        if (!playerInSightRnage && !playerInAttackRange) Patroling();
-        if (playerInSightRnage && !playerInAttackRange) ChasePlayer();
-        if (playerInSightRnage && playerInAttackRange) AttackPlayer();
+        
+
+        if (playerVisible)
+        {
+            investigatingBall = false;
+
+            if (playerInAttack)
+                AttackPlayer();
+            else
+                ChasePlayer();
+        }
+        else if (ballVisible)
+        {
+            investigatingBall = true;
+            investigateTimer = investigationTime;
+            InvestigateBall();
+        }
+        else if (investigatingBall)
+        {
+            InvestigateBall();
+        }
+        else
+        {
+            Patroling();
+        }
     }
 
-    bool IsInFieldOfView()
+    void FindBall()
     {
-        Vector3 directionToPlayer = (player.position - transform.position).normalized;
-        float angle = Vector3.Angle(transform.forward, directionToPlayer);
+        if (ball != null) return;
 
+        GameObject ballF = GameObject.FindGameObjectWithTag("Bola");
+
+        if (ballF != null)
+        {
+            ball = ballF.transform;
+        }
+    }
+
+    bool IsInFieldOfView(Vector3 targetPosition)
+    {
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        float angle = Vector3.Angle(transform.forward, direction);
         return angle < viewAngle / 2f;
     }
 
-    bool HasLineOfSight()
+    bool HasLineOfSight(Transform target)
     {
         Vector3 origin = transform.position + Vector3.up;
-        Vector3 direction = (player.position - origin).normalized;
-        float distance = Vector3.Distance(origin, player.position);
+        Vector3 direction = (target.position - origin).normalized;
+        float distance = Vector3.Distance(origin, target.position);
 
         RaycastHit hit;
 
         if (Physics.Raycast(origin, direction, out hit, distance))
         {
-            Debug.DrawRay(origin, direction * distance, Color.red);
+            Debug.DrawRay(origin, direction * distance, Color.green);
 
-            if (hit.transform == player)
+            if (hit.transform == target)
                 return true;
         }
 
         return false;
+    }
+
+    void InvestigateBall()
+    {
+        if (ball == null) return;
+
+        agent.SetDestination(ball.position);
+
+        investigateTimer -= Time.deltaTime;
+
+        if (investigateTimer <= 0f)
+        {
+            investigatingBall = false;
+        }
     }
 
     private void Patroling()

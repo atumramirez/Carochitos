@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Attack
   - Ground
+  - Bola
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - UI
   - Player
   - Obstacle
-  - 
+  - Bola
   - 
   - 
   - 
