@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 public class FollowingState: State<TrainerController>
 {
     public float stoppingDistance = 4f;
@@ -34,5 +33,8 @@ public class FollowingState: State<TrainerController>
                 character.navMeshAgent.isStopped = true;
             }
         }
+
+        character.animator.SetFloat("speed", character.navMeshAgent.velocity.magnitude);
+
     }
 }
