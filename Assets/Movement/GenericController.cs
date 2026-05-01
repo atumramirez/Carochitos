@@ -12,6 +12,9 @@ public class GenericController : MonoBehaviour
     public float rotationSpeed = 5f;
     public float crouchColliderHeight = 1.35f;
 
+    [Header("Camera Pivots")]
+    public Transform headPivot;
+
     [Header("Animation Smoothing")]
     [Range(0, 1)]
     public float speedDampTime = 0.1f;

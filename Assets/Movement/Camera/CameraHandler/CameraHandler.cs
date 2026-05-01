@@ -49,6 +49,16 @@ public class CameraHandler : MonoBehaviour
     public void LookAt(Transform newTransform)
     {
         currentCamera.Follow = newTransform;
-        currentCamera.LookAt = newTransform;
+
+        //
+        if (newTransform.GetComponent<GenericController>() != null)
+        {
+            currentCamera.LookAt = newTransform.GetComponent<GenericController>().headPivot;
+        }
+        else
+        {
+            currentCamera.LookAt = newTransform;
+        }
+        
     }
 }

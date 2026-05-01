@@ -20,12 +20,12 @@ public class State<T> where T : GenericController
 
     }
 
-    public virtual void LogicUpdate() // O mesmo que Update()
+    public virtual void LogicUpdate() // Used in Update()
     {
 
     }
 
-    public virtual void PhysicsUpdate() // O mesmo que FixedUpdate()
+    public virtual void PhysicsUpdate() // Used in FixedUpdate()
     {
 
     }
