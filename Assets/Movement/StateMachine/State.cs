@@ -17,7 +17,7 @@ public class State<T> where T : GenericController
 
     public virtual void Enter()
     {
-
+        Debug.Log("Entresta no modo:");
     }
 
     public virtual void LogicUpdate() // Used in Update()
