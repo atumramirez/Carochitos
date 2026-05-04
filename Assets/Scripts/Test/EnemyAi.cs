@@ -37,16 +37,18 @@ public class EnemyAi : MonoBehaviour
 
     void Update()
     {
-        FindBall();
+        FindBall(); // Verificar se existe uma bola
         
-        bool playerInSphere = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        bool playerVisible = playerInSphere && IsInFieldOfView(player.position) && HasLineOfSight(player);
+        bool playerInSphere = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer); // Verifica se esta em range
+        bool playerVisible = playerInSphere && IsInFieldOfView(player.position) && HasLineOfSight(player); // Verificar se esta visivel
 
+        // Verificar se esstá em range do attack
         bool playerInAttack = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer)
                               && IsInFieldOfView(player.position)
                               && HasLineOfSight(player);
 
         
+        // mesmo para a bola
         bool ballInSphere = ball != null && Physics.CheckSphere(transform.position, sightRange, whatIsBall);
         bool ballVisible = ballInSphere && IsInFieldOfView(ball.position) && HasLineOfSight(ball);
 
@@ -64,6 +66,8 @@ public class EnemyAi : MonoBehaviour
         else if (ballVisible)
         {
             investigatingBall = true;
+
+            // Tempo que fica a volta da Bola
             investigateTimer = investigationTime;
             InvestigateBall();
         }
@@ -145,7 +149,7 @@ public class EnemyAi : MonoBehaviour
         }
     }
 
-    private void Search()
+    private void Search() // Procurar ponto 
     {
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
