@@ -11,6 +11,7 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public Image background;
 
+    [Header("Events")]
     public UnityEvent onTabSelected;
     public UnityEvent onTabDeselected;
 
