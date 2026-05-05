@@ -1,33 +1,38 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
 public class MenuButton : MonoBehaviour
 {
     [Header("Menus")]
-    public GameObject MenuToOpen;
-    public GameObject MenuToClose;
+    public List<GameObject> MenuToOpen;
+    public List<GameObject> MenuToClose;
 
     Button button;
 
     private void Start()
     {
         button = GetComponent<Button>();
-
         button.onClick.AddListener(HideMenu);
     }
 
     public void HideMenu()
     {
-        if (MenuToOpen != null)
+        if (MenuToOpen.Count != 0 || MenuToOpen != null)
         {
-            MenuToOpen.SetActive(true);
+            foreach (GameObject go in MenuToOpen)
+            {
+                go.SetActive(true);
+            }
         }
 
-        if (MenuToClose != null)
+        if (MenuToClose.Count != 0 || MenuToClose != null)
         {
-            MenuToClose.SetActive(false);
+            foreach (GameObject go in MenuToClose)
+            {
+                go.SetActive(false);
+            }
         }
     }
 }

@@ -5,13 +5,11 @@ using UnityEngine.Events;
 
 public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    [Header("Info")]
     public TabGroup tabGroup;
-
-    public GameObject tabContainer;
 
     public Image background;
 
-    [Header("Events")]
     public UnityEvent onTabSelected;
     public UnityEvent onTabDeselected;
 
