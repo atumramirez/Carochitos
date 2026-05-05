@@ -3,15 +3,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TabGroup : MonoBehaviour
-{
+{    
     public List<TabButton> tabButtons;
 
+    [Header("Sprites")]
     public Sprite tabIdle;
     public Sprite tabHover;
     public Sprite tabActive;
 
-    public TabButton selectedTab;
+    [HideInInspector] public TabButton selectedTab;
 
+    [Header("Page to Open")]
     public List<GameObject> objectsToSwap;
 
     public void Subscribe(TabButton button)
@@ -23,11 +25,6 @@ public class TabGroup : MonoBehaviour
         {
             tabButtons.Add(button);
         }
-
-        if (button.tabContainer != null && !objectsToSwap.Contains(button.tabContainer))
-        {
-            objectsToSwap.Add(button.tabContainer);
-        }
     }
 
     public void OnTabEnter(TabButton button)
@@ -36,7 +33,10 @@ public class TabGroup : MonoBehaviour
 
         if (selectedTab == null || button != selectedTab)
         {
-            button.background.sprite = tabHover;
+            if (tabHover != null)
+            {
+                button.background.sprite = tabHover;
+            }
         }
     }
 
@@ -56,15 +56,38 @@ public class TabGroup : MonoBehaviour
         selectedTab.Select();
 
         ResetTabs();
-        button.background.sprite = tabActive;
 
-        for (int i = 0; i < tabButtons.Count; i++)
+        if (tabActive != null)
         {
-            bool isSelected = tabButtons[i] == button;
+            button.background.sprite = tabActive;
+        }
 
-            if (tabButtons[i].tabContainer != null)
+        int index = button.transform.GetSiblingIndex();
+
+        for (int i = 0; i < objectsToSwap.Count; i++)
+        {
+            if (objectsToSwap[i] != null)
             {
-                tabButtons[i].tabContainer.SetActive(isSelected);
+                if (i == index)
+                {
+                    objectsToSwap[i].SetActive(true);
+                }
+
+                else
+                {
+                    if (objectsToSwap[i].TryGetComponent<TabGroup>(out var comp))
+                    {
+                        for (int j = 0; j < comp.objectsToSwap.Count; j++)
+                        {
+                            if (comp.objectsToSwap[j] != null)
+                            {
+                                comp.objectsToSwap[j].SetActive(false);
+                            } 
+                        }
+                    }
+
+                    objectsToSwap[i].SetActive(false);
+                }
             }
         }
     }
@@ -78,7 +101,16 @@ public class TabGroup : MonoBehaviour
                 continue;
             }
 
-            button.background.sprite = tabIdle;
+            if (button.background == null)
+            {
+                button.background= button.GetComponent<Image>();
+            }
+
+            if (tabIdle != null)
+            {
+                button.background.sprite = tabIdle;
+            }
+
         }
     }
 }

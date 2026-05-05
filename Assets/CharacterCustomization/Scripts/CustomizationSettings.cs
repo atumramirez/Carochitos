@@ -14,5 +14,7 @@ public class CustomizationSettings : MonoBehaviour
         {
             instance = this;
         }
-    }
+    
+
+
 }
