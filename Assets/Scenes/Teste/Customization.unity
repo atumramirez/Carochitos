@@ -1971,6 +1971,7 @@ GameObject:
   - component: {fileID: 462939082}
   - component: {fileID: 462939081}
   - component: {fileID: 462939083}
+  - component: {fileID: 462939084}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -2041,9 +2042,26 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: fb92fa34-bf8b-4d44-81b9-482ce9826f77
+  m_DefaultActionMap: Menu
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 263530122}
+--- !u!114 &462939084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462939080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1011914d9aa2ea2489d0ff806b86ec8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RotateCharacter
+  Object: {fileID: 1188013309}
+  rotationSpeed: 120
+  smoothTime: 0.1
+  rotate: {fileID: -3994520317498619869, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+  reset: {fileID: -3375807712974099709, guid: c6b3381f38ce31249980950385565d7d, type: 3}
 --- !u!1 &493272050
 GameObject:
   m_ObjectHideFlags: 0
