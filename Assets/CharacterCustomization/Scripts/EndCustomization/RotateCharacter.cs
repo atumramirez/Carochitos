@@ -18,7 +18,6 @@ public class RotateCharacter : MonoBehaviour
     public InputActionReference rotate;
     public InputActionReference reset;
 
-
     private float rotateInput;
 
     private void Awake()

@@ -4,23 +4,29 @@ using UnityEngine.UI;
 
 public class ChangeHair : MonoBehaviour
 {
+    [Header("Skin")]
+    public GameObject skin;
+
+    
+    [Header("Hair")]
     public List<GameObject> hair;
 
     [Header("UI Setup")]
-    public Transform buttonParent;   // UI container (e.g. a Vertical Layout Group)
+    public Transform buttonParent;   
     public Button buttonPrefab;
 
     private void Start()
     {
-        ActivateOnly(0);
-        GenerateButtons();
+        ActivateHair(0);
+
+        // Generate Hair Buttons
+        GenerateHairButtons();
     }
 
-    public void ActivateOnly(int index)
+    public void ActivateHair(int index)
     {
         for (int i = 0; i < hair.Count; i++)
         {
-            // 
             if (hair[i] != null)
             {
                 hair[i].SetActive(i == index);
@@ -28,30 +34,35 @@ public class ChangeHair : MonoBehaviour
         }
     }
 
-    // Create buttons based on the number of objects
-    public void GenerateButtons()
+    // ---- GENERATE BUTTONS ----
+    public void GenerateHairButtons()
     {
-        // Optional: clear existing buttons
+        // Destruir os botões anteriores 
         foreach (Transform child in buttonParent)
         {
             Destroy(child.gameObject);
         }
 
+        // 
         for (int i = 0; i < hair.Count; i++)
         {
-            int index = i; // Important: capture index for the listener
+            int index = i; 
 
             Button newButton = Instantiate(buttonPrefab, buttonParent);
 
-            // Set button text (if it has a Text component)
             Text text = newButton.GetComponentInChildren<Text>();
+
             if (text != null && hair[i] != null)
             {
                 text.text = hair[i].name;
             }
 
-            // Add click event
-            newButton.onClick.AddListener(() => ActivateOnly(index));
+            newButton.onClick.AddListener(() => ActivateHair(index));
         }
+    }
+
+    public void GenerateSkinButton()
+    {
+        
     }
 }
