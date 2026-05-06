@@ -6,11 +6,6 @@ public class TabGroup : MonoBehaviour
 {    
     public List<TabButton> tabButtons;
 
-    [Header("Sprites")]
-    public Sprite tabIdle;
-    public Sprite tabHover;
-    public Sprite tabActive;
-
     [HideInInspector] public TabButton selectedTab;
 
     [Header("Page to Open")]
@@ -33,9 +28,9 @@ public class TabGroup : MonoBehaviour
 
         if (selectedTab == null || button != selectedTab)
         {
-            if (tabHover != null)
+            if (button.tabHover != null)
             {
-                button.background.sprite = tabHover;
+                button.background.sprite = button.tabHover;
             }
         }
     }
@@ -57,9 +52,9 @@ public class TabGroup : MonoBehaviour
 
         ResetTabs();
 
-        if (tabActive != null)
+        if (button.tabActive != null)
         {
-            button.background.sprite = tabActive;
+            button.background.sprite = button.tabActive;
         }
 
         int index = button.transform.GetSiblingIndex();
@@ -106,9 +101,9 @@ public class TabGroup : MonoBehaviour
                 button.background= button.GetComponent<Image>();
             }
 
-            if (tabIdle != null)
+            if (button.tabIdle != null)
             {
-                button.background.sprite = tabIdle;
+                button.background.sprite = button.tabIdle;
             }
 
         }

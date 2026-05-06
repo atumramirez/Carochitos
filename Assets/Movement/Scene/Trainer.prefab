@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5530858279421700559}
   - component: {fileID: 6878085779061431541}
   - component: {fileID: 4102718827782185570}
+  - component: {fileID: 2147120874956986193}
   m_Layer: 0
   m_Name: Trainer
   m_TagString: Untagged
@@ -167,6 +168,14 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!81 &2147120874956986193
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819748983009901568}
+  m_Enabled: 1
 --- !u!1 &7059501382419323541
 GameObject:
   m_ObjectHideFlags: 0

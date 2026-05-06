@@ -18,4 +18,9 @@ public class SoundMixerManager : MonoBehaviour
         audioMixer.SetFloat("SoundVolume", lvl);
     }
 
+    public void SetVoiceVolume(float lvl)
+    {
+        audioMixer.SetFloat("VoiceVolume", lvl);
+    }
+
 }

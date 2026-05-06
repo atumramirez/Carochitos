@@ -10,6 +10,12 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public Image background;
 
+    [Header("Sprites")]
+    public Sprite tabIdle;
+    public Sprite tabHover;
+    public Sprite tabActive;
+
+    [Header("")]
     public UnityEvent onTabSelected;
     public UnityEvent onTabDeselected;
 

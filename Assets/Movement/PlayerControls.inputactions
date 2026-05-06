@@ -768,6 +768,12 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Pause",
+            "id": "8729a3e5-5cec-48c0-a0cd-fe678ab3d6ff",
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": []
