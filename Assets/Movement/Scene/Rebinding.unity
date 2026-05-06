@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 979348b4386af8e41bca76014db2f1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControlsRebinding
-  actionsAsset: {fileID: 0}
+  actionsAsset: {fileID: -944628639613478452, guid: c6b3381f38ce31249980950385565d7d, type: 3}
   playerInput: {fileID: 1634502794}
 --- !u!114 &1634502790
 MonoBehaviour:
