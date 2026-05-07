@@ -26,7 +26,7 @@ public class EnemyAi : MonoBehaviour
     public float investigationTime = 3f;
     private float investigateTimer;
     private bool investigatingBall;
-
+    public bool agressive;
     public bool playerInSightRnage, playerInAttackRange;
 
     public void Awake()
@@ -52,9 +52,31 @@ public class EnemyAi : MonoBehaviour
         bool ballInSphere = ball != null && Physics.CheckSphere(transform.position, sightRange, whatIsBall);
         bool ballVisible = ballInSphere && IsInFieldOfView(ball.position) && HasLineOfSight(ball);
 
-        
 
-        if (playerVisible)
+
+        // decide se o bixo vai contra o player ou a bola
+        if (playerVisible && ballVisible)
+        {
+            
+            if (agressive)
+            {
+                investigatingBall = false;
+
+                if (playerInAttack)
+                    AttackPlayer();
+                else
+                    ChasePlayer();
+            }
+            
+            else
+            {
+                investigatingBall = true;
+                investigateTimer = investigationTime;
+                InvestigateBall();
+            }
+        }
+        
+        else if (playerVisible)
         {
             investigatingBall = false;
 
@@ -67,7 +89,6 @@ public class EnemyAi : MonoBehaviour
         {
             investigatingBall = true;
 
-            // Tempo que fica a volta da Bola
             investigateTimer = investigationTime;
             InvestigateBall();
         }
@@ -148,7 +169,7 @@ public class EnemyAi : MonoBehaviour
             }
         }
     }
-
+   
     private void Search() // Procurar ponto 
     {
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
@@ -164,6 +185,7 @@ public class EnemyAi : MonoBehaviour
 
     private void ChasePlayer()
     {
+        Debug.Log("Start chase");
         agent.SetDestination(player.position);
     }
 
