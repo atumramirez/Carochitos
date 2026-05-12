@@ -48,6 +48,13 @@ public class StandingState: State<TrainerController>
         character.sprint.action.performed += HeldSprint;
 
         character.throwin.action.started += PressAim;
+
+        character.menu.action.started += PressMenu;
+    }
+
+    private void PressMenu(InputAction.CallbackContext context)
+    {
+        character.OpenMenu();
     }
 
     private void PressDismiss(InputAction.CallbackContext context)
@@ -154,5 +161,7 @@ public class StandingState: State<TrainerController>
         character.sprint.action.performed -= HeldSprint;
 
         character.throwin.action.started -= PressAim;
+
+        character.menu.action.started -= PressMenu;
     }
 }

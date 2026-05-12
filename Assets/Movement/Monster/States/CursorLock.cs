@@ -1,6 +1,7 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
+/*
 public class CursorLockToggle : MonoBehaviour
 {
     public CameraHandler cameraHandler;
@@ -32,3 +33,4 @@ public class CursorLockToggle : MonoBehaviour
         }
     }
 }
+*/

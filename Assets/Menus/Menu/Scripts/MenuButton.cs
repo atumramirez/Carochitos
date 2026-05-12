@@ -19,19 +19,25 @@ public class MenuButton : MonoBehaviour
 
     public void HideMenu()
     {
-        if (MenuToOpen.Count != 0 || MenuToOpen != null)
+        if (MenuToOpen != null)
         {
-            foreach (GameObject go in MenuToOpen)
+            if (MenuToOpen.Count != 0)
             {
-                go.SetActive(true);
+                foreach (GameObject go in MenuToOpen)
+                {
+                    go.SetActive(true);
+                }
             }
         }
 
-        if (MenuToClose.Count != 0 || MenuToClose != null)
+        if (MenuToClose != null)
         {
-            foreach (GameObject go in MenuToClose)
+            if (MenuToClose.Count != 0)
             {
-                go.SetActive(false);
+                foreach (GameObject go in MenuToClose)
+                {
+                    go.SetActive(false);
+                }
             }
         }
     }

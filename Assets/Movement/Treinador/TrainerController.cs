@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
+using UnityEditor;
 public class TrainerController : GenericController
 {
     [Header("State Machine")]
@@ -21,13 +22,8 @@ public class TrainerController : GenericController
 
     public CaptureState capturing;
     public SwapingState swaping;
-
-    // Aiming
-     public ThrowingState throwing;
-
-    /*
-    public MenuState menuState;
-    */
+    
+    public ThrowingState throwing;
 
     [Header("Player Inputs")]
     public InputActionReference move;
@@ -37,6 +33,8 @@ public class TrainerController : GenericController
 
     public InputActionReference capture;
     public InputActionReference throwin;
+
+    public InputActionReference menu;
 
     [Header("Menu")]
     public PlayerMenu menuHolder;
@@ -51,6 +49,7 @@ public class TrainerController : GenericController
 
     [Header("Bola de Berlim")]
     public ItemBase bolaDeBeerlim;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -217,5 +216,15 @@ public class TrainerController : GenericController
         monster.GetComponent<MonsterController>().stateMachine.ChangeState(monster.GetComponent<MonsterController>().followState);
 
         isControllingMonster = false;
+    }
+
+    [Header("Menu")]
+
+    public PlayerMenu playerMenu;
+    public void OpenMenu()
+    {
+        playerMenu.ActivateMenu();
+
+
     }
 }

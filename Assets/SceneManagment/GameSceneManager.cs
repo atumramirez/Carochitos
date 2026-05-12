@@ -7,11 +7,18 @@ public class GameSceneManager : MonoBehaviour
     string currentEnviromentScene;
 
     [SerializeField] Rigidbody playerTransform;
+    [SerializeField] GameObject loadingCanvas;
 
     private void Start()
     {
         DetectCurrentEnviromentScene();
+
+        if (loadingCanvas != null)
+        {
+            loadingCanvas.SetActive(false);
+        }
     }
+
     public void DetectCurrentEnviromentScene()
     {
         for (int i = 0; i < SceneManager.sceneCount; i++)
@@ -38,27 +45,65 @@ public class GameSceneManager : MonoBehaviour
 
     IEnumerator SwitchScene()
     {
-        AsyncOperation unload = SceneManager.UnloadSceneAsync(currentEnviromentScene);
-        AsyncOperation load = SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Additive);
+        AsyncOperation unload = null;
+        AsyncOperation load = null;
 
-        currentEnviromentScene = newScene;
-
-        while (unload.isDone == false)
+        if (currentEnviromentScene != null) 
         {
-            yield return new WaitForEndOfFrame();
+            unload = SceneManager.UnloadSceneAsync(currentEnviromentScene);
         }
 
-        while (load.isDone == false)
+        if (newScene != null)
         {
-            yield return new WaitForEndOfFrame();
+            load = SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Additive);
+
+            currentEnviromentScene = newScene;
         }
 
+        if (loadingCanvas != null)
+        {
+            loadingCanvas.SetActive(true);
+        }
+
+        if (unload != null)
+        {
+            while (unload.isDone == false)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+        }
+
+        if (load != null)
+        {
+            while (load.isDone == false)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+        }
+        
         yield return new WaitForEndOfFrame();
 
-        Transform waypoint = FindAnyObjectByType<SceneInfoContainer>().entranceWaypoints[0];
+        if (loadingCanvas != null)
+        {
+            loadingCanvas.SetActive(false);
+        }
 
-        playerTransform.position = waypoint.position;
-        playerTransform.rotation = waypoint.rotation;
+        SceneInfoContainer info = FindAnyObjectByType<SceneInfoContainer>();
+
+        if (info != null && info.entranceWaypoints != null && info.entranceWaypoints.Count > 0)
+        {
+            Transform waypoint = info.entranceWaypoints[0]; 
+
+            if (waypoint != null && playerTransform != null)
+            {
+                playerTransform.position = waypoint.position;
+                playerTransform.rotation = waypoint.rotation;
+            }
+        }
+        else
+        {
+            Debug.Log("SceneInfoContainer or entrance waypoint missing!");
+        }
 
         yield return null;
     }

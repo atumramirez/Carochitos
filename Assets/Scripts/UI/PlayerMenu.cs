@@ -5,6 +5,7 @@ public class PlayerMenu : MonoBehaviour
 {
     [Header("All Menus")]
     public List<GameObject> allPanels;
+    public List<GameObject> selectedPanels;
 
     [Header("Information")]
     public bool isOpened = true;
@@ -20,6 +21,11 @@ public class PlayerMenu : MonoBehaviour
         foreach (GameObject panel in allPanels)
         {
             panel.SetActive(false);
+        }
+
+        foreach (GameObject selpanel in selectedPanels)
+        {
+            selpanel.SetActive(true);
         }
 
         ActivateMenu();
@@ -42,6 +48,7 @@ public class PlayerMenu : MonoBehaviour
         isOpened = true;
 
         Cursor.lockState = CursorLockMode.None;
+
         _playerMenu.SetActive(isOpened);
         _inGameMenu.SetActive(!isOpened);
     }
@@ -51,6 +58,7 @@ public class PlayerMenu : MonoBehaviour
         isOpened = false;
 
         Cursor.lockState = CursorLockMode.Locked;
+
         _playerMenu.SetActive(isOpened);
         _inGameMenu.SetActive(!isOpened);
     }

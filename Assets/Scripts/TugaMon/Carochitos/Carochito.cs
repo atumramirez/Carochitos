@@ -21,12 +21,30 @@ public class Carochito
     {
         _base = chitoBase;
         _level = chitoLevel;
+
+        // Make sure the list is empty when it's created
+        Skill = new();
+
+        // Spawn with Skills based on the Level
+        foreach (var skill in _base.LearnableSkills)
+        {
+            if (skill.Level <= Level)
+            {
+                Skill.Add(new Skill(skill.SkillBase));
+            }
+
+            if (Skill.Count >= 4)
+            {
+                break;
+            }
+        }
     }
+
+    public List<Skill> Skill { get; set; }
 
     // Skills
     [SerializeField] List<SkillBase> _skills = new();
     [HideInInspector] public List<SkillBase> Skills { get { return _skills; } set { _skills = value; } }
-
 
     // Stats
     public string Name { get { if (_nickname != "") { return _nickname; } else { return _base.Name; } } }
