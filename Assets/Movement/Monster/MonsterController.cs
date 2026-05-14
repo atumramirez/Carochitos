@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -35,6 +36,17 @@ public class MonsterController : GenericController
     public HealthBar healthBar;
 
     public CarochitoHandler handler;
+
+    [Header("Dash")]
+    public float dashSpeed= 10f;
+    public float dashDuration = 0.15f;
+
+    public int currentDashCharges;
+    public float dashRechargeTime = 2f;
+    public float dashDelay = 0.5f;
+    public int maxDashCharges = 3;
+    private bool canDash = true;
+    private bool isDashing;
 
     private void Start()
     {
@@ -77,6 +89,10 @@ public class MonsterController : GenericController
 
         normalColliderHeight = controller.height;
         gravityValue *= gravityMultiplier;
+
+        currentDashCharges = maxDashCharges;
+
+        StartCoroutine(RechargeDashes());
     }
 
     private void Update()
@@ -86,6 +102,44 @@ public class MonsterController : GenericController
         for (int i = 0; i < skills.Count; i++)
         {
             HandleSkill(i);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && currentDashCharges > 0)
+        {
+            StartCoroutine(Dash());
+        }
+    }
+
+    public IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+
+        currentDashCharges--;
+
+        float ogSpeed = playerSpeed;
+        playerSpeed *= dashSpeed;
+
+        yield return new WaitForSeconds(dashDuration);
+
+        playerSpeed = ogSpeed;
+        isDashing = false;
+
+        yield return new WaitForSeconds(dashDelay);
+
+        canDash = true;
+    }
+
+    private IEnumerator RechargeDashes()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(dashRechargeTime);
+
+            if (currentDashCharges < maxDashCharges)
+            {
+                currentDashCharges++;
+            }
         }
     }
 
