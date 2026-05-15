@@ -192,6 +192,7 @@ MonoBehaviour:
   gravityMultiplier: 2
   rotationSpeed: 5
   crouchColliderHeight: 1.35
+  headPivot: {fileID: 0}
   speedDampTime: 0.1
   velocityDampTime: 0.121
   rotationDampTime: 0.2
@@ -280,6 +281,9 @@ MonoBehaviour:
     - {fileID: 0}
   healthBar: {fileID: 0}
   handler: {fileID: 0}
+  dashSpeed: 10
+  dashDuration: 0.15
+  dashCooldown: 1
   skills: []
 --- !u!114 &4087015717365295847
 MonoBehaviour:
