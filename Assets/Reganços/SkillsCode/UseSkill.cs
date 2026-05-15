@@ -57,7 +57,7 @@ public class UseSkill: MonoBehaviour
         hitboxF.transform.localScale = mod.hitboxSize;
 
         HurtBox hitboxDamage = hitboxF.GetComponent<HurtBox>();
-        hitboxDamage.owner = owner;
+        // hitboxDamage.owner = owner;
         
         Destroy(hitboxF, mod.duration);
     }

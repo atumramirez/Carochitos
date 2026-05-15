@@ -48,6 +48,10 @@ public class CarochitoBase : ScriptableObject
     public Sprite Sprite { get { return _sprite; } }
     public GameObject Model { get { return _model; } }
 
+    // Types
+    public ElementalTypes Type1 { get { return _elementalType1; } }
+    public ElementalTypes Type2 { get { return _elementalType2; } }
+
 
     // Stats
     public int MaxHealth { get { return _maxHealth; } }

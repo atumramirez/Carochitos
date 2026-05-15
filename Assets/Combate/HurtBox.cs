@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class HurtBox : MonoBehaviour
 {
-    public int damage = 10;
+    private CarochitoBattler _carochitoBattler;
+    public CarochitoBattler CarochitoBattler { get { return _carochitoBattler; } }
 
-    public CarochitoHandler owner;
-    public SkillBase skill;
-
-    private void OnTriggerEnter(Collider other)
+    public void SetUp(CarochitoBattler carochitoBattler)
     {
-        CarochitoHandler enemyCarochito = other.GetComponentInParent<CarochitoHandler>();
+        _carochitoBattler = carochitoBattler;
+    }
 
-        if (enemyCarochito != null && enemyCarochito != owner)
+    public void ReceiveHit(CarochitoBattler attacker, SkillBase skill)
+    {
+        if (_carochitoBattler != null)
         {
-            enemyCarochito.TakeDamage(owner, skill);
-            Debug.Log("Acertou Playboy");
+            _carochitoBattler.TakeDamage(attacker, skill);
         }
     }
 }

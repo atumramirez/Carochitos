@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class SkillBase : ScriptableObject
 {
     [Header("Basic Info")]
@@ -11,6 +10,7 @@ public class SkillBase : ScriptableObject
 
     [Header("Combat Info")]
     [SerializeField] ElementalTypes _elementalType;
+    public ElementalTypes Type { get { return _elementalType; } }
 
     [SerializeField] int power;
     public int Power { get { return power; } }

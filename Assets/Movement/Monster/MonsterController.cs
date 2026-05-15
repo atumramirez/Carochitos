@@ -105,7 +105,7 @@ public class MonsterController : GenericController
     [System.Serializable]
     public class SkillSlot
     {
-        public SkillBase skill;
+        public Skill skill;
         public Cooldown cooldownUI;
 
         [HideInInspector] public float cooldownTime;
@@ -117,10 +117,12 @@ public class MonsterController : GenericController
     {
         skills.Clear();
 
-        for (int i = 0; i < carochito.Skills.Count && i < 4; i++)
+        for (int i = 0; i < carochito.Skill.Count && i < 4; i++)
         {
-            SkillSlot newSlot = new();
-            newSlot.skill = carochito.Skills[i];
+            SkillSlot newSlot = new()
+            {
+                skill = carochito.Skill[i]
+            };
 
             skills.Add(newSlot);
         }
@@ -134,9 +136,9 @@ public class MonsterController : GenericController
         {
             stateMachine.ChangeState(attackState);
 
-            slot.skill.Activate(gameObject);
+            slot.skill.Base.Activate(gameObject);
             slot.state = SkillState.Active;
-            slot.activeTime = slot.skill.ActiveTime;
+            slot.activeTime = slot.skill.Base.ActiveTime;
         }
     }
 
@@ -154,7 +156,7 @@ public class MonsterController : GenericController
                 else
                 {
                     slot.state = SkillState.Cooldown;
-                    slot.cooldownTime = slot.skill.Cooldown;
+                    slot.cooldownTime = slot.skill.Base.Cooldown;
 
                     stateMachine.ChangeState(standingState);
 

@@ -10,8 +10,10 @@ public class Peck: MeleeSkill
 
         HurtBox hitboxDamage = hitboxF.GetComponent<HurtBox>();
 
+        /*
         hitboxDamage.owner = parent.GetComponent<CarochitoHandler>();
         hitboxDamage.skill = this;
+        */
 
         Destroy(hitboxF, ActiveTime);
     }
