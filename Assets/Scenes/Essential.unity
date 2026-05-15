@@ -1460,7 +1460,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 45
+  field of view: 65
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1486,8 +1486,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00975667, y: 0.0985329, z: -0.0009661007, w: 0.99508554}
-  m_LocalPosition: {x: 0, y: 11.2, z: -5}
+  m_LocalRotation: {x: 0.011109045, y: 9.1694063e-10, z: -1.0186962e-11, w: 0.9999383}
+  m_LocalPosition: {x: 0, y: 11.2, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5828,9 +5828,11 @@ MonoBehaviour:
   Box1:
   - _base: {fileID: 11400000, guid: 5a3e2a6d5a9ab7540b0eb3c7b54c35fd, type: 2}
     _nickname: 
-    _level: 0
     _currentHealth: 0
-    _skills: []
+    _isAlive: 0
+    _level: 0
+    _currentExp: 0
+    _skill: []
 --- !u!114 &1609305387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5846,21 +5848,27 @@ MonoBehaviour:
   currentCarochito:
     _base: {fileID: 0}
     _nickname: 
-    _level: 1
     _currentHealth: 0
-    _skills: []
+    _isAlive: 0
+    _level: 1
+    _currentExp: 0
+    _skill: []
   currentIndex: 0
   carochitos:
   - _base: {fileID: 11400000, guid: a917d9b056599884b9560d4e56c2e7d8, type: 2}
     _nickname: 
-    _level: 0
     _currentHealth: 0
-    _skills: []
+    _isAlive: 0
+    _level: 0
+    _currentExp: 0
+    _skill: []
   - _base: {fileID: 11400000, guid: d8b525f07f507934d8be37896d5f483b, type: 2}
     _nickname: 
-    _level: 0
     _currentHealth: 0
-    _skills: []
+    _isAlive: 0
+    _level: 0
+    _currentExp: 0
+    _skill: []
   _carochitoSelectionMenu: {fileID: 1562365921}
 --- !u!114 &1609305388
 MonoBehaviour:
@@ -7299,6 +7307,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1436781763}
     - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
+      propertyPath: inputManager
+      value: 
+      objectReference: {fileID: 2118009470}
+    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
       propertyPath: cameraHandler
       value: 
       objectReference: {fileID: 631036259}
@@ -7506,6 +7518,8 @@ GameObject:
   - component: {fileID: 2118009466}
   - component: {fileID: 2118009465}
   - component: {fileID: 2118009468}
+  - component: {fileID: 2118009470}
+  - component: {fileID: 2118009469}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -7569,6 +7583,67 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ControlsRebinding
   actionsAsset: {fileID: 0}
   playerInput: {fileID: 0}
+--- !u!114 &2118009469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118009464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Trainer
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 330585545}
+--- !u!114 &2118009470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118009464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80dd103ee534edd4487ad26037a3abdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputManager
+  playerInput: {fileID: 2118009469}
+  move: {fileID: 6721698985769660647, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+  jump: {fileID: -3473469738766507112, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+  crouch: {fileID: -7451614802905769317, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+  sprint: {fileID: 88281692635411422, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+  capture: {fileID: -5741281265347677302, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+  throwin: {fileID: -5330079417779625532, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+  interact: {fileID: -5647662353156587430, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+  summon: {fileID: 0}
+  dismiss: {fileID: 0}
+  menu: {fileID: -6435788768984441247, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+  monsterMove: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
+  dash: {fileID: 0}
+  ability1: {fileID: 0}
+  ability2: {fileID: 0}
+  ability3: {fileID: 0}
+  ability4: {fileID: 0}
 --- !u!114 &2137730815 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6728598749496405007, guid: fe4f7701395581c4093ea3e465430a00, type: 3}

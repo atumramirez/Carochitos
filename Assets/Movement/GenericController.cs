@@ -31,8 +31,12 @@ public class GenericController : MonoBehaviour
     public float normalColliderHeight;
     [HideInInspector]
     public CharacterController controller;
+
+    /*
     [HideInInspector]
     public PlayerInput playerInput;
+    */
+
     [HideInInspector]
     public Transform cameraTransform;
     [HideInInspector]

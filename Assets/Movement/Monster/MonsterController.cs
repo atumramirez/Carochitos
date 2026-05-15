@@ -17,6 +17,9 @@ public class MonsterController : GenericController
 
     public MonsterAttackState attackState;
 
+    [Header("Player Input")]
+    public PlayerInput playerInput;
+
     [Header("Player Inputs")]
     public InputAction move;
     public InputAction attack;

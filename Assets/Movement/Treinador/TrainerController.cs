@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
-using Unity.Cinemachine;
-using UnityEditor;
+
 public class TrainerController : GenericController
 {
     [Header("State Machine")]
@@ -10,34 +9,18 @@ public class TrainerController : GenericController
 
     [Header("States")]
     public StandingState standing;
-
     public JumpingState jumping;
     public FallingState falling;
     public LandingState landing;
-
     public CrouchingState crouching;
     public RollState roll;
-
     public SprintState sprinting;
-
     public CaptureState capturing;
     public SwapingState swaping;
-    
     public ThrowingState throwing;
 
-    [Header("Player Inputs")]
-    public InputActionReference move;
-    public InputActionReference jump;
-    public InputActionReference crouch;
-    public InputActionReference sprint;
-
-    public InputActionReference capture;
-    public InputActionReference throwin;
-
-    public InputActionReference menu;
-
-    [Header("Menu")]
-    public PlayerMenu menuHolder;
+    [Header("Player Input")]
+    public InputManager inputManager;
 
     [Header("Cameras")]
     public CameraHandler cameraHandler;
@@ -56,11 +39,9 @@ public class TrainerController : GenericController
         animator = GetComponentInChildren<Animator>();
 
         // Player Input
-        playerInput = GetComponent<PlayerInput>();
-        playerInput.actions.FindActionMap("Trainer").Enable();
-        playerInput.actions.FindActionMap("Monster").Disable();
-
-        menuHolder = FindFirstObjectByType<PlayerMenu>();
+        inputManager.playerInput = GetComponent<PlayerInput>();
+        inputManager.playerInput.actions.FindActionMap("Trainer").Enable();
+        inputManager.playerInput.actions.FindActionMap("Monster").Disable();
 
         // Nav Mesh
         navMeshAgent = GetComponentInChildren<NavMeshAgent>();
@@ -151,10 +132,6 @@ public class TrainerController : GenericController
     public GameObject monster;
 
     [Header("Summoning")]
-
-    public InputActionReference summon;
-    public InputActionReference dismiss;
-
     public SummonState summoning;
     public DismissState dismissing;
 
@@ -171,7 +148,6 @@ public class TrainerController : GenericController
 
     public void Dismiss()
     {
-
         Destroy(monster);
         monster = null; // Destruir o Objecto, sem depois deixar ele como Null pode causar problemas. 
 
@@ -179,15 +155,13 @@ public class TrainerController : GenericController
     }
 
     [Header("Swaping")]
-
     public FollowingState following;
     public NavMeshAgent navMeshAgent;
     public bool isControllingMonster = false;
 
     public void SwapToMonster()
     {
-        playerInput.actions.FindActionMap("Trainer").Disable();
-        playerInput.actions.FindActionMap("Monster").Enable();
+        inputManager.ControlMonster();
 
         navMeshAgent.enabled = true;
         monster.GetComponent<MonsterController>().navMeshAgent.enabled = false;
@@ -204,8 +178,7 @@ public class TrainerController : GenericController
 
     public void SwapToTrainer()
     {
-        playerInput.actions.FindActionMap("Monster").Disable();
-        playerInput.actions.FindActionMap("Trainer").Enable();
+        inputManager.ControlTrainer();
 
         cameraHandler.LookAt(transform);
 
@@ -218,13 +191,17 @@ public class TrainerController : GenericController
         isControllingMonster = false;
     }
 
-    [Header("Menu")]
+    [Header("Interact")]
+    public Transform interactPivot;
+    public void Interact()
+    {
+        
+    }
 
+    [Header("Menu")]
     public PlayerMenu playerMenu;
     public void OpenMenu()
     {
         playerMenu.ActivateMenu();
-
-
     }
 }

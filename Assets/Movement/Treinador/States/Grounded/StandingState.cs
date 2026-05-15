@@ -37,19 +37,26 @@ public class StandingState: State<TrainerController>
         grounded = character.controller.isGrounded;
         gravityValue = character.gravityValue;
 
-        character.jump.action.started += PressJump;
-        character.crouch.action.started += PressCrouch;
-        character.capture.action.started += PressCapture;
+        character.inputManager.jump.action.started += PressJump;
+        character.inputManager.crouch.action.started += PressCrouch;
+        character.inputManager.capture.action.started += PressCapture;
 
         // Summoning and Dismissing the monster
-        character.summon.action.started += PressSummon;
-        character.dismiss.action.started += PressDismiss;
+        character.inputManager.summon.action.started += PressSummon;
+        character.inputManager.dismiss.action.started += PressDismiss;
 
-        character.sprint.action.performed += HeldSprint;
+        character.inputManager.sprint.action.performed += HeldSprint;
 
-        character.throwin.action.started += PressAim;
+        character.inputManager.throwin.action.started += PressAim;
 
-        character.menu.action.started += PressMenu;
+        character.inputManager.menu.action.started += PressMenu;
+
+        character.inputManager.interact.action.started += PressInteract;
+    }
+
+    private void PressInteract(InputAction.CallbackContext context)
+    {
+        throw new NotImplementedException();
     }
 
     private void PressMenu(InputAction.CallbackContext context)
@@ -113,7 +120,7 @@ public class StandingState: State<TrainerController>
     public override void LogicUpdate() 
     { 
         base.LogicUpdate(); 
-        input = character.move.action.ReadValue<Vector2>(); 
+        input = character.inputManager.move.action.ReadValue<Vector2>(); 
 
         velocity = new Vector3(input.x, 0, input.y); 
         velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized; 
@@ -154,14 +161,14 @@ public class StandingState: State<TrainerController>
             character.transform.rotation = Quaternion.LookRotation(velocity);
         }
 
-        character.jump.action.started -= PressJump;
-        character.crouch.action.started -= PressCrouch;
-        character.capture.action.started -= PressCapture;
+        character.inputManager.jump.action.started -= PressJump;
+        character.inputManager.crouch.action.started -= PressCrouch;
+        character.inputManager.capture.action.started -= PressCapture;
 
-        character.sprint.action.performed -= HeldSprint;
+        character.inputManager.sprint.action.performed -= HeldSprint;
 
-        character.throwin.action.started -= PressAim;
+        character.inputManager.throwin.action.started -= PressAim;
 
-        character.menu.action.started -= PressMenu;
+        character.inputManager.menu.action.started -= PressMenu;
     }
 }

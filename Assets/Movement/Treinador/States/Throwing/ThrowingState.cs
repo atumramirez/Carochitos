@@ -25,8 +25,8 @@ public class ThrowingState : State<TrainerController>
 
         character.cameraHandler.SwitchCamera(character.cameraHandler.combatCam);
 
-        character.throwin.action.started += PressAim;
-        character.jump.action.started += Throw;
+        character.inputManager.throwin.action.started += PressAim;
+        character.inputManager.jump.action.started += Throw;
     }
 
     private void PressAim(InputAction.CallbackContext context)
@@ -45,7 +45,7 @@ public class ThrowingState : State<TrainerController>
     {
         base.LogicUpdate();
 
-        input = character.move.action.ReadValue<Vector2>();
+        input = character.inputManager.move.action.ReadValue<Vector2>();
 
         // Flatten camera directions (ignore vertical tilt)
         Vector3 camForward = character.cameraTransform.forward;
@@ -122,7 +122,7 @@ public class ThrowingState : State<TrainerController>
     {
         base.Exit();
 
-        character.throwin.action.started -= PressAim;
-        character.jump.action.started -= Throw;
+        character.inputManager.throwin.action.started -= PressAim;
+        character.inputManager.jump.action.started -= Throw;
     }
 }

@@ -30,8 +30,8 @@ public class SprintState : State<TrainerController>
         gravityValue = character.gravityValue;
 
 
-        character.sprint.action.canceled += StopSprinting;
-        character.jump.action.started += PressJump;
+        character.inputManager.sprint.action.canceled += StopSprinting;
+        character.inputManager.jump.action.started += PressJump;
     }
 
     private void PressJump(InputAction.CallbackContext context)
@@ -46,7 +46,7 @@ public class SprintState : State<TrainerController>
 
     public override void LogicUpdate()
     {
-        input = character.move.action.ReadValue<Vector2>();
+        input = character.inputManager.move.action.ReadValue<Vector2>();
         velocity = new Vector3(input.x, 0, input.y);
 
         velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized;
@@ -81,7 +81,7 @@ public class SprintState : State<TrainerController>
     {
         base.Exit();
 
-        character.sprint.action.canceled -= StopSprinting;
-        character.jump.action.started -= PressJump;
+        character.inputManager.sprint.action.canceled -= StopSprinting;
+        character.inputManager.jump.action.started -= PressJump;
     }
 }

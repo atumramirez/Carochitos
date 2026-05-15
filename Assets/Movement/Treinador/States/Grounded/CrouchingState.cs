@@ -31,8 +31,8 @@ public class CrouchingState: State<TrainerController>
         grounded = character.controller.isGrounded;
         gravityValue = character.gravityValue;
 
-        character.crouch.action.started += HeldCrouch;
-        character.jump.action.started += PressJump;
+        character.inputManager.crouch.action.started += HeldCrouch;
+        character.inputManager.jump.action.started += PressJump;
     }
 
     private void PressJump(InputAction.CallbackContext context)
@@ -57,15 +57,15 @@ public class CrouchingState: State<TrainerController>
         gravityVelocity.y = 0f;
         character.playerVelocity = new Vector3(input.x, 0, input.y);
 
-        character.crouch.action.started -= HeldCrouch;
-        character.jump.action.started -= PressJump;
+        character.inputManager.crouch.action.started -= HeldCrouch;
+        character.inputManager.jump.action.started -= PressJump;
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        input = character.move.action.ReadValue<Vector2>();
+        input = character.inputManager.move.action.ReadValue<Vector2>();
         velocity = new Vector3(input.x, 0, input.y);
 
         velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized;

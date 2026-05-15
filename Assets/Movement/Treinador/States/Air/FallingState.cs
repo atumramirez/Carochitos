@@ -32,7 +32,7 @@ public class FallingState : State<TrainerController>
     {
         base.LogicUpdate();
 
-        input = character.move.action.ReadValue<Vector2>();
+        input = character.inputManager.move.action.ReadValue<Vector2>();
 
         if (grounded)
         {

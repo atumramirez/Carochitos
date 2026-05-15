@@ -30,7 +30,7 @@ public class JumpingState: State<TrainerController>
     {
         base.LogicUpdate();
 
-        input = character.move.action.ReadValue<Vector2>();
+        input = character.inputManager.move.action.ReadValue<Vector2>();
         
         AnimatorStateInfo stateInfo = character.animator.GetCurrentAnimatorStateInfo(0);
 
@@ -38,8 +38,7 @@ public class JumpingState: State<TrainerController>
         {
             character.animator.SetTrigger("fall");
             stateMachine.ChangeState(character.falling);
-        }
-        
+        } 
     }
 
     public override void PhysicsUpdate()
