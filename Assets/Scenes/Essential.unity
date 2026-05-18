@@ -1460,7 +1460,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 65
+  field of view: 45
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1486,8 +1486,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.011109045, y: 9.1694063e-10, z: -1.0186962e-11, w: 0.9999383}
-  m_LocalPosition: {x: 0, y: 11.2, z: -4.5}
+  m_LocalRotation: {x: 0.00975667, y: 0.0985329, z: -0.0009661007, w: 0.99508554}
+  m_LocalPosition: {x: 0, y: 11.2, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7633,8 +7633,8 @@ MonoBehaviour:
   capture: {fileID: -5741281265347677302, guid: c6b3381f38ce31249980950385565d7d, type: 3}
   throwin: {fileID: -5330079417779625532, guid: c6b3381f38ce31249980950385565d7d, type: 3}
   interact: {fileID: -5647662353156587430, guid: c6b3381f38ce31249980950385565d7d, type: 3}
-  summon: {fileID: 0}
-  dismiss: {fileID: 0}
+  summon: {fileID: -1076884396016961392, guid: c6b3381f38ce31249980950385565d7d, type: 3}
+  dismiss: {fileID: -1076884396016961392, guid: c6b3381f38ce31249980950385565d7d, type: 3}
   menu: {fileID: -6435788768984441247, guid: c6b3381f38ce31249980950385565d7d, type: 3}
   monsterMove: {fileID: 0}
   attack: {fileID: 0}

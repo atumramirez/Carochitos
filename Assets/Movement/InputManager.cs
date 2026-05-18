@@ -30,7 +30,7 @@ public class InputManager : MonoBehaviour
     // Menu
     public InputActionReference menu;
 
-    [Header("Trainer")]
+    [Header("Monster")]
     public InputActionReference monsterMove;
     public InputActionReference attack;
     public InputActionReference swap;
