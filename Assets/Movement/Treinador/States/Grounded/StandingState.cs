@@ -9,7 +9,7 @@ public class StandingState: State<TrainerController>
     float playerSpeed;
     float gravityValue;
 
-    private float airTime;
+    //private float airTime;
 
     Vector3 currentVelocity;
     Vector3 cVelocity;
@@ -26,7 +26,7 @@ public class StandingState: State<TrainerController>
 
         character.cameraHandler.SwitchCamera(character.cameraHandler.thirdPersonCam);
 
-        airTime = 0f;
+        //airTime = 0f;
 
         input = Vector2.zero;
         velocity = Vector3.zero;

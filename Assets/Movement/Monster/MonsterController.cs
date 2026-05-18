@@ -49,7 +49,7 @@ public class MonsterController : GenericController
     public float dashDelay = 0.5f;
     public int maxDashCharges = 3;
     private bool canDash = true;
-    private bool isDashing;
+    //private bool isDashing;
 
     private void Start()
     {
@@ -116,7 +116,7 @@ public class MonsterController : GenericController
     public IEnumerator Dash()
     {
         canDash = false;
-        isDashing = true;
+        //isDashing = true;
 
         currentDashCharges--;
 
@@ -126,7 +126,7 @@ public class MonsterController : GenericController
         yield return new WaitForSeconds(dashDuration);
 
         playerSpeed = ogSpeed;
-        isDashing = false;
+        //isDashing = false;
 
         yield return new WaitForSeconds(dashDelay);
 
