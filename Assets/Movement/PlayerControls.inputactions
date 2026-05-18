@@ -106,9 +106,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ChangeMonster",
+                    "name": "NextMonster",
                     "type": "Button",
                     "id": "029706d9-38fb-438c-a920-8ea44086f338",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PreviousMonster",
+                    "type": "Button",
+                    "id": "1d54a23e-d4ed-4349-b9a0-e49ad5f34b91",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -405,11 +414,22 @@
                 {
                     "name": "",
                     "id": "f7d7c5e9-b062-4826-b9e1-95ce338162d5",
-                    "path": "",
+                    "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChangeMonster",
+                    "action": "NextMonster",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "66cc746a-c32f-4d17-805b-4db6dbabdae0",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PreviousMonster",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

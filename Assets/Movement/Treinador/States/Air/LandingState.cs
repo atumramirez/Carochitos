@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LandingState: State<TrainerController>
 {
-    float timePassed;
+    //float timePassed;
     float landingTime;
 
     public LandingState(TrainerController _character, StateMachine<TrainerController> _stateMachine) : base(_character, _stateMachine)
@@ -15,7 +15,7 @@ public class LandingState: State<TrainerController>
 	{
 		base.Enter();
 
-        timePassed = 0f;
+        //timePassed = 0f;
 
 
     }
