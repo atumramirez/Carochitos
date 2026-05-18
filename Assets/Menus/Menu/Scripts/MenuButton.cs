@@ -9,10 +9,16 @@ public class MenuButton : MonoBehaviour
     public List<GameObject> MenuToOpen;
     public List<GameObject> MenuToClose;
 
+    [Header("Audio")]
+    public AudioClip MenuSound1;
+    public AudioClip MenuSound2;
+
     Button button;
 
     private void Start()
     {
+        MenuSound1 = SoundHolder.Instance.MenuInteract;
+        MenuSound2 = SoundHolder.Instance.MenuInteract;
         button = GetComponent<Button>();
         button.onClick.AddListener(HideMenu);
     }
@@ -25,6 +31,7 @@ public class MenuButton : MonoBehaviour
             {
                 foreach (GameObject go in MenuToOpen)
                 {
+                    SoundManager.instance.PlayClip(MenuSound1, transform, 0.75f);
                     go.SetActive(true);
                 }
             }
@@ -36,6 +43,7 @@ public class MenuButton : MonoBehaviour
             {
                 foreach (GameObject go in MenuToClose)
                 {
+                    SoundManager.instance.PlayClip(MenuSound2, transform, 0.75f);
                     go.SetActive(false);
                 }
             }

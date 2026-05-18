@@ -16,8 +16,14 @@ public class PlayerMenu : MonoBehaviour
     public GameObject _inGameMenu;
     public GameObject _dialogueMenu;
 
+    [Header("Sound")]
+    public AudioClip unpause;
+    public AudioClip pause;
+
     private void Start()
     {
+        pause = SoundHolder.Instance.MenuPause;
+        unpause = SoundHolder.Instance.MenuUnpause;
         foreach (GameObject panel in allPanels)
         {
             panel.SetActive(false);
@@ -50,6 +56,7 @@ public class PlayerMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         _playerMenu.SetActive(isOpened);
+        SoundManager.instance.PlayClip(pause, transform, 0.75f);
         _inGameMenu.SetActive(!isOpened);
     }
 
@@ -60,6 +67,7 @@ public class PlayerMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         _playerMenu.SetActive(isOpened);
+        SoundManager.instance.PlayClip(unpause, transform, 0.75f);
         _inGameMenu.SetActive(!isOpened);
     }
 }
