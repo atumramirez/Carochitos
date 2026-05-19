@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Criar nova Abilidade", menuName = "Skill/Abilidade")]
 public class Peck: MeleeSkill
 {
+
     public override void Activate(GameObject parent)
     {
         GameObject hitboxF = Instantiate(hurtBox.gameObject, parent.transform.TransformPoint(new Vector3(0, 0, 1)), parent.transform.rotation, parent.transform);
