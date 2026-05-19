@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5221655aea4644abb96fe1ce27932f, type: 3}
   m_Name: WaterGun
   m_EditorClassIdentifier: Assembly-CSharp::Peck
-  _name: 
+  _name: WaterGun
   _description: 
-  _elementalType: 0
+  _elementalType: 2
   power: 0
   cooldown: 0
   activetime: 0
-  modules: []
+  modules:
+  - {fileID: 0}
   hurtBox: {fileID: 0}
