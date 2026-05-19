@@ -337,4 +337,17 @@ public class TrainerController : GenericController
     {
         playerMenu.ActivateMenu();
     }
+
+    [Header("Change Current Carochito")]
+    public Party party;
+
+    public void NextCarochito()
+    {
+        party.NextCarochito();
+    }
+
+    public void PreviousCarochito()
+    {
+        party.Previous();
+    }
 }

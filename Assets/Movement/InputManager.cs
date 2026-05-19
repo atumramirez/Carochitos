@@ -20,7 +20,9 @@ public class InputManager : MonoBehaviour
     // Interact
     public InputActionReference interact;
 
-    // Change current Carochito
+    // Change Carochito
+    public InputActionReference next;
+    public InputActionReference previous;
 
 
     // Summoning and Dismissing Monster

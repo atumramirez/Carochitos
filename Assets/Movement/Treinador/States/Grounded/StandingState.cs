@@ -52,6 +52,22 @@ public class StandingState: State<TrainerController>
         character.inputManager.menu.action.started += PressMenu;
 
         character.inputManager.interact.action.started += PressInteract;
+
+        character.inputManager.next.action.started += PressNext;
+        character.inputManager.previous.action.started += PressPrevious;
+
+
+
+    }
+
+    private void PressPrevious(InputAction.CallbackContext context)
+    {
+        character.PreviousCarochito();
+    }
+
+    private void PressNext(InputAction.CallbackContext context)
+    {
+        character.NextCarochito();
     }
 
     private void PressInteract(InputAction.CallbackContext context)
@@ -170,5 +186,8 @@ public class StandingState: State<TrainerController>
         character.inputManager.throwin.action.started -= PressAim;
 
         character.inputManager.menu.action.started -= PressMenu;
+
+        character.inputManager.next.action.started -= PressNext;
+        character.inputManager.previous.action.started -= PressPrevious;
     }
 }
