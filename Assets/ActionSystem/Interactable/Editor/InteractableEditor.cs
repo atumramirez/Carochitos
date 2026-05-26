@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(IInteractable))]
-public class IInteractableEditor : Editor
+[CustomEditor(typeof(Interactable))]
+public class InteractableEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        IInteractable interactable = (IInteractable)target;
+        Interactable interactable = (Interactable)target;
 
         GUILayout.Space(10);
 
@@ -18,7 +18,7 @@ public class IInteractableEditor : Editor
         }
     }
 
-    private void CreateDialogueGraph(IInteractable interactable)
+    private void CreateDialogueGraph(Interactable interactable)
     {
         // Create new ScriptableObject
         RuntimeDialogueGraph newGraph = ScriptableObject.CreateInstance<RuntimeDialogueGraph>();

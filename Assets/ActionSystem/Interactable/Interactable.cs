@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class IInteractable : MonoBehaviour 
+public class Interactable : MonoBehaviour 
 {
-    [Header("Trigger")]
+    [Header("Type Of Trigger")] // Type of trigger
     public Trigger trigger = Trigger.ButtonPress;
 
     [Header("Action Graphs")]
@@ -18,7 +18,6 @@ public class IInteractable : MonoBehaviour
         ExitArea,
         Autorun
     }
-
     public void Start()
     {
         if (trigger == Trigger.Autorun)
@@ -26,7 +25,6 @@ public class IInteractable : MonoBehaviour
             OnInteract();
         }
     }
-
     public void OnInteract()
     {
         if (dialogueGraph != null)
@@ -39,7 +37,6 @@ public class IInteractable : MonoBehaviour
             return;
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (trigger == Trigger.EnterArea)

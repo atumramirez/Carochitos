@@ -12,6 +12,9 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI SpeakerNameText;
     public TextMeshProUGUI DialogueText;
 
+    [Header("Sprites")]
+    public Image Sprite;
+
     [Header("Choice Button")]
     public Button ChoiceButton;
     public Transform ChoiceButtonContainer;
@@ -74,6 +77,16 @@ public class DialogueManager : MonoBehaviour
         // Set text
         SpeakerNameText.SetText(node.SpeakerName);
         DialogueText.SetText(node.DialogueText);
+
+        if (node.CharacterSprite != null)
+        {
+            Sprite.enabled = true;
+            Sprite.sprite = node.CharacterSprite;
+        }
+        else
+        {
+            Sprite.enabled = false;
+        }
 
         // Clear old choices
         foreach (Transform child in ChoiceButtonContainer)

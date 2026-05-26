@@ -207,8 +207,11 @@ MonoBehaviour:
   carochito:
     _base: {fileID: 11400000, guid: 5a3e2a6d5a9ab7540b0eb3c7b54c35fd, type: 2}
     _nickname: 
-    _level: 1
     _currentHealth: 0
+    _isAlive: 0
+    _level: 1
+    _currentExp: 1
+    _skill: []
   healthBar: {fileID: 0}
 --- !u!114 &-6743210904171491830
 MonoBehaviour:
@@ -229,6 +232,7 @@ MonoBehaviour:
   gravityMultiplier: 2
   rotationSpeed: 5
   crouchColliderHeight: 1.35
+  headPivot: {fileID: 0}
   speedDampTime: 0.1
   velocityDampTime: 0.1
   rotationDampTime: 0.2
@@ -236,11 +240,92 @@ MonoBehaviour:
   gravityValue: -9.81
   normalColliderHeight: 0
   controller: {fileID: 0}
-  playerInput: {fileID: 0}
   cameraTransform: {fileID: 0}
   animator: {fileID: 0}
   playerVelocity: {x: 0, y: 0, z: 0}
-  characterHandler: {fileID: 0}
+  playerInput: {fileID: 0}
+  move:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 1f17de07-1f8e-4b4a-bcd7-ba20cf19414e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  attack:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 96d05db4-f3ee-4108-94f5-7c1713116119
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  swap:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 48589dc7-b24c-423d-86dd-c43547c924af
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  ability1:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 81c925c5-4fe8-464a-81b5-15fcc257c230
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  ability2:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b5915531-287a-4b1c-aa78-56099b418ddc
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  ability3:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 01480cde-93df-4831-b956-3d7b67a88061
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  ability4:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 692f50a8-f11a-462b-bb64-f2c3c1abc3d1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  owner: {fileID: 0}
+  navMeshAgent: {fileID: 0}
+  carochito:
+    _base: {fileID: 0}
+    _nickname: 
+    _currentHealth: 0
+    _isAlive: 0
+    _level: 1
+    _currentExp: 1
+    _skill: []
+  healthBar: {fileID: 0}
+  handler: {fileID: 0}
+  dashSpeed: 10
+  dashDuration: 0.15
+  currentDashCharges: 0
+  dashRechargeTime: 2
+  dashDelay: 0.5
+  maxDashCharges: 3
+  skills: []
 --- !u!143 &1025759615790175884
 CharacterController:
   m_ObjectHideFlags: 0

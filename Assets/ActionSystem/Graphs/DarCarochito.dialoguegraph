@@ -308,9 +308,11 @@ MonoBehaviour:
           m_KeyList:
           - Speaker
           - Dialogue
+          - Character Sprite
           m_ValueList:
           - rid: 623863115134533755
           - rid: 623863115134533756
+          - rid: 6477096057303466054
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -401,3 +403,7 @@ MonoBehaviour:
           m_PortDirection: 1
           m_PortOrientation: 0
           m_Title: In
+    - rid: 6477096057303466054
+      type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}

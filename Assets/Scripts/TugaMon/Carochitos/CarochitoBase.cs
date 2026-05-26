@@ -64,14 +64,6 @@ public class CarochitoBase : ScriptableObject
 
 }
 
-public enum ElementalTypes
-{
-    None,
-    Fire,
-    Water,
-    Wind
-}
-
 [System.Serializable]
 public class LearnableSkills
 {

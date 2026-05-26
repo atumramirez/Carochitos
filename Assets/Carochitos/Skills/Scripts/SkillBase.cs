@@ -10,16 +10,20 @@ public class SkillBase : ScriptableObject
 
     [Header("Combat Info")]
     [SerializeField] ElementalTypes _elementalType;
-    public ElementalTypes Type { get { return _elementalType; } }
-
     [SerializeField] int power;
-    public int Power { get { return power; } }
 
+    [Header("Sprite")]
+    [SerializeField] Sprite _skillIcon;
+    
     [Header("Timers")]
     [SerializeField] int cooldown;
-    public int Cooldown { get { return cooldown; } }
-
     [SerializeField] int activetime;
+    
+    [Header("Properties")]
+    public ElementalTypes Type { get { return _elementalType; } }
+    public int Power { get { return power; } }
+    public Sprite SkillIcon { get { return _skillIcon;  } }
+    public int Cooldown { get { return cooldown; } }
     public int ActiveTime { get { return activetime; } }
 
     public virtual void Activate(GameObject parent)

@@ -294,9 +294,11 @@ MonoBehaviour:
           m_KeyList:
           - Speaker
           - Dialogue
+          - Character Sprite
           m_ValueList:
           - rid: 623863072727761088
           - rid: 623863072727761089
+          - rid: 6477096057303466055
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -570,9 +572,11 @@ MonoBehaviour:
           m_KeyList:
           - Speaker
           - Dialogue
+          - Character Sprite
           m_ValueList:
           - rid: 623863115134533715
           - rid: 623863115134533716
+          - rid: 6477096057303466056
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -683,9 +687,11 @@ MonoBehaviour:
           m_KeyList:
           - Speaker
           - Dialogue
+          - Character Sprite
           m_ValueList:
           - rid: 623863115134533724
           - rid: 623863115134533725
+          - rid: 6477096057303466057
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -833,9 +839,11 @@ MonoBehaviour:
           m_KeyList:
           - Speaker
           - Dialogue
+          - Character Sprite
           m_ValueList:
           - rid: 623863115134533733
           - rid: 623863115134533734
+          - rid: 6477096057303466058
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -963,3 +971,19 @@ MonoBehaviour:
     - rid: 623863115134533738
       type: {class: EndNode, ns: , asm: Assembly-CSharp-Editor}
       data: 
+    - rid: 6477096057303466055
+      type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 6477096057303466056
+      type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 6477096057303466057
+      type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}
+    - rid: 6477096057303466058
+      type: {class: 'Constant`1[[UnityEngine.Sprite, UnityEngine.CoreModule]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: {fileID: 0}

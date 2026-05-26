@@ -324,13 +324,26 @@ public class TrainerController : GenericController
         isControllingMonster = false;
     }
 
+    #region Interact
     [Header("Interact")]
-    public Transform interactPivot;
+    [SerializeField] private Transform _interactArea;
+    [SerializeField] private float _interactAreaSize = 1f;
     public void Interact()
     {
-        
-    }
+        Collider[] colliders = Physics.OverlapSphere(_interactArea.position, _interactAreaSize);
 
+        foreach (Collider collider in colliders)
+        {
+            if (collider.TryGetComponent<Interactable>(out var interactable))
+            {
+                interactable.OnInteract();
+                break;
+            }
+        }
+    }
+    #endregion
+
+    #region Menu
     [Header("Menu")]
     public PlayerMenu playerMenu;
     public void OpenMenu()
@@ -350,4 +363,5 @@ public class TrainerController : GenericController
     {
         party.Previous();
     }
+    #endregion
 }

@@ -1,7 +1,9 @@
 using UnityEngine;
 
+/*
 public class PlayerInteract : MonoBehaviour
 {
+    
     [SerializeField] private Transform _interactArea;
     [SerializeField] private float _interactAreaSize = 1f;
     public void Interact()
@@ -10,11 +12,13 @@ public class PlayerInteract : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            if (collider.TryGetComponent<IInteractable>(out var interactable))
+            if (collider.TryGetComponent<Interactable>(out var interactable))
             {
                 interactable.OnInteract();
                 break;
             }
         }
     }
+    
 }
+*/

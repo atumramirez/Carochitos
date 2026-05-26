@@ -1,5 +1,6 @@
 using System;
 using Unity.GraphToolkit.Editor;
+using UnityEngine;
 
 [Serializable]
 public class StartNode : Node
@@ -29,6 +30,7 @@ public class DialogueNode : Node
 
         context.AddInputPort<string>("Speaker").Build();
         context.AddInputPort<string>("Dialogue").Build();
+        context.AddInputPort<Sprite>("Character Sprite").Build();
     }
 }
 

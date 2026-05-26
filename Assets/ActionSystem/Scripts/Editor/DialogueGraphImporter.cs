@@ -74,6 +74,7 @@ public class DialogueGraphImporter : ScriptedImporter
     {
         runtimeNode.SpeakerName = GetPortValue<string>(node.GetInputPortByName("Speaker"));
         runtimeNode.DialogueText = GetPortValue<string>(node.GetInputPortByName("Dialogue"));
+        runtimeNode.CharacterSprite = GetPortValue<Sprite>(node.GetInputPortByName("Character Sprite"));
 
         var nextNodePort = node.GetOutputPortByName("Out")?.firstConnectedPort;
 
