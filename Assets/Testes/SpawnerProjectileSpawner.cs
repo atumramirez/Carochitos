@@ -4,6 +4,7 @@ public class SpawnerProjectileSpawner : MonoBehaviour
 {
     public GameObject projectilePrefab;
     public Transform firePoint;
+    public GameObject fParticle;
 
     public float fireRate = 0.2f;
     private float nextFireTime;
@@ -30,7 +31,8 @@ public class SpawnerProjectileSpawner : MonoBehaviour
         if (projectile.TryGetComponent<SpawnBox>(out var spawnBox))
         {
             spawnBox.SetUp(a, b);
-            spawnBox.Parameters(finalSize,finalDuration);
+            spawnBox.Parameters(finalSize,finalDuration,fParticle);
+            spawnBox.GetEffect(fParticle);
         }
 
     }

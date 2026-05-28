@@ -24,6 +24,7 @@ public class HitBox : MonoBehaviour
     {
         if (other.TryGetComponent<HurtBox>(out var hurtbox))
         {
+            
             CarochitoBattler victim = hurtbox.CarochitoBattler;
 
             if (victim.Carochito.IsAlive == true)
