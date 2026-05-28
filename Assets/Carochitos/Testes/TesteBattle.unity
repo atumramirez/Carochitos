@@ -1432,6 +1432,7 @@ GameObject:
   - component: {fileID: 2108290645}
   - component: {fileID: 2108290646}
   - component: {fileID: 2108290648}
+  - component: {fileID: 2108290649}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -1594,7 +1595,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108290639}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 584824c287dbe0c4aab44f08cf770082, type: 3}
   m_Name: 
@@ -1607,6 +1608,25 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 512
+--- !u!114 &2108290649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108290639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e55eb44b4ca7cc4ea1dfdd89e5673c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnerProjectileSpawner
+  projectilePrefab: {fileID: 753134704281845868, guid: 08066da14fc683e4aac2d5aa567612f1, type: 3}
+  firePoint: {fileID: 1866985255}
+  fireRate: 0.2
+  finalSize: {x: 3, y: 10, z: 3}
+  finalDuration: 4
+  a: {fileID: 2108290647}
+  b: {fileID: 11400000, guid: cd65ad11538d1684fb82dd696eee6c6e, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
