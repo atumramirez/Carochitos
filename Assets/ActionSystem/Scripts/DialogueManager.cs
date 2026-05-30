@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Sprites")]
     public Image Sprite;
+    public Image ExpressionSprite;
 
     [Header("Choice Button")]
     public Button ChoiceButton;
@@ -75,17 +77,22 @@ public class DialogueManager : MonoBehaviour
         }
 
         // Set text
-        SpeakerNameText.SetText(node.SpeakerName);
+        SpeakerNameText.SetText(node.CharacterSprite._name);
         DialogueText.SetText(node.DialogueText);
 
         if (node.CharacterSprite != null)
         {
             Sprite.enabled = true;
-            Sprite.sprite = node.CharacterSprite;
+            ExpressionSprite.enabled = true;
+
+            Sprite.sprite = node.CharacterSprite._baseSprite;
+            ExpressionSprite.sprite = node.CharacterSprite._happy;
         }
+
         else
         {
             Sprite.enabled = false;
+            ExpressionSprite.enabled = false;
         }
 
         // Clear old choices

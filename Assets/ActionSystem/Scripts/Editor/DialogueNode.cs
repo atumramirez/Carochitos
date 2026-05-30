@@ -28,9 +28,16 @@ public class DialogueNode : Node
         context.AddInputPort("In").Build();
         context.AddOutputPort("Out").Build();
 
-        context.AddInputPort<string>("Speaker").Build();
+
+
+        // context.AddInputPort<string>("Speaker").Build();
+        // context.AddInputPort<Sprite>("Character Sprite").Build();
+
+
+        context.AddInputPort<CharacterSprite>("Character").Build();
         context.AddInputPort<string>("Dialogue").Build();
-        context.AddInputPort<Sprite>("Character Sprite").Build();
+        context.AddInputPort<Emotion>("Emotion").Build();
+        context.AddInputPort<AudioClip>("Voice Acting").Build();
     }
 }
 
@@ -42,8 +49,10 @@ public class ChoiceNode : Node
     {
         context.AddInputPort("In").Build();
 
-        context.AddInputPort<string>("Speaker").Build();
+        context.AddInputPort<CharacterSprite>("Character").Build();
         context.AddInputPort<string>("Dialogue").Build();
+        context.AddInputPort<Emotion>("Emotion").Build();
+        context.AddInputPort<AudioClip>("Voice Acting").Build();
 
         var option = GetNodeOptionByName(optionID);
         option.TryGetValue(out int portCount);
@@ -58,6 +67,21 @@ public class ChoiceNode : Node
     protected override void OnDefineOptions(IOptionDefinitionContext context)
     {
         context.AddOption<int>(optionID).WithDefaultValue(2).Delayed();
+    }
+}
+
+[Serializable]
+public class BackgroundNode : Node
+{
+    protected override void OnDefinePorts(IPortDefinitionContext context)
+    {
+        context.AddInputPort("In").Build();
+        context.AddOutputPort("Out").Build();
+
+        context.AddInputPort<Sprite>("Background").Build();
+        context.AddInputPort<int>("Fade In").Build();
+        context.AddInputPort<int>("Fade Out").Build();
+        //context.AddInputPort<Item>("Item").Build();
     }
 }
 

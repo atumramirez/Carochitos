@@ -14,6 +14,8 @@ public class InventorySlot : MonoBehaviour
     public void Setup(ItemInInventory item)
     {
         _item = item;
+
+        icon.sprite = item.Item._sprite;
         count.text = "x" + _item.Count.ToString();
     }
 }

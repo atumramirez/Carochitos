@@ -114,7 +114,7 @@ public class ShopMenu : MonoBehaviour
         amountItens = 1;
         amount.text = amountItens.ToString();
 
-        price = amountItens * currentSelectedItem.cost;
+        price = amountItens * currentSelectedItem._cost;
         priceText.text = "Price: " + price.ToString();
 
         UpdateShopMenu();
@@ -125,7 +125,7 @@ public class ShopMenu : MonoBehaviour
         amountItens += number;
         amount.text = amountItens.ToString();
 
-        price = amountItens * currentSelectedItem.cost;
+        price = amountItens * currentSelectedItem._cost;
         priceText.text = "Price: " + price.ToString();
 
         UpdateShopMenu();
@@ -133,7 +133,7 @@ public class ShopMenu : MonoBehaviour
 
     public void UpdateShopMenu()
     {
-        if ((amountItens + 1) * currentSelectedItem.cost > inventory.Currency)
+        if ((amountItens + 1) * currentSelectedItem._cost > inventory.Currency)
         {
             moreOne.interactable = false;
         }
@@ -151,7 +151,7 @@ public class ShopMenu : MonoBehaviour
             lessOne.interactable = true;
         }
 
-        if (currentSelectedItem.cost > inventory.Currency)
+        if (currentSelectedItem._cost > inventory.Currency)
         {
             confirmBuy.interactable = false;
         }

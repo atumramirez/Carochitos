@@ -70,6 +70,8 @@ public class CarochitoSelectionMenu : MonoBehaviour
             // Step 2: Track already added monsters (to prevent duplicates)
             HashSet<Carochito> addedMonsters = new();
 
+            int currentCarochito = 0;
+
             foreach (Carochito member in Party.Instance.carochitos)
             {
                 // Skip duplicates
@@ -83,11 +85,22 @@ public class CarochitoSelectionMenu : MonoBehaviour
                 if (sheetObj.TryGetComponent<CarochitoSelectionSheet>(out var sheetUI))
                 {
                     sheetUI.UpdateSheet(member);
+
+                    if (currentCarochito == Party.Instance.currentIndex)
+                    {
+                        sheetUI.Selected(true);
+                    }
+                    else
+                    {
+                        sheetUI.Selected(false);
+                    }
                 }
                 else
                 {
                     Debug.LogWarning("Sheet prefab is missing MonsterSelectionSheet component.");
                 }
+
+                currentCarochito++;
             }
         }
         else

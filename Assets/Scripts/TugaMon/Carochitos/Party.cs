@@ -23,6 +23,8 @@ public class Party : MonoBehaviour
 
     public CarochitoSelectionMenu _carochitoSelectionMenu;
 
+    public GameObject SelectionMenu;
+
     //public PartyHolder _partyHolder;
 
     private void Start()
@@ -70,6 +72,7 @@ public class Party : MonoBehaviour
 
         currentIndex = (currentIndex + 1) % carochitos.Count;
         currentCarochito = carochitos[currentIndex];
+
         _carochitoSelectionMenu.RefreshMenu();
 
         Debug.Log("Next item: " + carochitos[currentIndex].Base.Name);

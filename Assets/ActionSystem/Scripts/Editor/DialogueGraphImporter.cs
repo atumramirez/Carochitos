@@ -72,9 +72,13 @@ public class DialogueGraphImporter : ScriptedImporter
 
     private void ProcessDialogueNode(DialogueNode node, SpeakAction runtimeNode, Dictionary<INode, string> nodeIDMap)
     {
-        runtimeNode.SpeakerName = GetPortValue<string>(node.GetInputPortByName("Speaker"));
+        //  runtimeNode.SpeakerName = GetPortValue<string>(node.GetInputPortByName("Speaker"));
+
+
         runtimeNode.DialogueText = GetPortValue<string>(node.GetInputPortByName("Dialogue"));
-        runtimeNode.CharacterSprite = GetPortValue<Sprite>(node.GetInputPortByName("Character Sprite"));
+        runtimeNode.CharacterSprite = GetPortValue<CharacterSprite>(node.GetInputPortByName("Character"));
+        runtimeNode.Emotion = GetPortValue<Emotion>(node.GetInputPortByName("Emotion"));
+        runtimeNode.VoiceActing = GetPortValue<AudioClip>(node.GetInputPortByName("Voice Acting"));
 
         var nextNodePort = node.GetOutputPortByName("Out")?.firstConnectedPort;
 
@@ -86,8 +90,12 @@ public class DialogueGraphImporter : ScriptedImporter
 
     private void ProcessChoiceNode(ChoiceNode node, QuestionAction runtimeNode, Dictionary<INode, string> nodeIDMap)
     {
-        runtimeNode.SpeakerName = GetPortValue<string>(node.GetInputPortByName("Speaker"));
+        //runtimeNode.SpeakerName = GetPortValue<string>(node.GetInputPortByName("Speaker"));
+
         runtimeNode.DialogueText = GetPortValue<string>(node.GetInputPortByName("Dialogue"));
+        runtimeNode.CharacterSprite = GetPortValue<CharacterSprite>(node.GetInputPortByName("Character"));
+        runtimeNode.Emotion = GetPortValue<Emotion>(node.GetInputPortByName("Emotion"));
+        runtimeNode.VoiceActing = GetPortValue<AudioClip>(node.GetInputPortByName("Voice Acting"));
 
         var choiceOutPorts = node.GetOutputPorts().Where(p => p.name.StartsWith("Choice "));
 

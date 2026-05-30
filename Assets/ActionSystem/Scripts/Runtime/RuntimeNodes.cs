@@ -18,9 +18,14 @@ public class BaseActionNode
 [Serializable]
 public class BaseDialogueAction : BaseActionNode
 {
-    public string SpeakerName; // Nome do Persoagem
+    // public string SpeakerName; // Nome do Persoagem
+    // public CharacterSprite CharacterSprite;
+
+
     public string DialogueText; // Texto
-    public Sprite CharacterSprite; // Sprites dos Persongens
+    public CharacterSprite CharacterSprite; // Sprites dos Persongens
+    public Emotion Emotion;
+    public AudioClip VoiceActing;
 }
 
 [Serializable]

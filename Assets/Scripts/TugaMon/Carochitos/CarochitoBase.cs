@@ -22,8 +22,8 @@ public class CarochitoBase : ScriptableObject
     [SerializeField] GameObject _model;
 
     [Header("Elemental Types")]
-    [SerializeField] ElementalTypes _elementalType1;
-    [SerializeField] ElementalTypes _elementalType2;
+    [SerializeField] Elemental _elementalType1;
+    [SerializeField] Elemental _elementalType2;
 
     [Header("Stats")]
     [SerializeField] int _maxHealth;
@@ -49,8 +49,8 @@ public class CarochitoBase : ScriptableObject
     public GameObject Model { get { return _model; } }
 
     // Types
-    public ElementalTypes Type1 { get { return _elementalType1; } }
-    public ElementalTypes Type2 { get { return _elementalType2; } }
+    public Elemental Type1 { get { return _elementalType1; } }
+    public Elemental Type2 { get { return _elementalType2; } }
 
 
     // Stats
