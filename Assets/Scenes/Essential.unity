@@ -632,17 +632,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101259415}
   m_CullTransparentMesh: 1
---- !u!114 &113452842 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4166549578044392010, guid: fe4f7701395581c4093ea3e465430a00, type: 3}
-  m_PrefabInstance: {fileID: 38153109}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &113902464
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,10 +995,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
   DialoguePanel: {fileID: 758686893}
   NextButton: {fileID: 1611579317}
-  SpeakerNameText: {fileID: 113452842}
-  DialogueText: {fileID: 2137730815}
-  Sprite: {fileID: 0}
-  ExpressionSprite: {fileID: 0}
+  DialogueText: {fileID: 0}
+  LeftSpeaker: {fileID: 0}
+  LeftSpeakerNameText: {fileID: 0}
+  RightSpeaker: {fileID: 0}
+  RightSpeakerNameText: {fileID: 0}
+  LeftSprite: {fileID: 0}
+  LeftExpressionSprite: {fileID: 0}
+  RightSprite: {fileID: 0}
+  RightExpressionSprite: {fileID: 0}
   ChoiceButton: {fileID: 1987550506913024656, guid: 759655fb05115d34fbc4b162a70b8a78, type: 3}
   ChoiceButtonContainer: {fileID: 1359867701}
 --- !u!114 &139817994
@@ -1138,7 +1132,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 65
+  field of view: 45
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1164,8 +1158,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.011109045, y: 9.1694063e-10, z: -1.0186962e-11, w: 0.9999383}
-  m_LocalPosition: {x: 0, y: 21.1, z: -4.5}
+  m_LocalRotation: {x: 0.00975667, y: 0.0985329, z: -0.0009661007, w: 0.99508554}
+  m_LocalPosition: {x: 0, y: 21.1, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5876,43 +5870,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 631036258}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1759622859 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -1599826595754709761, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
-  m_PrefabInstance: {fileID: 1977495126}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1759622861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1759622859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
-  m_SerializedVersion: 0
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 5400dfb8d5948414e9351662b655adf7, type: 2}
-  m_BuildHeightMesh: 0
 --- !u!1 &1866263503
 GameObject:
   m_ObjectHideFlags: 0
@@ -6446,67 +6403,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1937601379}
   m_CullTransparentMesh: 1
---- !u!1001 &1977495126
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 96.97339
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -18.87401
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
-      propertyPath: m_Name
-      value: MapCarochitos_CaisV2(1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 3848092986743145716, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: -1599826595754709761, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1759622861}
-  m_SourcePrefab: {fileID: 100100000, guid: 48a8c348ed616e1439b3807d924d4a8e, type: 3}
 --- !u!1 &1977629195
 GameObject:
   m_ObjectHideFlags: 0
@@ -6789,6 +6685,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4087015717365295847, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
+      propertyPath: carochito._currentExp
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4466683883361734911, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: m_Name
       value: Cylinder
@@ -6800,6 +6700,10 @@ PrefabInstance:
     - target: {fileID: 5538847399692799969, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: dashSpeed
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5538847399692799969, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
+      propertyPath: carochito._currentExp
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7400708448335500600, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6979,10 +6883,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trainer
       objectReference: {fileID: 0}
-    - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
-      propertyPath: menu
-      value: 
-      objectReference: {fileID: -6435788768984441247, guid: c6b3381f38ce31249980950385565d7d, type: 3}
     - target: {fileID: 6878085779061431541, guid: c2ac540f285f7d94f869e0a2c21fb2ca, type: 3}
       propertyPath: party
       value: 
@@ -7351,17 +7251,6 @@ MonoBehaviour:
   MenuPause: {fileID: 8300000, guid: 4de7616cf44231b40aa282d7815cccac, type: 3}
   MenuInteract: {fileID: 8300000, guid: 28eab72ab529bfb49b532d4e72749fb4, type: 3}
   MenuUnpause: {fileID: 8300000, guid: 200348c96661c1044ab37d5e446f51de, type: 3}
---- !u!114 &2137730815 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6728598749496405007, guid: fe4f7701395581c4093ea3e465430a00, type: 3}
-  m_PrefabInstance: {fileID: 38153109}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &4877639787106908360
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11105,5 +10994,4 @@ SceneRoots:
   - {fileID: 139817992}
   - {fileID: 719961610}
   - {fileID: 1436592575}
-  - {fileID: 1977495126}
   - {fileID: 2002514748}

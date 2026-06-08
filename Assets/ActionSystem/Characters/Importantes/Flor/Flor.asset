@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27b4d3874118abf4a98d0bc87e61a27d, type: 3}
+  m_Name: Flor
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterSprite
+  _baseSprite: {fileID: 21300000, guid: cac072d5a1befba41afb763b6b9bfe85, type: 3}
+  _name: Flor
+  _default: {fileID: 21300000, guid: 8a5f50f9c82e04f499a04d6ac564c08a, type: 3}
+  _happy: {fileID: 21300000, guid: 9ed62c44b5d9bdf4fbf39e09a526fc53, type: 3}
+  _sad: {fileID: 21300000, guid: 8a5f50f9c82e04f499a04d6ac564c08a, type: 3}
+  _angry: {fileID: 21300000, guid: 8d60142137c296e468d9915ccb33cd9f, type: 3}
