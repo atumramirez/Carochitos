@@ -15,7 +15,7 @@ public class CarochitoBattler : MonoBehaviour
     {
         SetUp();
     }
-
+   
     public void SetUp()
     {
         Carochito = new Carochito( _base, _level);
