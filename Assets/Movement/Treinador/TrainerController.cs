@@ -19,6 +19,7 @@ public class TrainerController : GenericController
     public CaptureState capturing;
     public SwapingState swaping;
     public ThrowingState throwing;
+    public StopState stop;
 
     [Header("Player Input")]
     public InputManager inputManager;
@@ -41,6 +42,7 @@ public class TrainerController : GenericController
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+
 
         // Player Input
         inputManager.playerInput = GetComponent<PlayerInput>();
@@ -83,6 +85,9 @@ public class TrainerController : GenericController
 
         // SFollowing
         following = new FollowingState(this, stateMachine);
+
+        // Stop
+        stop = new StopState(this, stateMachine);
 
         stateMachine.Initialize(standing);
 
@@ -158,7 +163,7 @@ public class TrainerController : GenericController
             character.cameraHandler.SwitchCamera(character.cameraHandler.combatCam);
 
             character.inputManager.throwin.action.started += PressAim;
-            character.inputManager.jump.action.started += Throw;
+            character.inputManager.capture.action.started += Throw;
         }
 
         private void PressAim(InputAction.CallbackContext context)
@@ -261,7 +266,6 @@ public class TrainerController : GenericController
     #endregion
 
     [Header("Monster")]
-
     public GameObject monster;
 
     [Header("Summoning")]
@@ -292,6 +296,8 @@ public class TrainerController : GenericController
     public NavMeshAgent navMeshAgent;
     public bool isControllingMonster = false;
 
+    public HudHandler hudHandler;
+
     public void SwapToMonster()
     {
         inputManager.ControlMonster();
@@ -303,6 +309,9 @@ public class TrainerController : GenericController
         monster.GetComponent<MonsterController>().stateMachine.ChangeState(monster.GetComponent<MonsterController>().standingState);
 
         cameraHandler.LookAt(monster.transform);
+
+
+        hudHandler.OpenMonterHud();
 
         // Adicionar a modificação do Rig da Camera em Runtime
 
@@ -320,6 +329,8 @@ public class TrainerController : GenericController
 
         stateMachine.ChangeState(standing);
         monster.GetComponent<MonsterController>().stateMachine.ChangeState(monster.GetComponent<MonsterController>().followState);
+
+        hudHandler.OpenTrainerHud();
 
         isControllingMonster = false;
     }

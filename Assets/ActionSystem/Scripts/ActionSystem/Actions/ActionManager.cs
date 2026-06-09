@@ -18,6 +18,8 @@ public class ActionManager : MonoBehaviour
 
     private RuntimeDialogueGraph _currentGraph;
 
+    public TrainerController trainerController;
+
     void Awake()
     {
         if (Instance == null)
@@ -34,6 +36,8 @@ public class ActionManager : MonoBehaviour
     // Open Graph
     public void OpenGraph(RuntimeDialogueGraph graph)
     {
+        trainerController.stateMachine.ChangeState(trainerController.stop);
+
         _currentGraph = graph;
         _nodeLookUp.Clear();
 
@@ -55,6 +59,8 @@ public class ActionManager : MonoBehaviour
         _currentGraph = null;
 
         Debug.Log("Graph Closed");
+
+        trainerController.stateMachine.ChangeState(trainerController.standing);
 
         Cursor.lockState = CursorLockMode.Locked;
     }

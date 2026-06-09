@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -56,8 +55,6 @@ public class StandingState: State<TrainerController>
         character.inputManager.next.action.started += PressNext;
         character.inputManager.previous.action.started += PressPrevious;
 
-
-
     }
 
     private void PressPrevious(InputAction.CallbackContext context)
@@ -72,7 +69,7 @@ public class StandingState: State<TrainerController>
 
     private void PressInteract(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        character.Interact();
     }
 
     private void PressMenu(InputAction.CallbackContext context)
@@ -181,11 +178,16 @@ public class StandingState: State<TrainerController>
         character.inputManager.crouch.action.started -= PressCrouch;
         character.inputManager.capture.action.started -= PressCapture;
 
+        character.inputManager.summon.action.started -= PressSummon;
+        character.inputManager.dismiss.action.started -= PressDismiss;
+
         character.inputManager.sprint.action.performed -= HeldSprint;
 
         character.inputManager.throwin.action.started -= PressAim;
 
         character.inputManager.menu.action.started -= PressMenu;
+
+        character.inputManager.interact.action.started -= PressInteract;
 
         character.inputManager.next.action.started -= PressNext;
         character.inputManager.previous.action.started -= PressPrevious;

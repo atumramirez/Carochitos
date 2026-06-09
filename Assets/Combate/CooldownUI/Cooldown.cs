@@ -5,13 +5,6 @@ using UnityEngine.UI;
 
 public class Cooldown : MonoBehaviour
 {
-    [Serializable]
-    public class SkillCooldown
-    {
-        public SkillBase skill;
-        public Image image;
-    }
-
     public List<SkillCooldown> _cooldownIcons = new();
 
     public void Start()
@@ -33,4 +26,11 @@ public class Cooldown : MonoBehaviour
             _cooldownIcons[0].image.fillAmount -= (1f / _cooldownIcons[0].skill.Cooldown) * Time.deltaTime;
         }
     }
+}
+
+[Serializable]
+public class SkillCooldown
+{
+    public SkillBase skill;
+    public Image image;
 }

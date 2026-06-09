@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CabeloAmarelo 1
+  m_Name: Olhos2
   m_Shader: {fileID: -6465566751694194690, guid: b87cc1401c4dec04181ac3f274f3073e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Material:
-        m_Texture: {fileID: 2800000, guid: 3a5819d8376a9874da219dd47aef6df5, type: 3}
+        m_Texture: {fileID: 2800000, guid: f251eef7db2569546b5d8b4207c5f617, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -63,7 +63,7 @@ Material:
     - _Shades: 0.3
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color_1: {r: 1, g: 0, b: 0, a: 1}
+    - _Color_1: {r: 1, g: 1, b: 1, a: 1}
     - _RimLightColour: {r: 3.142987, g: 0, b: 0.07727261, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
