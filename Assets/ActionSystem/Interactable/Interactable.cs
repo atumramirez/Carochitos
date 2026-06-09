@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-
 public class Interactable : MonoBehaviour 
 {
     [Header("Type Of Trigger")] // Type of trigger

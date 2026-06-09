@@ -67,7 +67,7 @@ public class CharacterHandler : MonoBehaviour
 
         if (currentCharacter == tarinerCharacter)
         {
-            //tarinerCharacter.stateMachine.ChangeState(tarinerCharacter.aiState);
+            // tarinerCharacter.stateMachine.ChangeState(tarinerCharacter.aiState);
             monsterController.stateMachine.ChangeState(monsterController.standingState);
 
             currentCharacter = monsterController;

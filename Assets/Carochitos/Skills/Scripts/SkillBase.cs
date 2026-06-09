@@ -9,7 +9,8 @@ public class SkillBase : ScriptableObject
     [SerializeField] string _description;
 
     [Header("Combat Info")]
-    [SerializeField] ElementalTypes _elementalType;
+    [SerializeField] Elemental _elementalType;
+    //[SerializeField] ElementalTypes _elementalType;
     [SerializeField] int power;
 
     [Header("Sprite")]
@@ -20,7 +21,7 @@ public class SkillBase : ScriptableObject
     [SerializeField] int activetime;
     
     [Header("Properties")]
-    public ElementalTypes Type { get { return _elementalType; } }
+    public Elemental Type { get { return _elementalType; } }
     public int Power { get { return power; } }
     public Sprite SkillIcon { get { return _skillIcon;  } }
     public int Cooldown { get { return cooldown; } }

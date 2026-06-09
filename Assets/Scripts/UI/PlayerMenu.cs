@@ -56,7 +56,7 @@ public class PlayerMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         _playerMenu.SetActive(isOpened);
-        SoundManager.instance.PlayClip(pause, transform, 0.75f);
+        // SoundManager.instance.PlayClip(pause, transform, 0.75f);
         _inGameMenu.SetActive(!isOpened);
     }
 
@@ -67,7 +67,7 @@ public class PlayerMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         _playerMenu.SetActive(isOpened);
-        SoundManager.instance.PlayClip(unpause, transform, 0.75f);
+        // SoundManager.instance.PlayClip(unpause, transform, 0.75f);
         _inGameMenu.SetActive(!isOpened);
     }
 }

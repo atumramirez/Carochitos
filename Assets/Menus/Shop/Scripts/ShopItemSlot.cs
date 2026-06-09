@@ -14,6 +14,7 @@ public class ShopItemSlot : MonoBehaviour
     public void Setup(ItemInInventory item)
     {
         _item = item;
-        cost.text = _item.Item.cost.ToString() + "$";
+        icon.sprite = item.Item._sprite;
+        cost.text = _item.Item._cost.ToString() + "$";
     }
 }

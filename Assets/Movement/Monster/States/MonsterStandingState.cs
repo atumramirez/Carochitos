@@ -31,13 +31,28 @@ public class MonsterStandingState : State<MonsterController>
         grounded = character.controller.isGrounded;
         gravityValue = character.gravityValue;
 
-        character.swap.performed += PressSwap;
-        character.ability1.performed += PressSummon;
+
+        character.inputManager.ability1.action.performed += PressAbility;
+        character.inputManager.ability2.action.performed += PressAbility1;
+        character.inputManager.ability3.action.performed += PressAbility2;
+        character.inputManager.ability4.action.performed += PressAbility3;
     }
 
-    private void PressSummon(InputAction.CallbackContext context)
+    private void PressAbility(InputAction.CallbackContext context)
     {
         character.Attack(0);
+    }
+    private void PressAbility1(InputAction.CallbackContext context)
+    {
+        character.Attack(1);
+    }
+    private void PressAbility2(InputAction.CallbackContext context)
+    {
+        character.Attack(2);
+    }
+    private void PressAbility3(InputAction.CallbackContext context)
+    {
+        character.Attack(2);
     }
 
     private void PressSwap(InputAction.CallbackContext context)
@@ -50,13 +65,11 @@ public class MonsterStandingState : State<MonsterController>
     {
         base.LogicUpdate();
 
-        input = character.move.ReadValue<Vector2>();
+        input = character.inputManager.monsterMove.action.ReadValue<Vector2>();
 
         velocity = new Vector3(input.x, 0, input.y);
         velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized;
         velocity.y = 0f;
-
-        // character.animator.SetFloat("speed", input.magnitude, character.speedDampTime, Time.deltaTime);
     }
 
     public override void PhysicsUpdate()
@@ -91,8 +104,10 @@ public class MonsterStandingState : State<MonsterController>
             character.transform.rotation = Quaternion.LookRotation(velocity);
         }
 
-        character.swap.performed -= PressSwap;
-        character.ability1.performed -= PressSummon;
+        character.inputManager.ability1.action.performed -= PressAbility;
+        character.inputManager.ability2.action.performed -= PressAbility1;
+        character.inputManager.ability3.action.performed -= PressAbility2;
+        character.inputManager.ability4.action.performed -= PressAbility3;
     }
         
 }

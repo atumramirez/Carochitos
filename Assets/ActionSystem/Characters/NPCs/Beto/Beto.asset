@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27b4d3874118abf4a98d0bc87e61a27d, type: 3}
+  m_Name: Beto
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterSprite
+  _baseSprite: {fileID: 21300000, guid: 1aa1897cbd88a81429d605c854114db4, type: 3}
+  _name: Beto
+  _default: {fileID: 21300000, guid: 41fc5c38153a32848abbeb50759cb5a7, type: 3}
+  _happy: {fileID: 21300000, guid: ddf7a1bbc12dd0b49b6cc666951f5e17, type: 3}
+  _sad: {fileID: 0}
+  _angry: {fileID: 0}
