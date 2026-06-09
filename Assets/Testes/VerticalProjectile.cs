@@ -1,8 +1,10 @@
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class VerticalProjectile : MonoBehaviour
 {
     public GameObject projectilePrefab;
+    public GameObject particles;
     public Transform firePoint;
 
     public float fireRate = 0.2f;
@@ -30,7 +32,7 @@ public class VerticalProjectile : MonoBehaviour
         if (projectile.TryGetComponent<SpawnBox>(out var spawnBox))
         {
             spawnBox.SetUp(a, b);
-            spawnBox.Parameters(finalSize, finalDuration);
+            spawnBox.GetEffect(particles);
         }
 
     }
