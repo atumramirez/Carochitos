@@ -46,7 +46,7 @@ public class UseSkill: MonoBehaviour
 
             yield return new WaitForSeconds(mod.duration);
         }
-        yield return new WaitForSeconds(currentSkill.Cooldown);
+        yield return new WaitForSeconds(currentSkill.FullCooldown);
         onColdown = false;
         
     }

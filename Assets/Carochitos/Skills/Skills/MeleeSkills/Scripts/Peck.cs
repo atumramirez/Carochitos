@@ -4,8 +4,9 @@ using UnityEngine;
 public class Peck: MeleeSkill
 {
 
-    public override void Activate(GameObject parent)
+    public override void Activate(CarochitoBattler carochitoBattler)
     {
+        /*
         GameObject hitboxF = Instantiate(hurtBox.gameObject, parent.transform.TransformPoint(new Vector3(0, 0, 1)), parent.transform.rotation, parent.transform);
         hitboxF.transform.localScale = modules[0].hitboxSize;
 
@@ -14,8 +15,9 @@ public class Peck: MeleeSkill
         /*
         hitboxDamage.owner = parent.GetComponent<CarochitoHandler>();
         hitboxDamage.skill = this;
-        */
+        
 
         Destroy(hitboxF, ActiveTime);
+        */
     }
 }

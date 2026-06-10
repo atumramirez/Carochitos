@@ -85,6 +85,13 @@ public class DialogueGraphImporter : ScriptedImporter
                 ProcessConditionNode(ConditionNode, runtimeNode, nodeIDMap);
                 runtimeGraph.AllNodes.Add(runtimeNode);
             }
+
+            else if (INode is TeleportNode TeleportNode)
+            {
+                var runtimeNode = new TeleportAction { NodeID = nodeIDMap[INode] };
+                ProcessTeleportNode(TeleportNode, runtimeNode, nodeIDMap);
+                runtimeGraph.AllNodes.Add(runtimeNode);
+            }
         }
 
         // Attach the new runtime data to the asset itselft, this let us drag and drop the graph in the inspector
@@ -163,7 +170,6 @@ public class DialogueGraphImporter : ScriptedImporter
             runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
         }
     }
-
 
     private void ProcessBackgroundNode(ChangeBackgroundNode node, ChangeBackgroundAction runtimeNode, Dictionary<INode, string> nodeIDMap)
     {
@@ -245,6 +251,19 @@ public class DialogueGraphImporter : ScriptedImporter
         }
     }
 
+    private void ProcessTeleportNode(TeleportNode node, TeleportAction runtimeNode, Dictionary<INode, string> nodeIDMap)
+    {
+        // Dialogue
+        runtimeNode.Scene = GetPortValue<string>(node.GetInputPortByName("Scene"));
+        runtimeNode.WayPoint = GetPortValue<int>(node.GetInputPortByName("WayPoint"));
+
+        var nextNodePort = node.GetOutputPortByName("Out")?.firstConnectedPort;
+
+        if (nextNodePort != null)
+        {
+            runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
+        }
+    }
 
     #region GetPortValue
     private T GetPortValue<T>(IPort port)

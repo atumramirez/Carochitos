@@ -4,6 +4,7 @@ public class TestDialogue : MonoBehaviour
 {
     private void Start()
     {
+        /*
         for (int i = 0; i < 23; i++)
         {
             Debug.LogError("Error alert #" + (i + 1));
@@ -18,5 +19,6 @@ public class TestDialogue : MonoBehaviour
         {
             Debug.Log("Warning alert #" + (i + 1));
         }
+        */
     }
 }

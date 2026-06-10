@@ -20,6 +20,10 @@ public class ActionManager : MonoBehaviour
 
     public TrainerController trainerController;
 
+    [Header("Manager")]
+    public DialogueManager dialogueManager;
+    public GameSceneManager gameSceneManager;
+
     void Awake()
     {
         if (Instance == null)

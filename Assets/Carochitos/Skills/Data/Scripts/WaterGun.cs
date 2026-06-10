@@ -1,0 +1,19 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Skill", menuName = "Carochito/Skill/Water Gun")]
+
+public class WaterGun: SkillBase
+{
+    public GameObject projectilePrefab;
+
+    public override void Activate(CarochitoBattler carochitoBattler)
+    {
+        GameObject projectile = Instantiate(projectilePrefab, carochitoBattler.firePoint.position, carochitoBattler.firePoint.rotation);
+
+        if (projectile.TryGetComponent<HitBox>(out var hitBox))
+        {
+            hitBox.SetUp(carochitoBattler, this);
+        }
+
+    }
+}

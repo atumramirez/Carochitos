@@ -23,7 +23,7 @@ public class Cooldown : MonoBehaviour
     {
         if (_cooldownIcons[0].image.fillAmount > 0)
         {
-            _cooldownIcons[0].image.fillAmount -= (1f / _cooldownIcons[0].skill.Cooldown) * Time.deltaTime;
+            _cooldownIcons[0].image.fillAmount -= (1f / _cooldownIcons[0].skill.FullCooldown) * Time.deltaTime;
         }
     }
 }

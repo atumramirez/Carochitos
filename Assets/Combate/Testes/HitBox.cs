@@ -26,10 +26,13 @@ public class HitBox : MonoBehaviour
         {
             CarochitoBattler victim = hurtbox.CarochitoBattler;
 
-            if (victim.Carochito.IsAlive == true)
+            if (victim != BattlerOwner)
             {
-                hurtbox.ReceiveHit(BattlerOwner, SkillUsed);
-            } 
+                if (victim.Carochito.IsAlive == true)
+                {
+                    hurtbox.ReceiveHit(BattlerOwner, SkillUsed);
+                }
+            }
         }
     }
 }

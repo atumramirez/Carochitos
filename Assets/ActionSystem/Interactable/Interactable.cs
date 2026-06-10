@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 public class Interactable : MonoBehaviour 
 {
-    [Header("Type Of Trigger")] // Type of trigger
+    [Header("Type Of Trigger")]
     public Trigger trigger = Trigger.ButtonPress;
 
     [Header("Action Graphs")]

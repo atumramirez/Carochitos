@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb8f089833587a46accdba25a4cd8f7, type: 3}
+  m_Name: WaterGun
+  m_EditorClassIdentifier: Assembly-CSharp::WaterGun
+  _name: "Pistola D'\xC1gua"
+  _description: 
+  _elementalType: {fileID: 11400000, guid: aca6eda13488e9444b8af56a901b9d6b, type: 2}
+  power: 20
+  _skillIcon: {fileID: 21300000, guid: d0e2e51323a471c43a113e0367722c05, type: 3}
+  _startUpTime: 0.6
+  _cooldown: 5
+  _activeTime: 1
+  _attackType: 1
+  projectilePrefab: {fileID: 753134704281845868, guid: d1bee67d7fbd787438b9a813b1704179, type: 3}

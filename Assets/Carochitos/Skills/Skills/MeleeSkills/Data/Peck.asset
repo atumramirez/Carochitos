@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Peck
   _name: gjhgh
   _description: ghjnfhfghgfh
-  _elementalType: 0
+  _elementalType: {fileID: 11400000, guid: a3f1e249adcf71e4c8410db0d248bc45, type: 2}
   power: 1
-  cooldown: 1
+  _skillIcon: {fileID: 21300000, guid: 14f75c2cfcf0d4c45a495b1ed59a013f, type: 3}
+  cooldown: 2
   activetime: 1
   modules:
   - {fileID: 11400000, guid: 8a8cbc1ed2c550c429c8834fff9e3591, type: 2}

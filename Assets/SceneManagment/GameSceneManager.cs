@@ -6,7 +6,7 @@ public class GameSceneManager : MonoBehaviour
 {
     string currentEnviromentScene;
 
-    [SerializeField] Rigidbody playerTransform;
+    [SerializeField] CharacterController playerTransform;
     [SerializeField] GameObject loadingCanvas;
 
     private void Start()
@@ -35,10 +35,12 @@ public class GameSceneManager : MonoBehaviour
     }
 
     string newScene;
+    int newWaypoint;
 
-    public void SwitchEnviromentScene(string newScene)
+    public void SwitchEnviromentScene(string scene, int waypoint)
     {
-        this.newScene = newScene;
+        this.newScene = scene;
+        this.newWaypoint = waypoint;
 
         StartCoroutine(SwitchScene());
     }
@@ -80,29 +82,43 @@ public class GameSceneManager : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
         }
-        
-        yield return new WaitForEndOfFrame();
-
-        if (loadingCanvas != null)
-        {
-            loadingCanvas.SetActive(false);
-        }
 
         SceneInfoContainer info = FindAnyObjectByType<SceneInfoContainer>();
 
         if (info != null && info.entranceWaypoints != null && info.entranceWaypoints.Count > 0)
         {
-            Transform waypoint = info.entranceWaypoints[0]; 
+            Transform waypoint = info.entranceWaypoints[newWaypoint];
+
+            Debug.Log($"Waypoint Position: {waypoint.position}");
+            Debug.Log($"Player Position Before: {playerTransform.transform.position}");
+
 
             if (waypoint != null && playerTransform != null)
             {
-                playerTransform.position = waypoint.position;
-                playerTransform.rotation = waypoint.rotation;
+                playerTransform.enabled = false;
+
+                playerTransform.transform.SetPositionAndRotation(
+                    waypoint.position,
+                    waypoint.rotation
+                );
+
+                playerTransform.enabled = true;
+
+                Debug.Log($"Player Position After: {playerTransform.transform.position}");
             }
         }
         else
         {
             Debug.Log("SceneInfoContainer or entrance waypoint missing!");
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        yield return new WaitForEndOfFrame();
+
+        if (loadingCanvas != null)
+        {
+            loadingCanvas.SetActive(false);
         }
 
         yield return null;

@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,12 +14,19 @@ public class HealthBar : MonoBehaviour
         healthBar.maxValue = carochito.Base.MaxHealth;
         healthBar.value = carochito.Base.MaxHealth;
 
-        healthNumber.text = healthBar.value.ToString();
+        if (healthNumber != null)
+        {
+            healthNumber.text = healthBar.value.ToString();
+        }
     }
 
     public virtual void SetHealth(int health)
     {
         healthBar.value = health;
-        healthNumber.text = healthBar.value.ToString();
+
+        if (healthNumber != null)
+        {
+            healthNumber.text = "" + health;
+        }
     }
 }

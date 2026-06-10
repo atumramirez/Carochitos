@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class CarochitoBattler : MonoBehaviour
 {
-    [SerializeField] CarochitoBase _base;
-    [SerializeField] int _level;
+    [HideInInspector] public CarochitoBase _base;
+    [Range(1, 100)]
+    [HideInInspector] public int _level;
 
     [Header("Carochito")]
     public Carochito Carochito;
@@ -11,12 +12,13 @@ public class CarochitoBattler : MonoBehaviour
     [Header("HurtBox")]
     public HurtBox hurtBox;
 
-    public void Start()
-    {
-        SetUp();
-    }
+    [Header("Fire Point")]
+    public Transform firePoint;
 
-    public void SetUp()
+    [Header("Owner")]
+    public Transform Owner;
+
+    public virtual void SetUp()
     {
         Carochito = new Carochito( _base, _level);
 
@@ -28,7 +30,7 @@ public class CarochitoBattler : MonoBehaviour
         }
     }
 
-    public void TakeDamage(CarochitoBattler attacker, SkillBase skill)
+    public virtual void TakeDamage(CarochitoBattler attacker, SkillBase skill)
     {
         DamageCalculator damageCalculator = new();
         float damage = damageCalculator.CaculateDamage(attacker.Carochito, Carochito, skill);
@@ -41,11 +43,16 @@ public class CarochitoBattler : MonoBehaviour
         }
     }
 
-    public void Die(CarochitoBattler attacker)
+    public virtual void Die(CarochitoBattler attacker)
     {
         Carochito.CurrentHealth = 0;
         Carochito.IsAlive = false;
 
         attacker.Carochito.GetExp(25);
+    }
+
+    public virtual void Capture()
+    {
+        Destroy(gameObject);
     }
 }

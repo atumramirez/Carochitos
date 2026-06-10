@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+/*
 public class PlayerCapture : MonoBehaviour
 {
     public GameObject captureAreaPrefab;
@@ -28,3 +29,4 @@ public class PlayerCapture : MonoBehaviour
         Instantiate(captureAreaPrefab, spawnPoint.position, Quaternion.identity);
     }
 }
+*/

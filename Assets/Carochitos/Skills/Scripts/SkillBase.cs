@@ -15,20 +15,33 @@ public class SkillBase : ScriptableObject
 
     [Header("Sprite")]
     [SerializeField] Sprite _skillIcon;
-    
+
     [Header("Timers")]
-    [SerializeField] int cooldown;
-    [SerializeField] int activetime;
+    [SerializeField] float _startUpTime;
+    [SerializeField] float _cooldown;
+    [SerializeField] float _activeTime;
+
+    [Header("Attack Type")]
+    [SerializeField] AttackType _attackType;
     
     [Header("Properties")]
     public Elemental Type { get { return _elementalType; } }
     public int Power { get { return power; } }
     public Sprite SkillIcon { get { return _skillIcon;  } }
-    public int Cooldown { get { return cooldown; } }
-    public int ActiveTime { get { return activetime; } }
+    public AttackType AttackType { get { return _attackType; } }
 
-    public virtual void Activate(GameObject parent)
+    public float FullStartUpTime { get { return _startUpTime; } }
+    public float FullCooldown { get { return _cooldown; } }
+    public float FullActiveTime { get { return _activeTime; } }
+
+    public virtual void Activate(CarochitoBattler carochitoBattler)
     {
         Debug.Log("Skill Activated");
     }
+}
+
+public enum AttackType
+{
+    Physical,
+    Special
 }
