@@ -1,73 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
-public class EnemyController: GenericController
+public class EnemyPatrolState : State<MonsterController>
 {
-    [Header("State Machine")]
-    public StateMachine<EnemyController> stateMachine;
-
-    [Header("States")]
-    public EnemyPatrolState patrolState;
-    public EnemyChaseState chaseState;
-    public EnemyRunState runState;
-    public EnemyAttackState attackState;
-    public EnemyInvestigateState investigateState;
-
-    [Header("Following")]
-    public NavMeshAgent navMeshAgent;
-
-    [Header("Carochito Battler")]
-    public CarochitoEnemyBattler carochitoEnemyBattler;
-
-    [Header("Target")]
-    public Transform target;
-
-    [Header("Behavior Distances")]
-    public float fleeDistance = 5f;
-    public float followDistance = 10f;
-    public float loseDistance = 15f;
-
-    [Header("Wander Settings")]
-    public float wanderRadius = 20f;
-    public float minWaitTime = 1f;
-    public float maxWaitTime = 3f;
-
-    [Header("Movement Speeds")]
-    public float wanderSpeed = 3.5f;
-    public float followSpeed = 4.5f;
-    public float fleeSpeed = 6f;
-
-    public bool isFollowing;
-    public bool waiting;
-    public float waitTimer;
-
-    private void Start()
-    {
-        // Components
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        carochitoEnemyBattler = GetComponent<CarochitoEnemyBattler>();
-
-        // Maquina de Estados
-        stateMachine = new StateMachine<EnemyController>();
-
-        patrolState = new EnemyPatrolState(this, stateMachine);
-        runState = new EnemyRunState(this, stateMachine);
-        chaseState = new EnemyChaseState(this, stateMachine);
-        attackState = new EnemyAttackState(this, stateMachine);
-        investigateState = new EnemyInvestigateState(this, stateMachine);
-
-        stateMachine.Initialize(patrolState);
-    }
-
-    private void Update()
-    {
-        stateMachine.currentState.LogicUpdate();
-    }
-}
-
-public class EnemyPatrolState : State<EnemyController>
-{
-    public EnemyPatrolState(EnemyController enemy, StateMachine<EnemyController> sm) : base(enemy, sm)
+    public EnemyPatrolState(MonsterController enemy, StateMachine<MonsterController> sm) : base(enemy, sm)
     {
         character = enemy;
         stateMachine = sm;
@@ -75,6 +12,7 @@ public class EnemyPatrolState : State<EnemyController>
 
     public override void Enter()
     {
+        base.Enter();
         SetNewDestination();
     }
 
@@ -103,6 +41,7 @@ public class EnemyPatrolState : State<EnemyController>
     private void SetNewDestination()
     {
         Vector3 randomPoint = Random.insideUnitSphere * character.wanderRadius;
+
         randomPoint += character.transform.position;
 
         if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, character.wanderRadius, NavMesh.AllAreas))
@@ -112,12 +51,17 @@ public class EnemyPatrolState : State<EnemyController>
     }
 }
 
-public class EnemyChaseState : State<EnemyController>
+public class EnemyChaseState : State<MonsterController>
 {
-    public EnemyChaseState(EnemyController enemy, StateMachine<EnemyController> sm) : base(enemy, sm)
+    public EnemyChaseState(MonsterController enemy, StateMachine<MonsterController> sm) : base(enemy, sm)
     {
         character = enemy;
         stateMachine = sm;
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
     }
 
     public override void LogicUpdate()
@@ -128,7 +72,12 @@ public class EnemyChaseState : State<EnemyController>
 
             if (distanceToTarget >= character.loseDistance)
             {
-                stateMachine.ChangeState(character.patrolState);
+                stateMachine.ChangeState(character.enemyPatrolState);
+            }
+
+            if (distanceToTarget <= character.attackRange)
+            {
+                stateMachine.ChangeState(character.attackState);
             }
             
             character.navMeshAgent.SetDestination(character.target.position);
@@ -136,13 +85,18 @@ public class EnemyChaseState : State<EnemyController>
     }
 }
 
-public class EnemyRunState : State<EnemyController>
+public class EnemyRunState : State<MonsterController>
 {
 
-    public EnemyRunState(EnemyController enemy, StateMachine<EnemyController> sm) : base(enemy, sm)
+    public EnemyRunState(MonsterController enemy, StateMachine<MonsterController> sm) : base(enemy, sm)
     {
         character = enemy;
         stateMachine = sm;
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
     }
 
     public override void LogicUpdate()
@@ -171,10 +125,9 @@ public class EnemyRunState : State<EnemyController>
     }
 }
 
-
-public class EnemyAttackState : State<EnemyController>
+public class EnemyAttackState : State<MonsterController>
 {
-    public EnemyAttackState(EnemyController enemy, StateMachine<EnemyController> sm) : base(enemy, sm)
+    public EnemyAttackState(MonsterController enemy, StateMachine<MonsterController> sm) : base(enemy, sm)
     {
         character = enemy;
         stateMachine = sm;
@@ -182,19 +135,99 @@ public class EnemyAttackState : State<EnemyController>
 
     public override void Enter()
     {
-   
+        base.Enter();
     }
 
     public override void LogicUpdate()
     {
+        float distance = Vector3.Distance(character.transform.position, character.target.position);
+
+        if (distance > character.battleLoseDistance)
+        {
+            character.stateMachine.ChangeState(character.enemyPatrolState);
+            return;
+        }
+
+        Vector3 dir = (character.target.position - character.transform.position).normalized;
+
+        if (distance > character.maxCombatDistance)
+        {
+            character.navMeshAgent.SetDestination(character.target.position);
+        }
+        else if (distance < character.minCombatDistance)
+        {
+            Vector3 fleePos = character.transform.position - dir * 2f;
+
+            if (NavMesh.SamplePosition(fleePos, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+            {
+                character.navMeshAgent.SetDestination(hit.position);
+            }
+        }
+        else
+        {
+            character.navMeshAgent.ResetPath();
+
+            Vector3 lookDirection = character.target.position - character.transform.position;
+            lookDirection.y = 0;
+
+            if (lookDirection != Vector3.zero)
+            {
+                character.transform.rotation = Quaternion.LookRotation(lookDirection);
+            }
+
+            character.attackTimer -= Time.deltaTime;
+
+            if (character.attackTimer <= 0f)
+            {
+                character.RandomAttack();
+                character.attackTimer = character.attackCooldown;
+            }
+        }
+    }
+}
+
+public class EnemyEatState : State<MonsterController>
+{
+    public EnemyEatState(MonsterController enemy, StateMachine<MonsterController> sm) : base(enemy, sm)
+    {
+        character = enemy;
+        stateMachine = sm;
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+    }
+
+    public override void LogicUpdate()
+    {
+        if (character.eatTimer <= 0f)
+        {
+            character.navMeshAgent.SetDestination(character.foodPosition.position);
+
+            if (!character.navMeshAgent.pathPending && character.navMeshAgent.remainingDistance <= character.eatDistance)
+            {
+                character.navMeshAgent.ResetPath();
+
+                character.eatTimer = character.eatDuration;
+            }
+        }
+        else
+        {
+            character.eatTimer -= Time.deltaTime;
+
+            if (character.eatTimer <= 0f)
+            {
+                character.FinishEating();
+            }
+        }
 
     }
 }
 
-public class EnemyInvestigateState : State<EnemyController>
+public class EnemyInvestigateState : State<MonsterController>
 {
-
-    public EnemyInvestigateState(EnemyController enemy, StateMachine<EnemyController> sm) : base(enemy, sm) 
+    public EnemyInvestigateState(MonsterController enemy, StateMachine<MonsterController> sm) : base(enemy, sm) 
     {
         character = enemy;
         stateMachine = sm;
@@ -202,12 +235,28 @@ public class EnemyInvestigateState : State<EnemyController>
 
     public override void Enter()
     {
+        base.Enter();
 
+        Vector3 lookdirection = character.soundPosition.position - character.transform.position;
+
+        if (lookdirection != Vector3.zero)
+        {
+            character.transform.rotation = Quaternion.LookRotation(lookdirection);
+        }
+
+        character.navMeshAgent.SetDestination(character.soundPosition.position);
     }
 
     public override void LogicUpdate()
     {
+        character.navMeshAgent.SetDestination(character.soundPosition.position);
 
+        if (!character.navMeshAgent.pathPending && character.navMeshAgent.remainingDistance <= character.navMeshAgent.stoppingDistance)
+        {
+            character.stateMachine.ChangeState(character.enemyPatrolState);
+        }
+
+        return;
     }
 }
 

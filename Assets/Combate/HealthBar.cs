@@ -11,8 +11,8 @@ public class HealthBar : MonoBehaviour
 
     public virtual void SetMaxHealth(Carochito carochito)
     {
-        healthBar.maxValue = carochito.Base.MaxHealth;
-        healthBar.value = carochito.Base.MaxHealth;
+        healthBar.maxValue = carochito.Health;
+        healthBar.value = carochito.Health;
 
         if (healthNumber != null)
         {

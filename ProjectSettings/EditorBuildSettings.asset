@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/Teste/SampleScene.unity
+    path: Assets/pode se remover/Pode se remover/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
     path: Assets/Scenes/Essential 3.unity
@@ -17,18 +17,45 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Blocagem/Cais.unity
     guid: 469908e2160aa9c449d80a3448878167
-  - enabled: 1
-    path: Assets/Scenes/Teste/TitleScreen.unity
+  - enabled: 0
+    path: Assets/pode se remover/Pode se remover/TitleScreen.unity
     guid: 12e299c19e700444c845978034aa3c7a
   - enabled: 1
-    path: Assets/Scenes/Essential.unity
+    path: Assets/Ambiente/Essential.unity
     guid: 83155ed35fc5c844591d80b9fea1c77f
-  - enabled: 1
-    path: Assets/Scenes/Teste/Customization.unity
+  - enabled: 0
+    path: Assets/pode se remover/Pode se remover/Customization.unity
     guid: ee93db1fdc072ca41b2b5e57d085a5f5
   - enabled: 1
     path: Assets/StarterAssets/ThirdPersonController/Scenes/Playground.unity
     guid: e9017d5f96b9f09489b4b37e1d6eb914
+  - enabled: 1
+    path: Assets/Ambiente/Cais/Scenes/Cais.unity
+    guid: 69be2ee5d8611c14d9caf80ab6805d80
+  - enabled: 1
+    path: Assets/Ambiente/Cidade/Cidade.unity
+    guid: 78ad1aa4873622d478673b2fc3ec3e27
+  - enabled: 1
+    path: Assets/Ambiente/Corredor/Scenes/Corredor.unity
+    guid: 952a451630c72354eaf9290481abe6d7
+  - enabled: 1
+    path: Assets/Ambiente/SalaDeAula/Scene/SalaDeAula.unity
+    guid: af52642a1ccb2a444baa15dd4d0de5e4
+  - enabled: 1
+    path: Assets/Ambiente/Escola/Scenes/Escola.unity
+    guid: 0421215ec3006a3468677f3f6e314e4d
+  - enabled: 1
+    path: Assets/Ambiente/Clubs/Scenes/ClubeAzul.unity
+    guid: dc84acded541607449edd357bfbc84a5
+  - enabled: 1
+    path: Assets/Ambiente/Clubs/Scenes/ClubeVerde.unity
+    guid: cc759f5d2da80334c862b090a33d6863
+  - enabled: 1
+    path: Assets/Ambiente/Clubs/Scenes/ClubeVermelho.unity
+    guid: 654f66afbbe5f6446a053bfb627c4f15
+  - enabled: 1
+    path: Assets/Ambiente/Floresta/Scenes/Floresta.unity
+    guid: 4a66ce2047d731948b13c8a77cbd237f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

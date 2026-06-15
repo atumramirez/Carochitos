@@ -34,7 +34,7 @@ public class RaySpawner : MonoBehaviour
             GameObject enemy = hit.transform.gameObject;
             if (enemy.TryGetComponent<HurtBox>(out var hurtbox))
             {
-                CarochitoBattler victim = hurtbox.CarochitoBattler;
+                CarochitoBattler victim = hurtbox._carochitoBattler;
 
                 if (victim.Carochito.IsAlive == true)
                 {

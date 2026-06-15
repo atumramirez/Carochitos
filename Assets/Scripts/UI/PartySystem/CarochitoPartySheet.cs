@@ -19,12 +19,12 @@ public class CarochitoPartySheet: MonoBehaviour
         _name.text = carochito.Base.Name; 
         _lv.text = "Lv. " + carochito.Level;
 
-        _maxHealth = carochito.Base.MaxHealth;
+        _maxHealth = carochito.Health;
         _currentHealth = carochito.CurrentHealth;
 
         _sprite.sprite = carochito.Base.Sprite;
 
-        UpdateSlider(carochito.Base.MaxHealth, carochito.CurrentHealth);
+        UpdateSlider(carochito.Health, carochito.CurrentHealth);
     }
 
     public void UpdateSlider(int max, int current)

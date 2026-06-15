@@ -12,17 +12,15 @@ public class DismissState : State<TrainerController>
     {
         Debug.Log("enter state: " + this.ToString());
 
-        character.animator.SetTrigger("attack");
+        character.animator.SetTrigger("dismiss");
     }
 
     public override void LogicUpdate()
     {
         AnimatorStateInfo stateInfo = character.animator.GetCurrentAnimatorStateInfo(0);
 
-        if (stateInfo.IsName("Attack") && stateInfo.normalizedTime >= 1f)
+        if (stateInfo.IsName("Dismiss") && stateInfo.normalizedTime >= 1f)
         {
-            Debug.Log("Dismising animation finished!");
-
             character.Dismiss();
 
             character.animator.SetTrigger("move");

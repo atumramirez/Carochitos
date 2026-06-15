@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryMenu : MonoBehaviour
+public class InventoryMenu : PageHolder
 {
     [Header("Inventory")]
     public Inventory inventory;
@@ -28,11 +28,6 @@ public class InventoryMenu : MonoBehaviour
     private void Awake()
     {
         allPockets = (Pocket[])System.Enum.GetValues(typeof(Pocket));
-    }
-
-    private void Start()
-    {
-        OpenMenu();
     }
 
     public void OpenMenu()

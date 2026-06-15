@@ -30,7 +30,7 @@ public class HitBoxArea : MonoBehaviour
         Debug.Log("Acertou em Algo");
         if (other.TryGetComponent<HurtBox>(out var hurtbox))
         {
-            CarochitoBattler victim = hurtbox.CarochitoBattler;
+            CarochitoBattler victim = hurtbox._carochitoBattler;
             
             GameObject projectile = Instantiate(particles, transform.position, Quaternion.identity);
             Destroy(projectile, 5f);

@@ -19,7 +19,7 @@ public class MonsterFollowState : State<MonsterController>
 
     public override void LogicUpdate()
     {
-        if (character.carochitoTeamBattler.Owner == null) return;
+        if (character.carochitoBattler._owner.transform == null) return;
 
         timer += Time.deltaTime;
 
@@ -27,12 +27,12 @@ public class MonsterFollowState : State<MonsterController>
         {
             timer = 0f;
 
-            float distance = Vector3.Distance(character.transform.position, character.carochitoTeamBattler.Owner.position);
+            float distance = Vector3.Distance(character.transform.position, character.carochitoBattler._owner.transform.position);
 
             if (distance > stoppingDistance)
             {
                 character.navMeshAgent.isStopped = false;
-                character.navMeshAgent.SetDestination(character.carochitoTeamBattler.Owner.position);
+                character.navMeshAgent.SetDestination(character.carochitoBattler._owner.transform.position);
             }
             else
             {

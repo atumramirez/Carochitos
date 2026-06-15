@@ -17,75 +17,77 @@ public class Party : MonoBehaviour
     }
 
     [Header("Carochitos")]
-    public Carochito currentCarochito;
+    [HideInInspector] public Carochito currentCarochito;
     public int currentIndex = 0;
-    public List<Carochito> carochitos;
+    public List<Carochito> partyCarochitos;
 
+    [Header("Boxes")]
+    public List<Carochito> Box1;
+
+    [Header("Menus")]
     public CarochitoSelectionMenu _carochitoSelectionMenu;
-
-    public GameObject SelectionMenu;
-
-    //public PartyHolder _partyHolder;
+    public BoxesMenu _carochitoBoxesMenu;
 
     private void Start()
     {
-        if (carochitos.Count > 0)
+        if (partyCarochitos.Count > 0)
         {
-            currentCarochito = carochitos[0];
-            _carochitoSelectionMenu.RefreshMenu();
+            currentCarochito = partyCarochitos[0];
+            
         }
+
+        _carochitoSelectionMenu.RefreshMenu();
     }
 
     public void AddCarochito(Carochito carochito)
     {
-        if (carochitos.Count < 5)
+        if (partyCarochitos.Count < 5)
         {
-            carochitos.Add(carochito);
+            partyCarochitos.Add(carochito);
 
-            if (carochitos.Count == 1)
+            if (partyCarochitos.Count == 1)
             {
-                currentCarochito = carochitos[0];
+                currentCarochito = partyCarochitos[0];
             }
 
-            //_partyHolder.PopulateFromList();
+            _carochitoBoxesMenu.SetupList(_carochitoBoxesMenu.partyContainer.transform, partyCarochitos);
         }
 
         else
         {
-            Boxes.Instance.AddCarochito(carochito);
+            Box1.Add(carochito);
         }
 
-        CarochitoSelectionMenu.instance.RefreshMenu();
-
-
-        // [Adicionar Logica da PokéDex]
+        _carochitoSelectionMenu.RefreshMenu();
     }
 
     public void MoveToParty(Carochito carochito)
     {
-        carochitos.Add(carochito);
+        partyCarochitos.Add(carochito);
+
+        _carochitoSelectionMenu.RefreshMenu();
     }
 
     public void NextCarochito()
     {
-        if (carochitos.Count == 0) return;
+        if (partyCarochitos.Count == 0) return;
 
-        currentIndex = (currentIndex + 1) % carochitos.Count;
-        currentCarochito = carochitos[currentIndex];
+        currentIndex = (currentIndex + 1) % partyCarochitos.Count;
+        currentCarochito = partyCarochitos[currentIndex];
 
         _carochitoSelectionMenu.RefreshMenu();
 
-        Debug.Log("Next item: " + carochitos[currentIndex].Base.Name);
+        Debug.Log("Proximo Carochito: " + partyCarochitos[currentIndex].Base.Name);
     }
 
     public void Previous()
     {
-        if (carochitos.Count == 0) return;
+        if (partyCarochitos.Count == 0) return;
 
-        currentIndex = (currentIndex - 1 + carochitos.Count) % carochitos.Count;
-        currentCarochito = carochitos[currentIndex];
+        currentIndex = (currentIndex - 1 + partyCarochitos.Count) % partyCarochitos.Count;
+        currentCarochito = partyCarochitos[currentIndex];
         _carochitoSelectionMenu.RefreshMenu();
 
-        Debug.Log("Previous item: " + carochitos[currentIndex].Base.Name);
+        Debug.Log("Carochito Anterior: " + partyCarochitos[currentIndex].Base.Name);
     }
 }

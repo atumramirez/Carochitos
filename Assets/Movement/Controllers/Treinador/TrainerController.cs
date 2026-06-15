@@ -20,12 +20,15 @@ public class TrainerController : GenericController
     public SwapingState swaping;
     public ThrowingState throwing;
     public StopState stop;
+    public MenuState menu;
 
     [Header("Player Input")]
     public InputManager inputManager;
 
     [Header("Cameras")]
+    public GameSceneManager sceneManager;
     public CameraHandler cameraHandler;
+    public PlayerInfo playerInfo;
 
     private Transform combatCameraTransform;
 
@@ -34,6 +37,12 @@ public class TrainerController : GenericController
 
     [Header("Bola de Berlim")]
     public ItemBase bolaDeBeerlim;
+
+    [Header("Noise")]
+    public NoiseArea noiseArea;
+
+    [Header("SpawnZone")]
+    public Transform spawnZone;
 
     #endregion
 
@@ -51,14 +60,8 @@ public class TrainerController : GenericController
         navMeshAgent = GetComponentInChildren<NavMeshAgent>();
         navMeshAgent.enabled = false;
 
-        // Cameras
-        cameraHandler.Initialize();
-        cameraHandler.LookAt(transform);
-
-        cameraTransform = cameraHandler.CurrentCamera.transform;
-
         stateMachine = new StateMachine<TrainerController>();
-        
+
         // Grounded
         standing = new StandingState(this, stateMachine);
         crouching = new CrouchingState(this, stateMachine);
@@ -86,11 +89,15 @@ public class TrainerController : GenericController
 
         // Stop
         stop = new StopState(this, stateMachine);
+        menu = new MenuState(this, stateMachine);
 
-        stateMachine.Initialize(standing);
+        stateMachine.Initialize(stop);
 
         normalColliderHeight = controller.height;
         gravityValue *= gravityMultiplier;
+
+        RefreshCamera();
+        EndCapture();
     }
 
     private void Update()
@@ -105,14 +112,19 @@ public class TrainerController : GenericController
     #endregion
 
     #region Capture
+
+    [Header("Hammer")]
+    public GameObject CaptureArea;
     public GameObject Hammer;
 
     public void Capture()
     {
+        CaptureArea.SetActive(true);
         Hammer.SetActive(true);
     }
     public void EndCapture()
     {
+        CaptureArea.SetActive(false);
         Hammer.SetActive(false);
     }
     #endregion
@@ -209,13 +221,7 @@ public class TrainerController : GenericController
             velocity = camRight * input.x + camForward * input.y;
 
             // Animator
-            character.animator.SetFloat
-            (
-                "speed",
-                input.magnitude,
-                character.speedDampTime,
-                Time.deltaTime
-            );
+            character.animator.SetFloat("speed", input.magnitude, character.speedDampTime, Time.deltaTime);
         }
 
         public override void PhysicsUpdate()
@@ -224,7 +230,6 @@ public class TrainerController : GenericController
 
             grounded = character.controller.isGrounded;
 
-            // Gravity
             gravityVelocity.y += character.gravityValue * Time.deltaTime;
 
             if (grounded && gravityVelocity.y < 0)
@@ -232,7 +237,6 @@ public class TrainerController : GenericController
                 gravityVelocity.y = -2f;
             }
 
-            // Smooth movement
             currentVelocity = Vector3.SmoothDamp(
                 currentVelocity,
                 velocity,
@@ -245,10 +249,6 @@ public class TrainerController : GenericController
                 character.playerSpeed * Time.deltaTime * currentVelocity +
                 gravityVelocity * Time.deltaTime
             );
-
-            // -------- ROTATION LOGIC --------
-
-            // Face camera forward while aiming
 
             Vector3 aimDirection = character.cameraTransform.forward;
             aimDirection.y = 0f;
@@ -270,12 +270,15 @@ public class TrainerController : GenericController
         {
             base.Exit();
 
+            character.cameraHandler.SwitchCamera(character.cameraHandler.thirdPersonCam);
+
             character.inputManager.throwin.action.started -= PressAim;
             character.inputManager.capture.action.started -= Throw;
         }
     }
     #endregion
 
+    #region Summoning
     [Header("Monster")]
     public GameObject monster;
 
@@ -287,24 +290,29 @@ public class TrainerController : GenericController
     public Transform monsterSpawnPoint;
     public void Summon()
     {
-        if (party.currentCarochito.CurrentHealth > 0 || isMonsterSpawned == false)
+        if (party.partyCarochitos.Count > 0)
         {
-            monster = Instantiate(party.currentCarochito.Base.Model, monsterSpawnPoint.position, monsterSpawnPoint.rotation);
+            if (party.currentCarochito.CurrentHealth > 0 || isMonsterSpawned == false)
+            {
+                monster = Instantiate(party.currentCarochito.Base.Model, monsterSpawnPoint.position, monsterSpawnPoint.rotation);
 
-            monster.GetComponent<CarochitoTeamBattler>().SetUp(party.currentCarochito, this.transform);
-            monster.GetComponent<MonsterController>().SetUp(this.transform);
-
-            isMonsterSpawned = true;
+                monster.GetComponent<CarochitoBattler>().SetUp(party.currentCarochito.Base, party.currentCarochito.Level, false, false, this);
+                
+                isMonsterSpawned = true;
+            }
         }
     }
 
     public void Dismiss()
     {
         Destroy(monster);
-        monster = null; // Destruir o Objecto, sem depois deixar ele como Null pode causar problemas. 
+        monster = null;
 
         isMonsterSpawned = false;
     }
+    #endregion
+
+    #region Swaping
 
     [Header("Swaping")]
     public FollowingState following;
@@ -325,7 +333,9 @@ public class TrainerController : GenericController
 
         cameraHandler.LookAt(monster.transform);
 
-        hudHandler.OpenMonterHud();
+        //hudHandler.OpenMonterHud();
+
+        sceneManager._bookMenu.pageHolders[1].OpenPage(1);
 
         // Adicionar a modificação do Rig da Camera em Runtime
 
@@ -344,10 +354,12 @@ public class TrainerController : GenericController
         stateMachine.ChangeState(standing);
         monster.GetComponent<MonsterController>().stateMachine.ChangeState(monster.GetComponent<MonsterController>().followState);
 
-        hudHandler.OpenTrainerHud();
+        sceneManager._bookMenu.pageHolders[1].OpenPage(0);
 
         isControllingMonster = false;
     }
+
+    #endregion
 
     #region Interact
     [Header("Interact")]
@@ -368,12 +380,33 @@ public class TrainerController : GenericController
     }
     #endregion
 
+    #region Camera
+
+    public void RefreshCamera()
+    {
+        cameraHandler.Initialize(sceneManager._currentEnviroment);
+        cameraHandler.LookAt(headPivot);
+        cameraTransform = cameraHandler.CurrentCamera.transform;
+    }
+    #endregion
+
     #region Menu
     [Header("Menu")]
     public PlayerMenu playerMenu;
+    public bool menuOpen = false;
     public void OpenMenu()
     {
-        playerMenu.ActivateMenu();
+        if (menuOpen == false)
+        {
+            sceneManager._bookMenu.OpenBook(3);
+            menuOpen = true;
+        }
+        else
+        {
+            stateMachine.ChangeState(standing);
+            sceneManager._bookMenu.OpenBook(1);
+            menuOpen = false;
+        }     
     }
 
     [Header("Change Current Carochito")]

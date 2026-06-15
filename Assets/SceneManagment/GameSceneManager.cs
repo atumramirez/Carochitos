@@ -9,6 +9,11 @@ public class GameSceneManager : MonoBehaviour
     [SerializeField] CharacterController playerTransform;
     [SerializeField] GameObject loadingCanvas;
 
+    public Enviroment _currentEnviroment;
+    public TrainerController _trainer;
+
+    public BookMenu _bookMenu;
+
     private void Start()
     {
         DetectCurrentEnviromentScene();
@@ -17,6 +22,12 @@ public class GameSceneManager : MonoBehaviour
         {
             loadingCanvas.SetActive(false);
         }
+    }
+
+    public void StartGame()
+    {
+        _bookMenu.OpenBook(1);
+        SwitchEnviromentScene("SalaDeAula", 0);
     }
 
     public void DetectCurrentEnviromentScene()
@@ -106,12 +117,16 @@ public class GameSceneManager : MonoBehaviour
 
                 Debug.Log($"Player Position After: {playerTransform.transform.position}");
             }
+
+            _currentEnviroment = info.enviroment;
+            _trainer.RefreshCamera();
         }
         else
         {
             Debug.Log("SceneInfoContainer or entrance waypoint missing!");
         }
 
+        
         yield return new WaitForSeconds(1f);
 
         yield return new WaitForEndOfFrame();
@@ -119,6 +134,11 @@ public class GameSceneManager : MonoBehaviour
         if (loadingCanvas != null)
         {
             loadingCanvas.SetActive(false);
+        }
+
+        if (ActionManager.Instance.CurrentNode is TeleportAction)
+        {
+            ActionManager.Instance.EndAction();
         }
 
         yield return null;

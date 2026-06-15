@@ -12,13 +12,10 @@ public class MonsterSwapingState : State<MonsterController>
     {
         base.Enter();
 
-        Debug.Log("enter state: " + this.ToString());
-
         Debug.Log("Swaping to Trainer!");
-
-        if (character.carochitoTeamBattler.Owner.GetComponent<TrainerController>().isControllingMonster == true)
+        if (character.carochitoBattler._owner.isControllingMonster == true)
         {
-            character.carochitoTeamBattler.Owner.GetComponent<TrainerController>().SwapToTrainer();
+            character.carochitoBattler._owner.SwapToTrainer();
         }
     }
 }

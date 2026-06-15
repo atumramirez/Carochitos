@@ -1,3 +1,4 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -6,40 +7,53 @@ public class CameraHandler : MonoBehaviour
     [Header("Cameras")]
     public CinemachineCamera[] cameras;
 
-    // Generic Cams
+    [Header("Generic Cams")]
     public CinemachineCamera thirdPersonCam;
-
-    // Player Camns
+    public CinemachineCamera insideCam;
     public CinemachineCamera combatCam;
 
-    // Monster Cams
+    [Header("Costumization Cameras")]
+    public CinemachineCamera bodyCam;
+    public CinemachineCamera faceCam;
 
-    // Generic Info
-    public CinemachineCamera startCamera;
-    private CinemachineCamera currentCamera;
+    [Header("Current Camera")]
+    [SerializeField] private CinemachineCamera currentCamera;
+    public CinemachineCamera extraCam;
     public CinemachineCamera CurrentCamera { get { return currentCamera; } }
 
-    private Transform combatCameraTransform;
+    [Header("Enviromental Cam")]
+    public CinemachineCamera _sceneCamera;
 
-    public void Initialize()
+    public void Initialize(Enviroment enviroment)
     {
-        currentCamera = startCamera;
+        switch (enviroment)
+        {
+            case Enviroment.Outiside:
+                currentCamera = thirdPersonCam;
+                _sceneCamera = thirdPersonCam;
+                break;
+            case Enviroment.Inside:
+                currentCamera = insideCam;
+                _sceneCamera = insideCam;
+                break;
+        }
 
         SwitchCamera(currentCamera);
     }
 
-
     public void SwitchCamera(CinemachineCamera newCamera)
     {
+        extraCam = null;
+
         for (int i = 0; i < cameras.Length; i++)
         {
             if (cameras[i] == newCamera)
             {
-                cameras[i].Priority = 20;
+                cameras[i].Priority = 2;
             }
             else
             {
-                cameras[i].Priority = 10;
+                cameras[i].Priority = 1;
             }
         }
 
@@ -61,4 +75,20 @@ public class CameraHandler : MonoBehaviour
         }
         
     }
+
+    public void SwitchToCamera(CinemachineCamera newCamera)
+    {
+        extraCam = newCamera;
+
+        for (int i = 0; i < cameras.Length; i++)
+        {
+            cameras[i].Priority = 1;
+        }
+
+        extraCam.Priority = 2;
+
+        currentCamera = extraCam;
+    }
+
+   
 }

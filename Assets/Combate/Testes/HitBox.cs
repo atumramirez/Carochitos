@@ -6,7 +6,6 @@ public class HitBox : MonoBehaviour
     public CarochitoBattler BattlerOwner;
     public SkillBase SkillUsed;
 
-    // Diferent types of Targets
     public Target target = Target.Enemy;
     public enum Target
     {
@@ -24,15 +23,16 @@ public class HitBox : MonoBehaviour
     {
         if (other.TryGetComponent<HurtBox>(out var hurtbox))
         {
-            
-            CarochitoBattler victim = hurtbox.CarochitoBattler;
+            CarochitoBattler victim = hurtbox._carochitoBattler;
 
             if (victim != BattlerOwner)
             {
-                if (victim.Carochito.IsAlive == true)
-                {
-                    hurtbox.ReceiveHit(BattlerOwner, SkillUsed);
-                }
+                hurtbox.ReceiveHit(BattlerOwner, SkillUsed);
+                Destroy(gameObject);
+            }
+            else
+            {
+                Debug.Log("Acertou em si mesmo");
             }
         }
     }

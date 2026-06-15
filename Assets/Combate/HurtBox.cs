@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class HurtBox : MonoBehaviour
 {
-    private CarochitoBattler _carochitoBattler;
-    public CarochitoBattler CarochitoBattler { get { return _carochitoBattler; } }
+    public CarochitoBattler _carochitoBattler;
+    // public CarochitoBattler CarochitoBattler { get { return _carochitoBattler; } }
 
     public void SetUp(CarochitoBattler carochitoBattler)
     {

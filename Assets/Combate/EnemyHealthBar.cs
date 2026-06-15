@@ -22,15 +22,15 @@ public class EnemyHealthBar : HealthBar
 
     public override void SetMaxHealth(Carochito carochito)
     {
-        healthBar.maxValue = carochito.Base.MaxHealth;
-        healthBar.value = carochito.Base.MaxHealth;
+        healthBar.maxValue = carochito.Health;
+        healthBar.value = carochito.Health;
     }
 
     public override void SetHealth(int health)
     {
         healthBar.value = health;
 
-        if (healthBar.value == healthBar.maxValue)
+        if (healthBar.value == healthBar.maxValue || healthBar.value == 0)
         {
             HideSlider();
         }
@@ -42,13 +42,11 @@ public class EnemyHealthBar : HealthBar
 
     public void ShowSlider()
     {
-        Debug.Log("Appear");
         _health.SetActive(true);
     }
 
     public void HideSlider()
     {
-        Debug.Log("Disappear");
         _health.SetActive(false);
     }
 

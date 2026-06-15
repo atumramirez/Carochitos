@@ -1,73 +1,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMenu : MonoBehaviour
+public class PlayerMenu : PageHolder
 {
-    [Header("All Menus")]
-    public List<GameObject> allPanels;
-    public List<GameObject> selectedPanels;
+    [Header("PageHolders")]
+    public List<PageHolder> _menus;
+    public PageHolder _currentPlayerMenu;
 
-    [Header("Information")]
-    public bool isOpened = true;
-    public GameObject currentOpenMenu;
-
-    [Header("Menus")]
-    public GameObject _playerMenu; 
-    public GameObject _inGameMenu;
-    public GameObject _dialogueMenu;
-
-    [Header("Sound")]
-    public AudioClip unpause;
-    public AudioClip pause;
-
-    private void Start()
+    public override void SetUp()
     {
-        pause = SoundHolder.Instance.MenuPause;
-        unpause = SoundHolder.Instance.MenuUnpause;
-        foreach (GameObject panel in allPanels)
-        {
-            panel.SetActive(false);
-        }
-
-        foreach (GameObject selpanel in selectedPanels)
-        {
-            selpanel.SetActive(true);
-        }
-
-        ActivateMenu();
+        
     }
 
-    public void ActivateMenu()
+    public override void OpenPage(int pageToOpen)
     {
-        if (!isOpened)
+        PageHolder openPage = _menus[pageToOpen];
+
+        foreach (var menu in _menus)
         {
-            OpenMenu();
-        }
-        else
-        {
-            CloseMenu();
+            if (menu != openPage)
+            {
+                menu.ClosePage();
+                //menu.gameObject.SetActive(false);
+            }
+            else
+            {
+                //menu.gameObject.SetActive(true);
+                menu.OpenPage(0);
+                _currentPlayerMenu = menu;
+            }
         }
     }
 
-    public void OpenMenu()
+    public override void ClosePage()
     {
-        isOpened = true;
-
-        Cursor.lockState = CursorLockMode.None;
-
-        _playerMenu.SetActive(isOpened);
-        // SoundManager.instance.PlayClip(pause, transform, 0.75f);
-        _inGameMenu.SetActive(!isOpened);
-    }
-
-    public void CloseMenu() 
-    {
-        isOpened = false;
-
-        Cursor.lockState = CursorLockMode.Locked;
-
-        _playerMenu.SetActive(isOpened);
-        // SoundManager.instance.PlayClip(unpause, transform, 0.75f);
-        _inGameMenu.SetActive(!isOpened);
+        foreach (var menu in _menus)
+        {
+            menu.ClosePage();
+        }
     }
 }

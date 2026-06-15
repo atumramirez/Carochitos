@@ -23,9 +23,7 @@ public class StandingState: State<TrainerController>
     {
         base.Enter();
 
-        character.cameraHandler.SwitchCamera(character.cameraHandler.thirdPersonCam);
-
-        //airTime = 0f;
+        Cursor.lockState = CursorLockMode.Locked;
 
         input = Vector2.zero;
         velocity = Vector3.zero;
@@ -39,8 +37,6 @@ public class StandingState: State<TrainerController>
         character.inputManager.jump.action.started += PressJump;
         character.inputManager.crouch.action.started += PressCrouch;
         
-
-        // Summoning and Dismissing the monster
         character.inputManager.summon.action.started += PressSummon;
         character.inputManager.dismiss.action.started += PressDismiss;
 
@@ -49,7 +45,7 @@ public class StandingState: State<TrainerController>
         character.inputManager.capture.action.started += PressCapture;
         character.inputManager.throwin.action.started += PressAim;
 
-        //character.inputManager.menu.action.started += PressMenu;
+        character.inputManager.menu.action.started += PressMenu;
 
         character.inputManager.interact.action.started += PressInteract;
 
@@ -75,60 +71,69 @@ public class StandingState: State<TrainerController>
 
     private void PressMenu(InputAction.CallbackContext context)
     {
+        character.stateMachine.ChangeState(character.menu);
         character.OpenMenu();
     }
 
     private void PressDismiss(InputAction.CallbackContext context)
     {
-        if (character.isMonsterSpawned == true)
+        if (character.sceneManager._currentEnviroment == Enviroment.Outiside)
         {
-            Debug.Log("Dismissig Monster");
-            stateMachine.ChangeState(character.dismissing);
+            if (character.isMonsterSpawned == true)
+            {
+                stateMachine.ChangeState(character.dismissing);
+            }
         }
     }
 
     private void PressSummon(InputAction.CallbackContext context)
     {
-        if (character.isMonsterSpawned == false)
+        if (character.sceneManager._currentEnviroment == Enviroment.Outiside)
         {
-            Debug.Log("Summoning Monster");
-            stateMachine.ChangeState(character.summoning);
-        }
-        else
-        {
-            Debug.Log("Swaping Monster");
-            stateMachine.ChangeState(character.swaping);
+            if (character.party.partyCarochitos.Count > 0)
+            {
+                if (character.isMonsterSpawned == false)
+                {
+                    stateMachine.ChangeState(character.summoning);
+                }
+                else
+                {
+                    stateMachine.ChangeState(character.swaping);
+                }
+            }
         }
     }
 
     private void PressCapture(InputAction.CallbackContext context)
     {
-        Debug.Log("The Capture Button was pressed");
-        stateMachine.ChangeState(character.capturing);
+        if (character.playerInfo.hasHammer == true)
+        {
+            stateMachine.ChangeState(character.capturing);
+        }
+        
     }
 
     private void HeldSprint(InputAction.CallbackContext context)
     {
-        Debug.Log("You started holding the Sprint button");
         stateMachine.ChangeState(character.sprinting);
     }
 
     private void PressCrouch(InputAction.CallbackContext context)
     {
-        Debug.Log("The Crouch Button was pressed");
         stateMachine.ChangeState(character.crouching);
     }
 
     private void PressJump(InputAction.CallbackContext context)
     {
-        Debug.Log("The Jump Button was pressed");
         stateMachine.ChangeState(character.jumping);  
     }
 
     private void PressAim(InputAction.CallbackContext context)
     {
-        Debug.Log("The Throw Button was pressed");
-        stateMachine.ChangeState(character.throwing);
+        if (character.sceneManager._currentEnviroment == Enviroment.Outiside)
+        {
+            stateMachine.ChangeState(character.throwing);
+        }
     }
 
     public override void LogicUpdate() 
@@ -140,7 +145,8 @@ public class StandingState: State<TrainerController>
         velocity = velocity.x * character.cameraTransform.right.normalized + velocity.z * character.cameraTransform.forward.normalized; 
         velocity.y = 0f; 
 
-        character.animator.SetFloat("speed", input.magnitude, character.speedDampTime, Time.deltaTime); 
+        character.animator.SetFloat("speed", input.magnitude, character.speedDampTime, Time.deltaTime);
+        character.noiseArea.ChangeNoiseLevel(input.magnitude);
     }
     public override void PhysicsUpdate() 
     { 
@@ -186,7 +192,7 @@ public class StandingState: State<TrainerController>
 
         character.inputManager.throwin.action.started -= PressAim;
 
-        //character.inputManager.menu.action.started -= PressMenu;
+        character.inputManager.menu.action.started -= PressMenu;
 
         character.inputManager.interact.action.started -= PressInteract;
 

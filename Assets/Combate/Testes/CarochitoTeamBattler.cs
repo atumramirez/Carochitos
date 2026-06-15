@@ -1,3 +1,4 @@
+/*
 using UnityEngine;
 
 public class CarochitoTeamBattler : CarochitoBattler
@@ -12,9 +13,10 @@ public class CarochitoTeamBattler : CarochitoBattler
         Owner = owner;
 
         // Health Bar
-        healthBar = FindFirstObjectByType<HudHandler>().MonsterHud.GetComponent<CarochitoHud>().healthBar;
-        ability = FindFirstObjectByType<HudHandler>().MonsterHud.GetComponent<CarochitoHud>().abilityHolder;
+        healthBar = FindFirstObjectByType<CarochitoHud>().healthBar;
+        ability = FindFirstObjectByType<CarochitoHud>().abilityHolder;
 
+        
         if (healthBar != null)
         {
             healthBar.SetMaxHealth(Carochito);
@@ -25,6 +27,7 @@ public class CarochitoTeamBattler : CarochitoBattler
         {
             ability.SetUp(Carochito);
         }
+        
         
         hurtBox = GetComponentInChildren<HurtBox>();
 
@@ -60,3 +63,4 @@ public class CarochitoTeamBattler : CarochitoBattler
         controller.stateMachine.ChangeState(controller.swapState);
     }
 }
+*/

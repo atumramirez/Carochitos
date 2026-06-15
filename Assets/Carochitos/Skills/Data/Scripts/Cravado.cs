@@ -8,7 +8,7 @@ public class Cravado : SkillBase
 
     public override void Activate(CarochitoBattler carochitoBattler)
     {
-        GameObject projectile = Instantiate(projectilePrefab, carochitoBattler.firePoint.position, carochitoBattler.firePoint.rotation);
+        GameObject projectile = Instantiate(projectilePrefab, carochitoBattler._firePoint.position, carochitoBattler._firePoint.rotation);
 
         if (projectile.TryGetComponent<HitBox>(out var hitBox))
         {

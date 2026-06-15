@@ -4,9 +4,12 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEditor;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : Page
 {
-    public static DialogueManager Instance;
+    //public static DialogueManager Instance;
+
+    [Header("Menu")]
+    public BookMenu menu;
 
     [Header("Components")]
     public GameObject DialoguePanel;
@@ -36,6 +39,7 @@ public class DialogueManager : MonoBehaviour
 
     private bool isReading = false;
 
+    /*
     void Awake()
     {
         if (Instance == null)
@@ -48,13 +52,18 @@ public class DialogueManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    */
 
     private void Start()
     {
-        LeftSprite.gameObject.SetActive(false);
-        RightSprite.gameObject.SetActive(false);
+        LeftSprite.enabled = false;
+        RightSprite.enabled = false;
+        LeftExpressionSprite.enabled = false;
+        RightExpressionSprite.enabled = false;
         LeftSpeaker.SetActive(false);
         RightSpeaker.SetActive(false);
+        Background.gameObject.SetActive(false);
+
 
         if (NextButton != null)
         {
@@ -77,6 +86,8 @@ public class DialogueManager : MonoBehaviour
     {
         if (ActionManager.Instance.CurrentNode is not BaseDialogueAction node) return;
 
+        Cursor.lockState = CursorLockMode.Confined;
+
         bool hasChoices = node is QuestionAction;
 
         if (NextButton != null)
@@ -96,23 +107,30 @@ public class DialogueManager : MonoBehaviour
             {
                 case Side.Left:
 
-                    RightSpeaker.SetActive(false);
-                    LeftSpeaker.SetActive(true);
-
-                    LeftSpeakerNameText.SetText(node.CharacterSprite._name);
-
                     if (node.CharacterSprite != null)
                     {
-                        LeftSprite.gameObject.SetActive(true);
-
-                        LeftExpressionSprite.enabled = true;
-
-
+                        // Base Sprite
+                        LeftSprite.enabled = true;
                         LeftSprite.sprite = node.CharacterSprite._baseSprite;
                         LeftSprite.SetNativeSize();
 
-                        LeftExpressionSprite.sprite = node.CharacterSprite.SelectEmotion(node.Emotion);
-                        LeftExpressionSprite.SetNativeSize();
+                        // Speaker Name
+                        RightSpeaker.SetActive(false);
+                        LeftSpeaker.SetActive(true);
+                        LeftSpeakerNameText.SetText(node.CharacterSprite._name);
+
+                        // Expression
+                        if (node.CharacterSprite._default != null)
+                        {
+                            LeftExpressionSprite.enabled = true;
+                            LeftExpressionSprite.sprite = node.CharacterSprite.SelectEmotion(node.Emotion);
+                            LeftExpressionSprite.SetNativeSize();
+                        }
+                        else
+                        {
+                            LeftExpressionSprite.enabled = false;
+                        }
+
                     }
                     else
                     {
@@ -124,22 +142,30 @@ public class DialogueManager : MonoBehaviour
 
                 case Side.Right:
 
-                    LeftSpeaker.SetActive(false);
-                    RightSpeaker.SetActive(true);
-
-                    RightSpeakerNameText.SetText(node.CharacterSprite._name);
-
                     if (node.CharacterSprite != null)
                     {
-                        RightSprite.gameObject.SetActive(true);
-
-                        RightExpressionSprite.enabled = true;
-
+                        // Base Sprite
+                        RightSprite.enabled = true;
                         RightSprite.sprite = node.CharacterSprite._baseSprite;
                         RightSprite.SetNativeSize();
 
-                        RightExpressionSprite.sprite = node.CharacterSprite.SelectEmotion(node.Emotion);
-                        RightExpressionSprite.SetNativeSize();
+                        // Speaker Name
+                        LeftSpeaker.SetActive(false);
+                        RightSpeaker.SetActive(true);
+                        RightSpeakerNameText.SetText(node.CharacterSprite._name);
+
+                        // Expression
+                        if (node.CharacterSprite._default != null)
+                        {
+                            RightExpressionSprite.enabled = true;
+                            RightExpressionSprite.sprite = node.CharacterSprite.SelectEmotion(node.Emotion);
+                            RightExpressionSprite.SetNativeSize();
+                        }
+                        else
+                        {
+                            RightExpressionSprite.enabled = false;
+                        }
+
                     }
                     else
                     {
@@ -181,6 +207,8 @@ public class DialogueManager : MonoBehaviour
                 });
             }
         }
+
+        
     }
 
     // Called from End() or Input
@@ -225,10 +253,20 @@ public class DialogueManager : MonoBehaviour
         isReading = false;
         DialoguePanel.SetActive(false);
 
+        //menu.OpenBook(1);
+
         foreach (Transform child in ChoiceButtonContainer)
         {
             Destroy(child.gameObject);
         }
+
+        LeftSprite.enabled = false;
+        RightSprite.enabled = false;
+        LeftExpressionSprite.enabled = false;
+        RightExpressionSprite.enabled = false;
+        LeftSpeaker.SetActive(false);
+        RightSpeaker.SetActive(false);
+        Background.gameObject.SetActive(false);
     }
 
 
@@ -244,11 +282,11 @@ public class DialogueManager : MonoBehaviour
         switch (side)
         {
             case Side.Left:
-                LeftSprite.gameObject.SetActive(true);
+                LeftSprite.enabled = true;
                 break;
 
             case Side.Right:
-                RightSprite.gameObject.SetActive(true);
+                RightSprite.enabled = true;
                 break;
         }
     }
@@ -258,11 +296,11 @@ public class DialogueManager : MonoBehaviour
         switch (side)
         {
             case Side.Left:
-                LeftSprite.gameObject.SetActive(false);
+                LeftSprite.enabled = false;
                 break;
 
             case Side.Right:
-                RightSprite.gameObject.SetActive(false);
+                RightSprite.enabled = false;
                 break;
         }
     }
@@ -325,4 +363,7 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(duration);
         ActionManager.Instance.EndAction();
     }
+
+
+
 }

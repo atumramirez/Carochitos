@@ -26,7 +26,7 @@ public class Carochito
         _level = chitoLevel;
 
         // Health
-        _currentHealth = Base.MaxHealth;
+        _currentHealth = Health;
 
         if (_currentHealth > 0)
         {
@@ -105,6 +105,9 @@ public class Carochito
     public bool IsAlive { get { return _isAlive; } set { _isAlive = value; } }
     public int CurrentExp { get { return _currentExp; } set { _currentExp = value; } }
     public string Name { get { if (_nickname != "") { return _nickname; } else { return _base.Name; } } }
+
+
+    public int Health { get { return (_base.MaxHealth + (2 * _level)); } }
     public int Attack { get { return (_base.Attack * _level / 100) + 5; } }
     public int Defense { get { return (_base.Defense * _level / 100) + 5; } }
     public int Speed { get { return (_base.Speed * _level / 100) + 5; } }

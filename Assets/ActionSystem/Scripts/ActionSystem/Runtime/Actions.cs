@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 [Serializable]
@@ -30,15 +31,12 @@ public class BaseDialogueAction : BaseActionNode
 [Serializable]
 public class CarochitoAction : BaseActionNode
 {
-    public CarochitoBase CarochitoBase;
+    public CarochitoBase Carochito;
     public int Level;
-    public int MaxHealth;
 
     public override void Perform()
     {
-        Carochito carochito = new(CarochitoBase, Level);
-        Party.Instance.AddCarochito(carochito);
-        ActionManager.Instance.EndAction();
+        ActionManager.Instance.GiveCarochito();
     }
 }
 
@@ -154,9 +152,10 @@ public class WaitAction: BaseActionNode
 [Serializable]
 public class ConditionAction : BaseActionNode
 {
-    public bool Variable;
-    public Condition Condition;
-    public bool Value;
+    public string Variable;
+
+    public string nextTrueId;
+    public string nextFalseId;
 
     public override void Perform()
     {
@@ -169,6 +168,57 @@ public enum Condition
     Equal,
     NotEqual
 }
+
+
+[Serializable]
+public class FlagAction : BaseActionNode
+{
+    public string Variable;
+    public bool Value;
+
+    public override void Perform()
+    {
+        ActionManager.Instance.ChangeVariable();
+    }
+}
+
+[Serializable]
+public class SwitchAction : BaseActionNode
+{
+    public string Variable;
+    public int Value;
+
+    public string nextTrueId;
+    public string nextFalseId;
+
+    public override void Perform()
+    {
+        ActionManager.Instance.EndAction();
+    }
+}
+
+[Serializable]
+public class IntAction : BaseActionNode
+{
+    public string Variable;
+    public int Value;
+
+    public override void Perform()
+    {
+        ActionManager.Instance.ChangeVariable();
+    }
+}
+
+[Serializable]
+public class RemoveAction : BaseActionNode
+{
+    public string Character;
+    public override void Perform()
+    {
+        ActionManager.Instance.RemoveCharacter();
+    }
+}
+
 #endregion
 
 [Serializable]
@@ -180,7 +230,55 @@ public class TeleportAction : BaseActionNode
     public override void Perform()
     {
         ActionManager.Instance.gameSceneManager.SwitchEnviromentScene(Scene, WayPoint);
-        ActionManager.Instance.EndAction();
+        // ActionManager.Instance.EndAction();
     }
 }
+
+[Serializable]
+public class SpawnAction : BaseActionNode
+{
+    public string Arena;
+    //public Transform Position;
+    public override void Perform()
+    {
+        ActionManager.Instance.StartBattle();
+    }
+}
+
+
+[Serializable]
+public class CameraAction : BaseActionNode
+{
+    public string Camera;
+    public override void Perform()
+    {
+        ActionManager.Instance.FindCamera();
+    }
+}
+
+[Serializable]
+public class NormalCameraAction : BaseActionNode
+{
+    public override void Perform()
+    {
+        ActionManager.Instance.NormalCamera();
+
+    }
+}
+
+
+[Serializable]
+public class PositionAction : BaseActionNode
+{
+    public string Object;
+    public Vector3 Position;
+    public Quaternion Rotation;
+
+    public override void Perform()
+    {
+        ActionManager.Instance.TelerportCharacter();
+
+    }
+}
+
 

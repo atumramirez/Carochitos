@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-public class BoxesMenu : MonoBehaviour
+public class BoxesMenu : PageHolder
 {
     [Header("Containers")]
     public GameObject boxesContainer;
@@ -13,13 +12,13 @@ public class BoxesMenu : MonoBehaviour
 
     private void Start()
     {
-        SetupList(partyContainer.transform, Party.Instance.carochitos);
-        SetupList(boxesContainer.transform, Boxes.Instance.Box1);
+        SetupList(partyContainer.transform, Party.Instance.partyCarochitos);
+        SetupList(boxesContainer.transform, Party.Instance.Box1);
 
         Organize(boxesContainer.transform);
     }
 
-    public void Organize(Transform container) // Coloca em ordem (sem deixar espaços em branco) a Children do Container selecionado
+    public void Organize(Transform container)
     {
         List<Transform> items = new();
 
@@ -50,7 +49,7 @@ public class BoxesMenu : MonoBehaviour
         }
     }
 
-    public int GetItemCount(Transform container) // Conta a quantidade de Children que tem o container
+    public int GetItemCount(Transform container) 
     {
         int count = 0;
 
@@ -116,13 +115,15 @@ public class BoxesMenu : MonoBehaviour
             {
                 MonsterDragItem data = slot.GetChild(0).GetComponent<MonsterDragItem>();
 
-                if (carochitos == Party.Instance.carochitos)
+                if (carochitos == Party.Instance.partyCarochitos)
                 {
+                    Debug.Log("Guarda na party");
                     Party.Instance.MoveToParty(data.carochito);
                 }
                 else
                 {
-                    Boxes.Instance.AddCarochito(data.carochito);
+                    Debug.Log("Guarda na caixa");
+                    Party.Instance.Box1.Add(data.carochito);
                 }
             }
         }

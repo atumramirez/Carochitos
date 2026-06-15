@@ -231,7 +231,7 @@ MonoBehaviour:
     - rid: 834355730651808433
       type: {class: 'Constant`1[[CharacterSprite, Assembly-CSharp]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: {fileID: 0}
+        m_Value: {fileID: 11400000, guid: c85b41401976701488f6f956f4149ea3, type: 2}
     - rid: 834355730651808434
       type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:

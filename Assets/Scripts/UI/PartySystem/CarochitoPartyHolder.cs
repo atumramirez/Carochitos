@@ -19,7 +19,7 @@ public class CarochitoPartyHolder : MonoBehaviour
             Destroy(_contentParent.GetChild(i).gameObject);
         }
 
-        foreach (Carochito member in Party.Instance.carochitos)
+        foreach (Carochito member in Party.Instance.partyCarochitos)
         {
             GameObject sheetObj = Instantiate(_sheetPrefab, _contentParent);
 

@@ -15,7 +15,7 @@ MonoBehaviour:
   _name: "Pistola D'\xC1gua"
   _description: 
   _elementalType: {fileID: 11400000, guid: aca6eda13488e9444b8af56a901b9d6b, type: 2}
-  power: 20
+  power: 200
   _skillIcon: {fileID: 21300000, guid: d0e2e51323a471c43a113e0367722c05, type: 3}
   _startUpTime: 0.6
   _cooldown: 5

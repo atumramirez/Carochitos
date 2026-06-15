@@ -918,12 +918,8 @@ MonoBehaviour:
         m_InputConstantsById:
           m_KeyList:
           - Variable
-          - Value
-          - Condition
           m_ValueList:
-          - rid: 834355730651808624
-          - rid: 834355730651808626
-          - rid: 834355730651808645
+          - rid: 834355875111239758
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -939,14 +935,6 @@ MonoBehaviour:
           m_HasUserColor: 0
         m_Node:
           rid: 834355730651808627
-    - rid: 834355730651808624
-      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value: 0
-    - rid: 834355730651808626
-      type: {class: 'Constant`1[[System.Boolean, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
-      data:
-        m_Value: 0
     - rid: 834355730651808627
       type: {class: ConditionNode, ns: , asm: Assembly-CSharp-Editor}
       data: 
@@ -1083,14 +1071,7 @@ MonoBehaviour:
     - rid: 834355730651808632
       type: {class: EndNode, ns: , asm: Assembly-CSharp-Editor}
       data: 
-    - rid: 834355730651808645
-      type: {class: EnumConstant, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+    - rid: 834355875111239758
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value:
-          m_EnumType:
-            m_Identification: Condition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-              PublicKeyToken=null
-          m_Value: 0
-        m_EnumType:
-          m_Identification: Condition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-            PublicKeyToken=null
+        m_Value: 

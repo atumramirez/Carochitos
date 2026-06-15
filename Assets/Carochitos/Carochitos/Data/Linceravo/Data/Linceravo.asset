@@ -24,4 +24,8 @@ MonoBehaviour:
   _attack: 1
   _defense: 1
   _speed: 1
-  learnableSkills: []
+  learnableSkills:
+  - skillBase: {fileID: 11400000, guid: 98b73aac55657d14192f2b9d01681275, type: 2}
+    level: 1
+  - skillBase: {fileID: 11400000, guid: f9dbee8ac2db42148be48cfe883f84cc, type: 2}
+    level: 1

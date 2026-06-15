@@ -1,5 +1,6 @@
 using System;
 using JetBrains.Annotations;
+using Unity.Cinemachine;
 using Unity.GraphToolkit.Editor;
 using UnityEngine;
 
@@ -151,12 +152,64 @@ public class ConditionNode: Node
         context.AddOutputPort("True").Build();
         context.AddOutputPort("False").Build();
 
-        context.AddInputPort<bool>("Variable").Build();
-        context.AddInputPort<Condition>("Condition").Build();
-        context.AddInputPort<bool>("Value").Build();
+        context.AddInputPort<string>("Variable").Build();
     }
 }
 #endregion
+[Serializable]
+public class SwitchNode : Node
+{
+    protected override void OnDefinePorts(IPortDefinitionContext context)
+    {
+        context.AddInputPort("In").Build();
+
+        context.AddOutputPort("True").Build();
+        context.AddOutputPort("False").Build();
+
+        context.AddInputPort<string>("Variable").Build();
+        context.AddInputPort<int>("Value").Build();
+    }
+}
+
+[Serializable]
+public class FlagNode : Node
+{
+    protected override void OnDefinePorts(IPortDefinitionContext context)
+    {
+        context.AddInputPort("In").Build();
+        context.AddOutputPort("Out").Build();
+
+        context.AddInputPort<string>("Variable").Build();
+        context.AddInputPort<bool>("Value").Build();
+    }
+}
+
+[Serializable]
+public class IntNode : Node
+{
+    protected override void OnDefinePorts(IPortDefinitionContext context)
+    {
+        context.AddInputPort("In").Build();
+        context.AddOutputPort("Out").Build();
+
+        context.AddInputPort<string>("Variable").Build();
+        context.AddInputPort<int>("Value").Build();
+    }
+}
+
+
+[Serializable]
+public class SpawnNode : Node
+{
+    protected override void OnDefinePorts(IPortDefinitionContext context)
+    {
+        context.AddInputPort("In").Build();
+        context.AddOutputPort("Out").Build();
+
+        context.AddInputPort<string>("Arena").Build(); 
+        //context.AddInputPort<Transform>("Position").Build();
+    }
+}
 
 #region Teleport
 [Serializable]
@@ -175,21 +228,17 @@ public class TeleportNode : Node
 #endregion
 
 
+[Serializable]
+public class RemoveNode : Node
+{
+    protected override void OnDefinePorts(IPortDefinitionContext context)
+    {
+        context.AddInputPort("In").Build();
+        context.AddOutputPort("Out").Build();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        context.AddInputPort<string>("Character").Build();
+    }
+}
 
 [Serializable]
 public class ItemNode : Node
@@ -214,6 +263,41 @@ public class CarochitoNode : Node
 
         context.AddInputPort<CarochitoBase>("Carochito").Build();
         context.AddInputPort<int>("Level").Build();
-        context.AddInputPort<int>("Current HP").Build();
+    }
+}
+
+[Serializable]
+public class CameraNode : Node
+{
+    protected override void OnDefinePorts(IPortDefinitionContext context)
+    {
+        context.AddInputPort("In").Build();
+        context.AddOutputPort("Out").Build();
+
+        context.AddInputPort<string>("Camera").Build();
+    }
+}
+
+[Serializable]
+public class NormalCameraNode : Node
+{
+    protected override void OnDefinePorts(IPortDefinitionContext context)
+    {
+        context.AddInputPort("In").Build();
+        context.AddOutputPort("Out").Build();
+    }
+}
+
+[Serializable]
+public class PositionNode : Node
+{
+    protected override void OnDefinePorts(IPortDefinitionContext context)
+    {
+        context.AddInputPort("In").Build();
+        context.AddOutputPort("Out").Build();
+
+        context.AddInputPort<string>("Object").Build();
+        context.AddInputPort<Vector3>("Position").Build();
+        context.AddInputPort<Quaternion>("Rotation").Build();
     }
 }

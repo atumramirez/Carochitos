@@ -30,8 +30,6 @@ public class CaptureState : State<TrainerController>
             character.animator.SetTrigger("move");
             stateMachine.ChangeState(character.standing);
         }
-
-        // Debug.Log("Sei lá, mano");
     }
 
     public override void Exit()

@@ -38,17 +38,24 @@ public class Interactable : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (trigger == Trigger.EnterArea)
+        if (other.GetComponent<TrainerController>() != null)
         {
-            OnInteract();
+            if (trigger == Trigger.EnterArea)
+            {
+                OnInteract();
+            }
         }
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (trigger == Trigger.ExitArea)
+        if (other.GetComponent<TrainerController>() != null)
         {
-            OnInteract();
+            if (trigger == Trigger.ExitArea)
+            {
+                OnInteract();
+            }
         }
     }
 }

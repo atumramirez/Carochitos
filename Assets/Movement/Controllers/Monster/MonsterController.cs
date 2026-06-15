@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -10,40 +10,106 @@ public class MonsterController : GenericController
     [Header("State Machine")]
     public StateMachine<MonsterController> stateMachine;
 
-    [Header("States")]
+    [Header("Enemy States")]
+    public EnemyPatrolState enemyPatrolState;
+    public EnemyChaseState enemyChaseState;
+    public EnemyRunState enemyRunState;
+    public EnemyAttackState enemyAttackState;
+    public EnemyEatState enemyEatState;
+    public EnemyInvestigateState enemyInvestigateState;
+
+    [Header("Monster States")]
     public MonsterStandingState standingState;
     public MonsterFollowState followState;
     public MonsterSwapingState swapState;
     public MonsterAttackState attackState;
 
-    [Header("Player Input")]
-    public InputManager inputManager;
-
     [Header("Following")]
     public NavMeshAgent navMeshAgent;
 
+    [Header("Player Input")]
+    public InputManager inputManager;
+
     [Header("Carochito Battler")]
-    public CarochitoTeamBattler carochitoTeamBattler;
+    public CarochitoBattler carochitoBattler;
 
-    private bool setUp = false;
+    [Header("Target")]
+    public Transform target;
 
-    public void SetUp(Transform owner)
+    [Header("SetUp")]
+    [HideInInspector] public bool setUp;
+
+    [Header("Behavior Distances")]
+    public float fleeDistance = 5f;
+    public float followDistance = 10f;
+    public float loseDistance = 15f;
+
+    [Header("Wander Settings")]
+    public float wanderRadius = 20f;
+    public float minWaitTime = 1f;
+    public float maxWaitTime = 3f;
+
+    [Header("Movement Speeds")]
+    public float wanderSpeed = 3.5f;
+    public float followSpeed = 4.5f;
+    public float fleeSpeed = 6f;
+    public bool waiting;
+    public float waitTimer;
+
+    [Header("Vision")]
+    public EnemyVision enemyVision;
+    public Transform foodPosition;
+
+    [Header("Attack")]
+    public float attackRange = 6f;
+    public float attackCooldown = 1.5f;
+    public float battleLoseDistance = 15f;
+    public float idealCombatDistance = 4f;
+    public float minCombatDistance = 2f;
+    public float maxCombatDistance = 6f;
+    public float attackTimer;
+
+    public void SetUp(CarochitoBattler battler)
     {
+        carochitoBattler = battler;
+
         // Components
         controller = GetComponent<CharacterController>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        carochitoTeamBattler = GetComponent<CarochitoTeamBattler>();
+
         animator = GetComponentInChildren<Animator>();
+        enemyVision = GetComponentInChildren<EnemyVision>();
+
         inputManager = FindFirstObjectByType<InputManager>();
 
         // State Machine
         stateMachine = new StateMachine<MonsterController>();
+
         followState = new MonsterFollowState(this, stateMachine);
         standingState = new MonsterStandingState(this, stateMachine);
         swapState = new MonsterSwapingState(this, stateMachine);
         attackState = new MonsterAttackState(this, stateMachine);
 
-        stateMachine.Initialize(followState);
+        enemyPatrolState = new EnemyPatrolState(this, stateMachine);
+        enemyRunState = new EnemyRunState(this, stateMachine);
+        enemyChaseState = new EnemyChaseState(this, stateMachine);
+        enemyAttackState = new EnemyAttackState(this, stateMachine);
+        enemyInvestigateState = new EnemyInvestigateState(this, stateMachine);
+        enemyEatState = new EnemyEatState(this, stateMachine);
+
+        if (carochitoBattler != null)
+        {
+            if (carochitoBattler._isEnemy == true)
+            {
+                enemyVision.gameObject.SetActive(true);
+                stateMachine.Initialize(enemyPatrolState);
+            }
+            else
+            {
+                enemyVision.gameObject.SetActive(false);
+                stateMachine.Initialize(followState);
+            }
+        }
 
         // Dashes
         currentDashCharges = maxDashCharges;
@@ -65,7 +131,7 @@ public class MonsterController : GenericController
 
         stateMachine.currentState.LogicUpdate();
 
-        for (int i = 0; i < carochitoTeamBattler.Carochito.Skill.Count; i++)
+        for (int i = 0; i < carochitoBattler.Carochito.Skill.Count; i++)
         {
             HandleSkill(i);
         }
@@ -78,6 +144,38 @@ public class MonsterController : GenericController
 
         stateMachine.currentState.PhysicsUpdate();
     }
+
+    #region Eat
+    [Header("Eat")]
+    public float eatDistance = 1.5f;
+    public float eatDuration = 3f;
+    public float eatTimer;
+    public void Eat(Transform snackPosition)
+    {
+        foodPosition.position = snackPosition.position;
+
+        navMeshAgent.SetDestination(foodPosition.position);
+
+        stateMachine.ChangeState(enemyEatState);
+    }
+
+    public void FinishEating()
+    {
+        stateMachine.ChangeState(enemyPatrolState);
+    }
+    #endregion
+
+    #region Hear
+    [Header("Hear")]
+    public Transform soundPosition;
+
+    public void Hear(Transform playerPosition)
+    {
+        soundPosition = playerPosition;
+        stateMachine.ChangeState(enemyInvestigateState);
+    }
+
+    #endregion
 
     #region Dash
     [Header("Dash")]
@@ -100,9 +198,6 @@ public class MonsterController : GenericController
 
     public IEnumerator StartDash()
     {
-
-        Debug.Log("Dash");
-
         canDash = false;
 
         currentDashCharges--;
@@ -133,69 +228,89 @@ public class MonsterController : GenericController
     }
     #endregion
 
+    #region Attack
+
+    public void RandomAttack()
+    {
+        int randomSkill = Random.Range(0, carochitoBattler.Carochito.Skill.Count);
+        Attack(randomSkill);
+    }
+
     public void Attack(int index)
     {
-        if (carochitoTeamBattler.Carochito.Skill[index].State == SkillState.Ready && carochitoTeamBattler.Carochito.Skill[index] != null)
-        {
-            carochitoTeamBattler.Carochito.Skill[index].State = SkillState.StartUp;
-            carochitoTeamBattler.Carochito.Skill[index].StartUpTime = carochitoTeamBattler.Carochito.Skill[index].Base.FullStartUpTime;
+        Skill selectedSkill = carochitoBattler.Carochito.Skill[index];
 
-            // Animate
-            switch (carochitoTeamBattler.Carochito.Skill[index].Base.AttackType)
+        if (index >= 0 && index < carochitoBattler.Carochito.Skill.Count)
+        {
+            if (selectedSkill.State == SkillState.Ready && selectedSkill != null)
             {
-                case AttackType.Physical:
-                    animator.SetTrigger("attack");
-                    break;
-                case AttackType.Special:
-                    animator.SetTrigger("range");
-                    break;
+                selectedSkill.State = SkillState.StartUp;
+                selectedSkill.StartUpTime = selectedSkill.Base.FullStartUpTime;
+
+                // Animate
+                switch (selectedSkill.Base.AttackType)
+                {
+                    case AttackType.Physical:
+                        animator.SetTrigger("attack");
+                        break;
+                    case AttackType.Special:
+                        animator.SetTrigger("range");
+                        break;
+                }
             }
-        }
+        } 
     }
 
     void HandleSkill(int index)
     {
-        switch (carochitoTeamBattler.Carochito.Skill[index].State)
+        Skill selectedSkill = carochitoBattler.Carochito.Skill[index];
+
+        switch (selectedSkill.State)
         {
             case SkillState.StartUp:
-                if (carochitoTeamBattler.Carochito.Skill[index].StartUpTime > 0)
+                if (selectedSkill.StartUpTime > 0)
                 {
-                    carochitoTeamBattler.Carochito.Skill[index].StartUpTime -= Time.deltaTime;
+                    selectedSkill.StartUpTime -= Time.deltaTime;
                 }
                 else
                 {
-                    carochitoTeamBattler.Carochito.Skill[index].Base.Activate(carochitoTeamBattler);
-                    carochitoTeamBattler.Carochito.Skill[index].State = SkillState.Active;
-                    carochitoTeamBattler.Carochito.Skill[index].ActiveTime = carochitoTeamBattler.Carochito.Skill[index].Base.FullActiveTime;
+                    selectedSkill.Base.Activate(carochitoBattler);
+                    selectedSkill.State = SkillState.Active;
+                    selectedSkill.ActiveTime = selectedSkill.Base.FullActiveTime;
                 }
                 break;
             case SkillState.Active:
 
-                if (carochitoTeamBattler.Carochito.Skill[index].ActiveTime > 0)
+                if (selectedSkill.ActiveTime > 0)
                 {
-                    carochitoTeamBattler.Carochito.Skill[index].ActiveTime -= Time.deltaTime;
+                    selectedSkill.ActiveTime -= Time.deltaTime;
                 }
                 else
                 {
-                    carochitoTeamBattler.Carochito.Skill[index].State = SkillState.Cooldown;
-                    carochitoTeamBattler.Carochito.Skill[index].CooldownTime = carochitoTeamBattler.Carochito.Skill[index].Base.FullCooldown;
+                    selectedSkill.State = SkillState.Cooldown;
+                    selectedSkill.CooldownTime = selectedSkill.Base.FullCooldown;
 
-                    carochitoTeamBattler.ability.transform.GetChild(index).GetComponent<IconAbility>().StartCooldown(carochitoTeamBattler.Carochito.Skill[index]);
+                    if (carochitoBattler._isEnemy == false)
+                    {
+                        carochitoBattler._allyAbilities.transform.GetChild(index).GetComponent<IconAbility>().StartCooldown(selectedSkill);
+                    }
                 }
                 break;
 
             case SkillState.Cooldown:
 
-                if (carochitoTeamBattler.Carochito.Skill[index].CooldownTime > 0)
+                if (selectedSkill.CooldownTime > 0)
                 {
-                    carochitoTeamBattler.Carochito.Skill[index].CooldownTime -= Time.deltaTime;
+                    selectedSkill.CooldownTime -= Time.deltaTime;
                 }
                 else
                 {
-                    carochitoTeamBattler.Carochito.Skill[index].State = SkillState.Ready;
+                    selectedSkill.State = SkillState.Ready;
                 }
                 break;
         }
     }
+
+    #endregion
 }
 

@@ -31,7 +31,6 @@ public class MonsterDragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     [Header("Boxes Menu")]
     public BoxesMenu boxesMenu;
 
-
     private void Start()
     {
         boxesMenu = FindFirstObjectByType<BoxesMenu>();
@@ -52,7 +51,7 @@ public class MonsterDragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         level.text = "LV. " + carochito.Level;
 
-        healthBar.maxValue = carochito.Base.MaxHealth;
+        healthBar.maxValue = carochito.Health;
         healthBar.value = carochito.CurrentHealth;
 
         UpdateIcon(isParty);
@@ -93,9 +92,8 @@ public class MonsterDragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (boxesMenu != null)
         {
             boxesMenu.Organize(boxesMenu.partyContainer.transform);
-            boxesMenu.SaveList(boxesMenu.partyContainer.transform, Party.Instance.carochitos);
-
-            boxesMenu.SaveList(boxesMenu.boxesContainer.transform, Boxes.Instance.Box1);
+            boxesMenu.SaveList(boxesMenu.partyContainer.transform, Party.Instance.partyCarochitos);
+            boxesMenu.SaveList(boxesMenu.boxesContainer.transform, Party.Instance.Box1);
         }
     }
 

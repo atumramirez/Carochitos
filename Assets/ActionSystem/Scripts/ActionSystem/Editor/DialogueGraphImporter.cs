@@ -1,8 +1,11 @@
-using UnityEditor.AssetImporters;
-using Unity.GraphToolkit.Editor;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Microsoft.SqlServer.Server;
+using Unity.Cinemachine;
+using Unity.GraphToolkit.Editor;
+using UnityEditor.AssetImporters;
 using UnityEngine;
 
 [ScriptedImporter(1, DialogueGraph.AssetExtension)]
@@ -84,12 +87,77 @@ public class DialogueGraphImporter : ScriptedImporter
                 var runtimeNode = new ConditionAction { NodeID = nodeIDMap[INode] };
                 ProcessConditionNode(ConditionNode, runtimeNode, nodeIDMap);
                 runtimeGraph.AllNodes.Add(runtimeNode);
+
+
+            }
+
+            else if (INode is SwitchNode SwicthNode)
+            {
+                var runtimeNode = new SwitchAction { NodeID = nodeIDMap[INode] };
+                ProcessSwitchNode(SwicthNode, runtimeNode, nodeIDMap);
+                runtimeGraph.AllNodes.Add(runtimeNode);
+            }
+
+            else if (INode is IntNode IntNode)
+            {
+                var runtimeNode = new IntAction { NodeID = nodeIDMap[INode] };
+                ProcessIntNode(IntNode, runtimeNode, nodeIDMap);
+                runtimeGraph.AllNodes.Add(runtimeNode);
+            }
+
+            else if (INode is RemoveNode RemoveNode)
+            {
+                var runtimeNode = new RemoveAction { NodeID = nodeIDMap[INode] };
+                ProcessRemoveNode(RemoveNode, runtimeNode, nodeIDMap);
+                runtimeGraph.AllNodes.Add(runtimeNode);
+            }
+
+            else if (INode is CarochitoNode CarochitoNode)
+            {
+                var runtimeNode = new CarochitoAction { NodeID = nodeIDMap[INode] };
+                ProcessCarochitoNode(CarochitoNode, runtimeNode, nodeIDMap);
+                runtimeGraph.AllNodes.Add(runtimeNode);
+            }
+
+            else if (INode is FlagNode FlagNode)
+            {
+                var runtimeNode = new FlagAction { NodeID = nodeIDMap[INode] };
+                ProcessFlagNode(FlagNode, runtimeNode, nodeIDMap);
+                runtimeGraph.AllNodes.Add(runtimeNode);
             }
 
             else if (INode is TeleportNode TeleportNode)
             {
                 var runtimeNode = new TeleportAction { NodeID = nodeIDMap[INode] };
                 ProcessTeleportNode(TeleportNode, runtimeNode, nodeIDMap);
+                runtimeGraph.AllNodes.Add(runtimeNode);
+            }
+
+            else if (INode is SpawnNode SpawnNode)
+            {
+                var runtimeNode = new SpawnAction { NodeID = nodeIDMap[INode] };
+                ProcessSpawnNode(SpawnNode, runtimeNode, nodeIDMap);
+                runtimeGraph.AllNodes.Add(runtimeNode);
+            }
+
+            else if (INode is CameraNode CameraNode)
+            {
+                var runtimeNode = new CameraAction { NodeID = nodeIDMap[INode] };
+                ProcessCameraNode(CameraNode, runtimeNode, nodeIDMap);
+                runtimeGraph.AllNodes.Add(runtimeNode);
+            }
+
+            else if (INode is NormalCameraNode NormalCameraNode)
+            {
+                var runtimeNode = new NormalCameraAction { NodeID = nodeIDMap[INode] };
+                ProcessNormalCameraNode(NormalCameraNode, runtimeNode, nodeIDMap);
+                runtimeGraph.AllNodes.Add(runtimeNode);
+            }
+
+            else if (INode is PositionNode PositionNode)
+            {
+                var runtimeNode = new PositionAction { NodeID = nodeIDMap[INode] };
+                ProcessPositionNode(PositionNode, runtimeNode, nodeIDMap);
                 runtimeGraph.AllNodes.Add(runtimeNode);
             }
         }
@@ -198,6 +266,18 @@ public class DialogueGraphImporter : ScriptedImporter
         }
     }
 
+    private void ProcessRemoveNode(RemoveNode node, RemoveAction runtimeNode, Dictionary<INode, string> nodeIDMap)
+    {
+        runtimeNode.Character = GetPortValue<string>(node.GetInputPortByName("Character"));
+
+        var nextNodePort = node.GetOutputPortByName("Out")?.firstConnectedPort;
+
+        if (nextNodePort != null)
+        {
+            runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
+        }
+    }
+
     private void ProcessWaitNode(WaitNode node, WaitAction runtimeNode, Dictionary<INode, string> nodeIDMap)
     {
         runtimeNode.Duration = GetPortValue<int>(node.GetInputPortByName("Duration"));
@@ -212,42 +292,72 @@ public class DialogueGraphImporter : ScriptedImporter
 
     private void ProcessConditionNode(ConditionNode node, ConditionAction runtimeNode, Dictionary<INode, string> nodeIDMap)
     {
-        runtimeNode.Variable = GetPortValue<bool>(node.GetInputPortByName("Variable"));
-        runtimeNode.Condition = GetPortValue<Condition>(node.GetInputPortByName("Condition"));
-        runtimeNode.Value = GetPortValue<bool>(node.GetInputPortByName("Value"));
+        // Dialogue
+        runtimeNode.Variable = GetPortValue<string>(node.GetInputPortByName("Variable"));
 
-        var nextNodePort = node.GetOutputPortByName("False")?.firstConnectedPort;
+        var choiceOutPorts = node.GetOutputPorts().Where(p => p.name.StartsWith("Choice "));
 
-        switch (runtimeNode.Condition)
+        var nextNodePort = node.GetOutputPortByName("True")?.firstConnectedPort;
+
+        if (nextNodePort != null)
         {
-            case Condition.Equal:
-
-                if (runtimeNode.Variable == runtimeNode.Value)
-                {
-                    nextNodePort = node.GetOutputPortByName("True")?.firstConnectedPort;
-                }
-                else
-                {
-                    nextNodePort = node.GetOutputPortByName("False")?.firstConnectedPort;
-                }
-                break;
-
-            case Condition.NotEqual:
-
-                if (runtimeNode.Variable != runtimeNode.Value)
-                {
-                    nextNodePort = node.GetOutputPortByName("False")?.firstConnectedPort;
-                }
-                else
-                {
-                    nextNodePort = node.GetOutputPortByName("True")?.firstConnectedPort;
-                }
-                break;
+            runtimeNode.nextTrueId = nodeIDMap[nextNodePort.GetNode()];
         }
+
+        nextNodePort = node.GetOutputPortByName("False")?.firstConnectedPort;
+
+        if (nextNodePort != null)
+        {
+            runtimeNode.nextFalseId = nodeIDMap[nextNodePort.GetNode()];
+        }
+    }
+
+    private void ProcessFlagNode(FlagNode node, FlagAction runtimeNode, Dictionary<INode, string> nodeIDMap)
+    {
+        // Dialogue
+        runtimeNode.Value = GetPortValue<bool>(node.GetInputPortByName("Value"));
+        runtimeNode.Variable = GetPortValue<string>(node.GetInputPortByName("Variable"));
+
+        var nextNodePort = node.GetOutputPortByName("Out")?.firstConnectedPort;
 
         if (nextNodePort != null)
         {
             runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
+        }
+    }
+
+    private void ProcessIntNode(IntNode node, IntAction runtimeNode, Dictionary<INode, string> nodeIDMap)
+    {
+        // Dialogue
+        runtimeNode.Value = GetPortValue<int>(node.GetInputPortByName("Value"));
+        runtimeNode.Variable = GetPortValue<string>(node.GetInputPortByName("Variable"));
+
+        var nextNodePort = node.GetOutputPortByName("Out")?.firstConnectedPort;
+
+        if (nextNodePort != null)
+        {
+            runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
+        }
+    }
+
+    private void ProcessSwitchNode(SwitchNode node, SwitchAction runtimeNode, Dictionary<INode, string> nodeIDMap)
+    {
+        // Dialogue
+        runtimeNode.Variable = GetPortValue<string>(node.GetInputPortByName("Variable"));
+        runtimeNode.Value = GetPortValue<int>(node.GetInputPortByName("Value"));
+
+        var nextNodePort = node.GetOutputPortByName("True")?.firstConnectedPort;
+
+        if (nextNodePort != null)
+        {
+            runtimeNode.nextTrueId = nodeIDMap[nextNodePort.GetNode()];
+        }
+
+        nextNodePort = node.GetOutputPortByName("False")?.firstConnectedPort;
+
+        if (nextNodePort != null)
+        {
+            runtimeNode.nextFalseId = nodeIDMap[nextNodePort.GetNode()];
         }
     }
 
@@ -264,6 +374,72 @@ public class DialogueGraphImporter : ScriptedImporter
             runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
         }
     }
+
+    private void ProcessSpawnNode(SpawnNode node, SpawnAction runtimeNode, Dictionary<INode, string> nodeIDMap)
+    {
+        // Dialogue
+        runtimeNode.Arena = GetPortValue<string>(node.GetInputPortByName("Arena"));
+        //runtimeNode.Position = GetPortValue<Transform>(node.GetInputPortByName("Position"));
+
+        var nextNodePort = node.GetOutputPortByName("Out")?.firstConnectedPort;
+
+        if (nextNodePort != null)
+        {
+            runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
+        }
+    }
+
+    private void ProcessCarochitoNode(CarochitoNode node, CarochitoAction runtimeNode, Dictionary<INode, string> nodeIDMap)
+    {
+        // Dialogue
+        runtimeNode.Carochito = GetPortValue<CarochitoBase>(node.GetInputPortByName("Carochito"));
+        runtimeNode.Level = GetPortValue<int>(node.GetInputPortByName("Level"));
+
+        var nextNodePort = node.GetOutputPortByName("Out")?.firstConnectedPort;
+
+        if (nextNodePort != null)
+        {
+            runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
+        }
+    }
+
+    private void ProcessCameraNode(CameraNode node, CameraAction runtimeNode, Dictionary<INode, string> nodeIDMap)
+    {
+        // Dialogue
+        runtimeNode.Camera = GetPortValue<string>(node.GetInputPortByName("Camera"));
+
+        var nextNodePort = node.GetOutputPortByName("Out")?.firstConnectedPort;
+
+        if (nextNodePort != null)
+        {
+            runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
+        }
+    }
+    private void ProcessNormalCameraNode(NormalCameraNode node, NormalCameraAction runtimeNode, Dictionary<INode, string> nodeIDMap)
+    {
+        var nextNodePort = node.GetOutputPortByName("Out")?.firstConnectedPort;
+
+        if (nextNodePort != null)
+        {
+            runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
+        }
+    }
+
+    private void ProcessPositionNode(PositionNode node, PositionAction runtimeNode, Dictionary<INode, string> nodeIDMap)
+    {
+        // Dialogue
+        runtimeNode.Object = GetPortValue<string>(node.GetInputPortByName("Object"));
+        runtimeNode.Position = GetPortValue<Vector3>(node.GetInputPortByName("Position"));
+        runtimeNode.Rotation = GetPortValue<Quaternion>(node.GetInputPortByName("Rotation"));
+
+        var nextNodePort = node.GetOutputPortByName("Out")?.firstConnectedPort;
+
+        if (nextNodePort != null)
+        {
+            runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
+        }
+    }
+
 
     #region GetPortValue
     private T GetPortValue<T>(IPort port)

@@ -8,8 +8,6 @@ public class MonsterSlot : MonoBehaviour, IDropHandler
 
     public virtual void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("Dropaste aqui uma cena");
-
         GameObject dropped = eventData.pointerDrag;
 
         MonsterDragItem draggableItem = dropped.GetComponent<MonsterDragItem>();

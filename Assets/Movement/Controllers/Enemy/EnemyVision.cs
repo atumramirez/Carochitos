@@ -3,26 +3,28 @@ using UnityEngine;
 
 public class EnemyVision : MonoBehaviour
 {
+    public BoxCollider _boxCollider;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<TrainerController>(out var trainer))
         {
             Debug.Log("Treinador visto!");
-            EnemyController enemyController = GetComponentInParent<EnemyController>();
+            MonsterController enemyController = GetComponentInParent<MonsterController>();
 
             Debug.Log("Perseguindo Carochito");
             enemyController.target = trainer.transform;
-            enemyController.stateMachine.ChangeState(enemyController.runState);
+            enemyController.stateMachine.ChangeState(enemyController.enemyChaseState);
         }
-
-        else if (other.TryGetComponent<MonsterController>(out var monster))
+        
+        if (other.TryGetComponent<MonsterController>(out var monster))
         {
             Debug.Log("Carochito visto!");
-            EnemyController enemyController = GetComponentInParent<EnemyController>();
+            MonsterController enemyController = GetComponentInParent<MonsterController>();
 
             Debug.Log("Perseguindo Carochito");
             enemyController.target = monster.transform;
-            enemyController.stateMachine.ChangeState(enemyController.chaseState);
+            enemyController.stateMachine.ChangeState(enemyController.enemyChaseState);
         }
     }
 }

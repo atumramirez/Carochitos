@@ -1,17 +1,19 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CarochitoDatabase))]
-public class CaropediaMenu : MonoBehaviour
+public class CaropediaMenu : PageHolder
 {
     public GameObject _caropediaHolder;
     public GameObject _prefab;
     public CarochitoDatabase carochitoDatabase;
 
+    /*
     private void Start()
     {
         carochitoDatabase = GetComponent<CarochitoDatabase>();
-        Refresh();
+        // Refresh();
     }
+    */
 
     public void Refresh()
     {
@@ -20,7 +22,6 @@ public class CaropediaMenu : MonoBehaviour
             GameObject instance = Instantiate( _prefab, _caropediaHolder.transform);
 
             CaropediaSlot slot = instance.GetComponent<CaropediaSlot>();
-
 
             slot.carochito = carochito;
 

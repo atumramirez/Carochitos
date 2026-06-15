@@ -142,8 +142,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 11062c37158231945b00a127dc77299a, type: 2}
-  m_sharedMaterial: {fileID: -5331967267780517614, guid: 11062c37158231945b00a127dc77299a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9da37f5b12356dc429938d67078aa5d7, type: 2}
+  m_sharedMaterial: {fileID: 217203604539509753, guid: 9da37f5b12356dc429938d67078aa5d7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -523,8 +523,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Bicho Verde
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 11062c37158231945b00a127dc77299a, type: 2}
-  m_sharedMaterial: {fileID: -5331967267780517614, guid: 11062c37158231945b00a127dc77299a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9da37f5b12356dc429938d67078aa5d7, type: 2}
+  m_sharedMaterial: {fileID: 217203604539509753, guid: 9da37f5b12356dc429938d67078aa5d7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -556,7 +556,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 1024
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -1092,8 +1092,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Lv. 100
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 11062c37158231945b00a127dc77299a, type: 2}
-  m_sharedMaterial: {fileID: -5331967267780517614, guid: 11062c37158231945b00a127dc77299a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9da37f5b12356dc429938d67078aa5d7, type: 2}
+  m_sharedMaterial: {fileID: 217203604539509753, guid: 9da37f5b12356dc429938d67078aa5d7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

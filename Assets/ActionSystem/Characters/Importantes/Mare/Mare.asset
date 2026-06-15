@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mare
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSprite
   _baseSprite: {fileID: 21300000, guid: 6a9b20c8f7bc6e0488a3deef7dd5f630, type: 3}
-  _name: Mare
+  _name: "Mar\xE9"
   _default: {fileID: 21300000, guid: 2a014e5da72f03d4dbf2e3edb8607707, type: 3}
   _happy: {fileID: 21300000, guid: afe4f7803b126ff438dc668141766fa8, type: 3}
   _sad: {fileID: 0}

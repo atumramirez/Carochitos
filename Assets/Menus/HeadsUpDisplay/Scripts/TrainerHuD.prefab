@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 16.168, y: 3}
+  m_AnchoredPosition: {x: 41.9, y: 4.6}
   m_SizeDelta: {x: 239.6757, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6257215601085975634
@@ -597,7 +597,6 @@ GameObject:
   m_Component:
   - component: {fileID: 572502314409320059}
   - component: {fileID: 1475730975156744260}
-  - component: {fileID: 5063692094946627732}
   - component: {fileID: 8740124215242717143}
   m_Layer: 5
   m_Name: TrainerHuD
@@ -613,7 +612,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3688322581278497090}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -635,36 +634,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3688322581278497090}
   m_CullTransparentMesh: 1
---- !u!114 &5063692094946627732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3688322581278497090}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &8740124215242717143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,6 +649,8 @@ MonoBehaviour:
   menu: {fileID: 8845210729617231093}
   mainCarochito: {fileID: 5670241858380033119}
   main: {fileID: 3884552921597777986}
+  health: {fileID: 9198923964806497544}
+  exp: {fileID: 6178730020236972018}
   _level: {fileID: 2978670648698330132}
   _name: {fileID: 7586795728450921529}
   _contentParent: {fileID: 3516458541129399755}
@@ -822,8 +793,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 1130729844, guid: a9d0fb3830e5beb4494677c880c90552, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -996,7 +967,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7460477680222300508}
   m_Layer: 5
-  m_Name: BolaDeBerlimHuD
+  m_Name: BolaDeBerlim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1123,16 +1094,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8088777724792485138}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.025788596, w: 0.99966747}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9045863798599975497}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -2.955}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.9, y: -4.7}
+  m_AnchoredPosition: {x: 3.8999786, y: -1.6}
   m_SizeDelta: {x: 97.785, y: 17.7136}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5837093407204363024
@@ -1775,7 +1746,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3516458541129399755}
   - component: {fileID: 8010046783084601266}
-  - component: {fileID: 7159640302119618286}
   - component: {fileID: 8925162048291435102}
   m_Layer: 5
   m_Name: BottomPanel
@@ -1811,36 +1781,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9052851062308655960}
   m_CullTransparentMesh: 1
---- !u!114 &7159640302119618286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9052851062308655960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &8925162048291435102
 MonoBehaviour:
   m_ObjectHideFlags: 0
