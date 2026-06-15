@@ -5,6 +5,7 @@ public class SpawnBox : MonoBehaviour
     public GameObject boxPrefab;
     public CarochitoBattler BattlerOwner;
     public SkillBase SkillUsed;
+    public GameObject particles;
 
     public Vector3 size;
     public float duration;
@@ -14,17 +15,24 @@ public class SpawnBox : MonoBehaviour
         BattlerOwner = carochitoBattler;
         SkillUsed = skill;
     }
-    public void Parameters(Vector3 fSize, float fDuration)
+    public void Parameters(Vector3 fSize, float fDuration, GameObject fparticles)
     {
         size = fSize;
         duration = fDuration;
+        particles = fparticles;
+    }
+    public void GetEffect(GameObject fEffect)
+    {
+        particles = fEffect;
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
+        GameObject projectile = Instantiate(particles, transform.position, Quaternion.identity);
+        Destroy(projectile, 5f);
         GameObject boxCravo = Instantiate(boxPrefab, transform.position, Quaternion.identity);
-        boxCravo.transform.localScale = size;
+        //particles.SetActive(true);
         if (boxCravo.TryGetComponent<HitBoxArea>(out var hitBox))
         {
             hitBox.SetUp(BattlerOwner, SkillUsed);

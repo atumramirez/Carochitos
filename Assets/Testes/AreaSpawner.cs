@@ -4,6 +4,7 @@ using UnityEngine;
 public class AreaSpawner : MonoBehaviour
 {
     public GameObject areaPrefab;
+    public GameObject particles;
     public Transform firePoint;
 
     public float fireRate = 0.2f;
@@ -27,11 +28,13 @@ public class AreaSpawner : MonoBehaviour
     {
         GameObject projectile = Instantiate(areaPrefab, firePoint.position, Quaternion.identity);
         projectile.transform.localScale = finalSize;
+        //GameObject particle = Instantiate(areaPrefab, firePoint.position, Quaternion.identity);
 
-
-        if (projectile.TryGetComponent<SpawnBox>(out var spawnBox))
+        if (projectile.TryGetComponent<HitBoxArea>(out var spawnBox))
         {
             spawnBox.SetUp(a, b);
+            spawnBox.GetEffect(particles);
+            
             
         }
 
