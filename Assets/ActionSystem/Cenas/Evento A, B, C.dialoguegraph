@@ -124,17 +124,18 @@ MonoBehaviour:
         - rid: 834355913621504137
         m_GraphStickyNoteModels: []
         m_GraphPlacematModels: []
-        m_GraphVariableModels: []
+        m_GraphVariableModels:
+        - rid: 834355995981119565
         m_GraphPortalModels: []
         m_SectionModels:
         - rid: 834355661892485121
         m_LocalSubgraphs: []
         m_LastKnownBounds:
           serializedVersion: 2
-          x: -1539
-          y: 9
-          width: 15216
-          height: 708
+          x: -1443
+          y: -13
+          width: 15120
+          height: 730
         m_GraphElementMetaData:
         - m_Guid:
             m_Value0: 7387231326577075788
@@ -864,6 +865,14 @@ MonoBehaviour:
             Hash: 557d7a5335f7484e5c6d1539a083fe64
           m_Category: 2
           m_Index: 45
+        - m_Guid:
+            m_Value0: 954900051115788124
+            m_Value1: 6691334335417052433
+          m_HashGuid:
+            serializedVersion: 2
+            Hash: 5c47c286897c400d116de8372065dc5c
+          m_Category: 1
+          m_Index: 0
         m_EntryPoint:
           rid: 834355661892485123
         m_Graph:
@@ -878,7 +887,8 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 47b1a4e29d195f8c7898b4a1522f17f9
         m_Version: 2
-        m_Items: []
+        m_Items:
+        - rid: 834355995981119565
         m_Title: 
     - rid: 834355661892485122
       type: {class: DialogueGraph, ns: , asm: Assembly-CSharp-Editor}
@@ -893,7 +903,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 4ca64396c0b7846695ac3477edd09dd6
         m_Version: 2
-        m_Position: {x: -918, y: 172}
+        m_Position: {x: -958.25, y: 180.62822}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -965,7 +975,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: c7e1fe8403234a19d2c259523037e8c0
         m_Version: 2
-        m_Position: {x: -553, y: 175}
+        m_Position: {x: -585.2, y: 169.25}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -1069,7 +1079,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: b0375e949d6057d4bba884e16efa48d2
         m_Version: 2
-        m_Position: {x: -166, y: 157}
+        m_Position: {x: -195.095, y: 134.5175}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -1173,7 +1183,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 88ea08776626510adb83ca6927faadc4
         m_Version: 2
-        m_Position: {x: 224, y: 144}
+        m_Position: {x: 183.0025, y: 138.71}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -1276,7 +1286,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: abcc786982312a9e56625fb0b64ce363
         m_Version: 2
-        m_Position: {x: -1539.2784, y: 211.1239}
+        m_Position: {x: -1442.6785, y: 266.3239}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -1357,7 +1367,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 0814ce62338350f0963d0280cb53c5fb
         m_Version: 2
-        m_Position: {x: 635, y: 169}
+        m_Position: {x: 583.4225, y: 131.97}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -1445,7 +1455,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 58e5a344d9cbd0bfd5728334aff5c171
         m_Version: 2
-        m_Position: {x: 1465.3497, y: 157.5404}
+        m_Position: {x: 1449.4797, y: 150.92792}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -1589,7 +1599,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: e9cbe29f7ab617c2b7b9d30f0a5651bf
         m_Version: 2
-        m_Position: {x: 1734.9518, y: 156.60129}
+        m_Position: {x: 1733.6293, y: 156.60129}
         m_Title: DialogueNode
         m_Tooltip: 
         m_NodePreviewModel:
@@ -4163,7 +4173,7 @@ MonoBehaviour:
     - rid: 834355885782598632
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
-        m_Value: "N\xE3o nenhum Carochito"
+        m_Value: "N\xE3o tenho nenhum Carochito"
     - rid: 834355885782598633
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
       data:
@@ -4489,7 +4499,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 9488005c049d6422d40304c5e106d620
         m_Version: 2
-        m_Position: {x: -1385.9268, y: 171.25357}
+        m_Position: {x: -1270.9268, y: 172.40358}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -4596,7 +4606,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: e865a5656a379eee4a5c27a40a084922
         m_Version: 2
-        m_Position: {x: -1101.8398, y: 8.766487}
+        m_Position: {x: -976.4898, y: -13.083515}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -4697,7 +4707,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 514c134f5bc3fab5559da05918350e5c
         m_Version: 2
-        m_Position: {x: 954.13574, y: 136.23027}
+        m_Position: {x: 891.97815, y: 124.32776}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -5130,7 +5140,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: ba092e604e175273667cefdd819feec9
         m_Version: 2
-        m_Position: {x: 1216.7, y: 176.09999}
+        m_Position: {x: 1169.09, y: 165.51999}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -5415,3 +5425,30 @@ MonoBehaviour:
           m_PortDirection: 1
           m_PortOrientation: 0
           m_Title: In
+    - rid: 834355995981119565
+      type: {class: VariableDeclarationModel, ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Guid:
+          m_Value0: 954900051115788124
+          m_Value1: 6691334335417052433
+        m_HashGuid:
+          serializedVersion: 2
+          Hash: 5c47c286897c400d116de8372065dc5c
+        m_Version: 2
+        m_Name: Dialogue
+        m_UniqueId: 
+        m_DataType:
+          m_Identification: System.String, System.Private.CoreLib, Version=4.0.0.0,
+            Culture=neutral, PublicKeyToken=b77a5c561934e089
+        m_IsExposed: 0
+        m_Scope: 0
+        m_ShowOnInspectorOnly: 0
+        m_Tooltip: 
+        m_InitializationValue:
+          rid: 834355995981119566
+        m_Modifiers: 0
+        m_VariableFlags: 0
+    - rid: 834355995981119566
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: Unity.GraphToolkit.Internal.Editor}
+      data:
+        m_Value: 

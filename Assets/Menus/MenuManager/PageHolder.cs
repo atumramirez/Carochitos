@@ -42,4 +42,9 @@ public class PageHolder : MonoBehaviour
             menu.CloseMenu();
         }
     }
+
+    public virtual void OpenMenu()
+    {
+        
+    }
 }

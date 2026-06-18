@@ -2,11 +2,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using UnityEditor;
+using UnityEngine.InputSystem;
+using System.Collections.Generic;
+
 
 public class DialogueManager : Page
 {
-    //public static DialogueManager Instance;
+    public TrainerController trainer;
 
     [Header("Menu")]
     public BookMenu menu;
@@ -32,27 +34,18 @@ public class DialogueManager : Page
     [Header("Choice Button")]
     public Button ChoiceButton;
     public Transform ChoiceButtonContainer;
+    public List<Button> ChoiceButtons;
+    public int currentButton;
 
     [Header("Background")]
     public Image Forground;
     public Image Background;
 
-    private bool isReading = false;
+    [Header("Button Graphics")]
+    public Sprite SelectedButton;
+    public Sprite UnselectedButton;
 
-    /*
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-    */
+    private bool isReading = false;
 
     private void Start()
     {
@@ -63,7 +56,6 @@ public class DialogueManager : Page
         LeftSpeaker.SetActive(false);
         RightSpeaker.SetActive(false);
         Background.gameObject.SetActive(false);
-
 
         if (NextButton != null)
         {
@@ -86,6 +78,13 @@ public class DialogueManager : Page
     {
         if (ActionManager.Instance.CurrentNode is not BaseDialogueAction node) return;
 
+        trainer.inputManager.ControlMenu();
+
+        trainer.inputManager.nextdialogue.action.started -= SelectOption;
+        trainer.inputManager.upOption.action.started -= UpOption;
+        trainer.inputManager.downOption.action.started -= DownOption;
+
+
         Cursor.lockState = CursorLockMode.Confined;
 
         bool hasChoices = node is QuestionAction;
@@ -94,6 +93,16 @@ public class DialogueManager : Page
         {
             NextButton.gameObject.SetActive(!hasChoices);
         }
+
+        if (hasChoices == true)
+        {
+            trainer.inputManager.nextdialogue.action.started -= PressNext;
+        }
+        else
+        {
+            trainer.inputManager.nextdialogue.action.started += PressNext;
+        }
+
 
         if (!isReading)
         {
@@ -182,14 +191,24 @@ public class DialogueManager : Page
 
         foreach (Transform child in ChoiceButtonContainer)
         {
+            ChoiceButtons.Clear();
             Destroy(child.gameObject);
         }
 
         if (node is QuestionAction questionNode)
         {
+            trainer.inputManager.nextdialogue.action.started -= PressNext;
+
             foreach (var choice in questionNode.Choices)
             {
                 Button button = Instantiate(ChoiceButton, ChoiceButtonContainer);
+                Image image = button.GetComponent<Image>();
+
+
+                image.sprite = UnselectedButton;
+
+                ChoiceButtons.Add(button);
+
                 var text = button.GetComponentInChildren<TextMeshProUGUI>();
 
                 if (text != null)
@@ -206,12 +225,68 @@ public class DialogueManager : Page
                     NextLine(choice.DestinationNodeID);
                 });
             }
-        }
 
-        
+            currentButton = 0;
+
+            Image slectedImage = ChoiceButtons[0].GetComponent<Image>();
+            slectedImage.sprite = SelectedButton;
+
+            trainer.inputManager.nextdialogue.action.started += SelectOption;
+            trainer.inputManager.upOption.action.started += UpOption;
+            trainer.inputManager.downOption.action.started += DownOption;
+        }
     }
 
-    // Called from End() or Input
+    private void PressNext(InputAction.CallbackContext context)
+    {
+        NextLine();
+    }
+
+    private void SelectOption(InputAction.CallbackContext context)
+    {
+        ChoiceButtons[currentButton].onClick.Invoke();
+    }
+
+    private void UpOption(InputAction.CallbackContext context)
+    {
+        currentButton = (currentButton + 1) % ChoiceButtons.Count;
+
+        foreach (Button button in ChoiceButtons)
+        {
+            Image image = button.GetComponent<Image>();
+
+            if (button == ChoiceButtons[currentButton])
+            {
+                
+                image.sprite = SelectedButton;
+            }
+            else
+            {
+                image.sprite = UnselectedButton;
+            }
+        }
+    }
+
+    private void DownOption(InputAction.CallbackContext context)
+    {
+        currentButton = (currentButton - 1 + ChoiceButtons.Count) % ChoiceButtons.Count;
+
+        foreach (Button button in ChoiceButtons)
+        {
+            Image image = button.GetComponent<Image>();
+
+            if (button == ChoiceButtons[currentButton])
+            {
+
+                image.sprite = SelectedButton;
+            }
+            else
+            {
+                image.sprite = UnselectedButton;
+            }
+        }
+    }
+
     public void NextLine(string overrideNodeID = null)
     {
         var current = ActionManager.Instance.CurrentNode;
@@ -222,13 +297,11 @@ public class DialogueManager : Page
             return;
         }
 
-        // Block continue during choices
         if (current is QuestionAction && string.IsNullOrEmpty(overrideNodeID))
         {
             return;
         }
 
-        // Preview next node to decide UI behavior
         string nextID = overrideNodeID ?? current.NextNodeID;
 
         if (!ActionManager.Instance.NodeList.TryGetValue(nextID, out var nextNode))
@@ -238,13 +311,11 @@ public class DialogueManager : Page
             return;
         }
 
-        // Close UI if next is not dialogue
         if (nextNode is not BaseDialogueAction)
         {
             EndDialogue();
         }
 
-        // One unified call
         ActionManager.Instance.EndAction(overrideNodeID);
     }
 
@@ -253,10 +324,9 @@ public class DialogueManager : Page
         isReading = false;
         DialoguePanel.SetActive(false);
 
-        //menu.OpenBook(1);
-
         foreach (Transform child in ChoiceButtonContainer)
         {
+            ChoiceButtons.Clear();
             Destroy(child.gameObject);
         }
 
@@ -267,6 +337,13 @@ public class DialogueManager : Page
         LeftSpeaker.SetActive(false);
         RightSpeaker.SetActive(false);
         Background.gameObject.SetActive(false);
+
+        trainer.inputManager.ControlTrainer();
+        trainer.inputManager.nextdialogue.action.started -= PressNext;
+
+        trainer.inputManager.nextdialogue.action.started -= SelectOption;
+        trainer.inputManager.upOption.action.started -= UpOption;
+        trainer.inputManager.downOption.action.started -= DownOption;
     }
 
 
@@ -363,7 +440,4 @@ public class DialogueManager : Page
         yield return new WaitForSeconds(duration);
         ActionManager.Instance.EndAction();
     }
-
-
-
 }

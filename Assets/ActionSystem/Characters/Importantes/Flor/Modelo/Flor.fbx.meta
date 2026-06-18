@@ -3,7 +3,12 @@ guid: 008725c56f7c9dd468a1f2470a1d23bc
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: flor textura
+    second: {fileID: 2100000, guid: 72ed0caf90f74d844aca2b5b7685f760, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

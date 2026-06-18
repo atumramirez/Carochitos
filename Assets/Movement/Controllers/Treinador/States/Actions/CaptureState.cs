@@ -12,7 +12,7 @@ public class CaptureState : State<TrainerController>
     {
         base.Enter();
 
-        character.Capture();
+        character.StartCapture();
         character.animator.SetTrigger("attack");
     }
 

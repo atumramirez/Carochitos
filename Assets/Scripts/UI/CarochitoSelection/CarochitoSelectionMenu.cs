@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class CarochitoSelectionMenu : MonoBehaviour
 {
     [Header("Menu")]
-    public GameObject menu;
+    public GameObject carochitoBox;
+    public GameObject berlinerBox;
 
     [Header("Main Carochito")]
     public GameObject mainCarochito;
@@ -22,15 +23,53 @@ public class CarochitoSelectionMenu : MonoBehaviour
     public Transform _contentParent;
     public GameObject _sheetPrefab;
 
+    [Header("Berliner Box")]
+    public Image berlinerIcon;
+    public Image amountIcon;
+    public TextMeshProUGUI berlinerAmount;
+
+    [Header("Colour")]
+    public Color fullColour;
+    public Color emptyColour;
 
     public void OpenMenu()
     {
-        menu.SetActive(true);
+        carochitoBox.SetActive(true);
+        berlinerBox.SetActive(false);
+    }
+
+    public void OpenBerliner()
+    {
+        carochitoBox.SetActive(false);
+        berlinerBox.SetActive(true);
     }
 
     public void CloseMenu()
     {
-        menu.SetActive(false);
+        carochitoBox.SetActive(false);
+        berlinerBox.SetActive(false);
+    }
+
+    public void RefreshMenu(Inventory inventory)
+    {
+        if (inventory.allBerliner.Count > 0)
+        {
+            OpenBerliner();
+
+            berlinerIcon.sprite = inventory.currentBerliner.Item._sprite;
+            berlinerAmount.text = "x" + inventory.currentBerliner.Count;
+
+            if (inventory.currentBerliner.Count == 0)
+            {
+                berlinerIcon.color = emptyColour;
+                amountIcon.color = emptyColour;
+            }
+            else
+            {
+                berlinerIcon.color = fullColour;
+                amountIcon.color = fullColour;
+            }
+        }
     }
 
     public void RefreshMenu()

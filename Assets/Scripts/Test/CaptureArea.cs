@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CaptureArea : MonoBehaviour
 {
-    public Party playerInventory;
+    public TrainerController _trainer;
 
     void OnTriggerEnter(Collider other)
     {
@@ -10,7 +10,10 @@ public class CaptureArea : MonoBehaviour
         {
             if (creature._isCapturable == true && creature._isGettingCaptured != true)
             {
-                creature.Capture();
+                if (_trainer != null)
+                {
+                    _trainer.Capture(creature);
+                }
             }
         }
     }

@@ -3,7 +3,22 @@ guid: ebcae7cb5cbbced46921ec279dd70bdc
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AssetsFloresta
+    second: {fileID: 2100000, guid: 835b01ec2d6421142b97d252f28e6fd9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Floresta
+    second: {fileID: 2100000, guid: 6cffb429d7a330c499f7d70df26dede3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.087
+    second: {fileID: 2100000, guid: 2cbb3cd6983bcdb4194ec17774307b50, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

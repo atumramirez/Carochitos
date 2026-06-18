@@ -7,10 +7,6 @@ public class CarochitoBattler : MonoBehaviour
     [Header("Carochito")]
     public Carochito Carochito;
 
-    [HideInInspector] public CarochitoBase _base;
-    [Range(1, 100)]
-    [HideInInspector] public int _level;
-
     [Header("Info")]
     public bool _isEnemy = false;
     
@@ -37,9 +33,9 @@ public class CarochitoBattler : MonoBehaviour
     [Header("HurtBox")]
     public HurtBox _hurtBox;
 
-    public virtual void SetUp(CarochitoBase _base, int _level, bool isEnemy = true, bool isCapturable = true, TrainerController owner = null)
+    public void SetUp(Carochito _carochito, bool isEnemy = true, bool isCapturable = true, TrainerController owner = null)
     {
-        Carochito = new Carochito( _base, _level);
+        Carochito = _carochito;
 
         _isEnemy = isEnemy;
         _isCapturable = isCapturable;
@@ -91,31 +87,29 @@ public class CarochitoBattler : MonoBehaviour
             }
         }
 
+        // Controller
         if (_controller == null)
         {
             _controller = GetComponent<MonsterController>();
+        }
 
-            if (_controller != null)
-            {
-                _controller.SetUp(this);
-            }
-        }            
+        if (_controller != null)
+        {
+            _controller.SetUp(this);
+        }
+                  
     }
 
-    public virtual void TakeDamage(CarochitoBattler attacker, SkillBase skill)
+    public void TakeDamage(CarochitoBattler attacker, SkillBase skill)
     {
-        // Calculate Damage
         DamageCalculator damageCalculator = new();
         float damage = damageCalculator.CaculateDamage(attacker.Carochito, Carochito, skill);
 
-        // Remove Health
         Carochito.CurrentHealth -= (int)damage;
 
-        // Alert
         string alert = Carochito.Name + " recebeu " + damage + " de dano";
-        AlertManager.instance.AddAlert(Carochito, alert);
+        AlertManager.instance.AddAlert(Carochito.Base.Sprite, alert);
 
-        // Update UI
         if (_isEnemy == true)
         {
             if (_enemyHealthBar != null)
@@ -131,14 +125,40 @@ public class CarochitoBattler : MonoBehaviour
             }
         }
 
-        // Die
         if (Carochito.CurrentHealth <= 0)
         {
             Die(attacker);
         }
     }
 
-    
+    public void Heal(int heal)
+    {
+        if (Carochito.IsAlive)
+        {
+            Carochito.CurrentHealth += (int)heal;
+
+            if (_isEnemy == true)
+            {
+                if (_enemyHealthBar != null)
+                {
+                    _enemyHealthBar.SetHealth(Carochito.CurrentHealth);
+                }
+            }
+            else
+            {
+                if (_allyHealthBar != null)
+                {
+                    _allyHealthBar.SetHealth(Carochito.CurrentHealth);
+                }
+            }
+        } 
+    }
+
+    public void Eat()
+    {
+        
+    }
+
     private Action onDeath;
 
     public void SetUp(Action deathCallback)
@@ -146,22 +166,20 @@ public class CarochitoBattler : MonoBehaviour
         onDeath = deathCallback;
     }
 
-    public virtual void Die(CarochitoBattler attacker)
+    public void Die(CarochitoBattler attacker)
     {
         Carochito.CurrentHealth = 0;
         Carochito.IsAlive = false;
 
         string alert = Carochito.Name + " foi derrotado!";
-        AlertManager.instance.AddAlert(Carochito, alert);
+        AlertManager.instance.AddAlert(Carochito.Base.Sprite, alert);
 
         _controller.animator.SetTrigger("die");
 
         if (_isEnemy == true)
         {
-            // Add Exp calculations
-
             alert = attacker.Carochito.Name + " recebeu " + 25 + " de Exp!";
-            AlertManager.instance.AddAlert(Carochito, alert);
+            AlertManager.instance.AddAlert(Carochito.Base.Sprite, alert);
 
             attacker.Carochito.GetExp(25);
         }
@@ -198,7 +216,7 @@ public class CarochitoBattler : MonoBehaviour
         onDeath?.Invoke();
     }
 
-    public virtual void Capture()
+    public void Capture()
     {
         if (_isEnemy == true)
         {
@@ -211,6 +229,7 @@ public class CarochitoBattler : MonoBehaviour
     private IEnumerator CaptureRoutine()
     {
         _controller.animator.SetTrigger("takeDamage");
+        _controller.stateMachine.ChangeState(_controller.enemyCaptureState);
 
         yield return null;
 

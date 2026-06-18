@@ -3,7 +3,12 @@ guid: 216dff13a99a6e14193a46c95f07a154
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mare textura
+    second: {fileID: 2100000, guid: e9d79c33d060fcb4f9ddea3587757862, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

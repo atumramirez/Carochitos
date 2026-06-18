@@ -37,6 +37,13 @@ public class CarochitoBase : ScriptableObject
     [Header("Learnable Skills")]
     [SerializeField] List<LearnableSkills> learnableSkills;
 
+    [Header("Catch Rate")]
+    [SerializeField] int _catchRate;
+
+    [Header("Flavours")]
+    [SerializeField] List<Flavour> favouriteFlavour;
+    [SerializeField] List<Flavour> neutralFlavour;
+    [SerializeField] List<Flavour> hateFlavour;
 
     // Name and Description
     public string Name { get { return _name; } }
@@ -61,6 +68,15 @@ public class CarochitoBase : ScriptableObject
 
     // Skills
     public List<LearnableSkills> LearnableSkills { get { return learnableSkills; } }
+
+    // Catch Rate
+    public int CatchRate { get { return _catchRate; } }
+
+    // Falvour
+    public List<Flavour> FavouriteFlavour { get { return favouriteFlavour; } }
+    public List<Flavour> NeutralFlavours { get { return neutralFlavour; } }
+    public List<Flavour> HateFlavours { get { return hateFlavour; } }
+
 
 }
 

@@ -13,6 +13,8 @@ public class EnemyPatrolState : State<MonsterController>
     public override void Enter()
     {
         base.Enter();
+        character.enemyVision.enabled = true;
+
         SetNewDestination();
     }
 
@@ -48,6 +50,11 @@ public class EnemyPatrolState : State<MonsterController>
         {
             character.navMeshAgent.SetDestination(hit.position);
         }
+    }
+
+    public override void Exit()
+    {
+        character.enemyVision.enabled = false;
     }
 }
 
@@ -257,6 +264,21 @@ public class EnemyInvestigateState : State<MonsterController>
         }
 
         return;
+    }
+}
+
+public class EnemyCaptureState : State<MonsterController>
+{
+    public EnemyCaptureState(MonsterController enemy, StateMachine<MonsterController> sm) : base(enemy, sm)
+    {
+        character = enemy;
+        stateMachine = sm;
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        character.navMeshAgent.isStopped = true;
     }
 }
 

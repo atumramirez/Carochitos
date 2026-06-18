@@ -30,6 +30,7 @@ public class ActionManager : MonoBehaviour
     public CameraHandler cameraHandler;
     public PlayerInfo playerInfo;
     public Party party;
+    public Inventory inventory;
 
     [Header("Character")]
     public GameObject chara;

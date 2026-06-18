@@ -180,7 +180,7 @@ RectTransform:
   m_LocalScale: {x: 0.3995588, y: 0.3995588, z: 0.3995588}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3381699414239788671}
+  m_Father: {fileID: 2432457914333718266}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SARDOTO
+  m_text: Sardoto
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9da37f5b12356dc429938d67078aa5d7, type: 2}
   m_sharedMaterial: {fileID: 217203604539509753, guid: 9da37f5b12356dc429938d67078aa5d7, type: 2}
@@ -316,7 +316,6 @@ RectTransform:
   m_LocalScale: {x: 0.022939878, y: 0.022939878, z: 0.022939878}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 465674356973262635}
   - {fileID: 2432457914333718266}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -340,7 +339,7 @@ MonoBehaviour:
   healthBar: {fileID: 5050225263108452982}
   healthNumber: {fileID: 0}
   _camera: {fileID: 0}
-  _health: {fileID: 0}
+  _health: {fileID: 8313069586069420226}
   _name: {fileID: 1135346028022095598}
 --- !u!1 &8313069586069420226
 GameObject:
@@ -358,7 +357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2432457914333718266
 RectTransform:
   m_ObjectHideFlags: 0
@@ -373,6 +372,7 @@ RectTransform:
   m_Children:
   - {fileID: 1106287247241071164}
   - {fileID: 420423920880411342}
+  - {fileID: 465674356973262635}
   m_Father: {fileID: 3381699414239788671}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -425,9 +425,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 10
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

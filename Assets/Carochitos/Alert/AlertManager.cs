@@ -15,7 +15,7 @@ public class AlertManager : MonoBehaviour
         instance = this;
     }
 
-    public void AddAlert(Carochito carochito, string text)
+    public void AddAlert(Sprite carochito, string text)
     {
         GameObject newAlert = Instantiate(_alertPrefab, _alertContainer.transform);
 

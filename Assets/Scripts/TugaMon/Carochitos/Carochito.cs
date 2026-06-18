@@ -5,7 +5,6 @@ using UnityEngine;
 public class Carochito 
 {
     [SerializeField] CarochitoBase _base;
-    [SerializeField] string _nickname;
 
     [Header("Health")]
     [SerializeField] int _currentHealth;
@@ -20,8 +19,13 @@ public class Carochito
     [Header("Skills")]
     [SerializeField] List<Skill> _skill = new();
 
+    [Header("Catch Rate")]
+    [Range(1, 100)]
+    [SerializeField] int _currentCatchRate;
+
     public Carochito(CarochitoBase chitoBase, int chitoLevel)
     {
+        // Base Info
         _base = chitoBase;
         _level = chitoLevel;
 
@@ -37,10 +41,10 @@ public class Carochito
             _isAlive = false;
         }
 
-        // Make sure the list is empty when it's created
+        // Skills
+
         _skill = new();
 
-        // Spawn with Skills based on the Level
         foreach (var skill in _base.LearnableSkills)
         {
             if (skill.Level <= Level)
@@ -53,6 +57,9 @@ public class Carochito
                 break;
             }
         }
+
+        // Catch Rate
+        _currentCatchRate = _base.CatchRate;
     }
 
     public void GetExp(int exp)
@@ -69,15 +76,12 @@ public class Carochito
 
     public void LevelUp()
     {
-        // Leveling Up
-
         int escessExp = _currentExp - 100;
+
         _level += 1;
         _currentExp = escessExp;
 
         Debug.Log("You Leveled Up! Now you are at Level: " + _level + "!");
-
-        // Add New Skills when getting new Level
 
         int _currentLevel = _level;
 
@@ -104,9 +108,10 @@ public class Carochito
     public int CurrentHealth { get { return _currentHealth; } set { _currentHealth = value; } }
     public bool IsAlive { get { return _isAlive; } set { _isAlive = value; } }
     public int CurrentExp { get { return _currentExp; } set { _currentExp = value; } }
-    public string Name { get { if (_nickname != "") { return _nickname; } else { return _base.Name; } } }
+    public int CurrentCatchRate { get { return _currentCatchRate; } set { _currentCatchRate = value; } }
+    public string Name { get { return _base.Name; } } 
 
-
+    // Stats
     public int Health { get { return (_base.MaxHealth + (2 * _level)); } }
     public int Attack { get { return (_base.Attack * _level / 100) + 5; } }
     public int Defense { get { return (_base.Defense * _level / 100) + 5; } }

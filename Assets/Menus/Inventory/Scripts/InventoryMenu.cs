@@ -30,7 +30,7 @@ public class InventoryMenu : PageHolder
         allPockets = (Pocket[])System.Enum.GetValues(typeof(Pocket));
     }
 
-    public void OpenMenu()
+    public override void OpenMenu()
     {
         currentSelectedItem = null;
         pocketName.text = currentPocket.ToString();
@@ -112,3 +112,4 @@ public class InventoryMenu : PageHolder
         OpenMenu();
     }
 }
+

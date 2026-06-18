@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Linq.Expressions;
 
 public class DiscCapture : MonoBehaviour
 {
@@ -7,8 +8,6 @@ public class DiscCapture : MonoBehaviour
     public GameObject modelCarochito;
 
     [Header("Capture Settings")]
-
-    [Tooltip("Delay between each bounce.")]
     public float bounceDelay = 0.8f;
 
     [Header("Animator")]
@@ -23,8 +22,17 @@ public class DiscCapture : MonoBehaviour
         capturedCarochito = pokemon;
         modelCarochito = pokemonModel;
 
-        // Adicionar calculos de captura
+        // Calculate Catch Rate
         captureSuccess = true;
+
+        int catchOpportunity = Random.Range(1, 100 + 1);
+        Debug.Log("" + catchOpportunity);
+
+        if (catchOpportunity > pokemon.CurrentCatchRate)
+        {
+            Debug.Log("Vai Falhar");
+            captureSuccess = false;
+        }
 
         StartCoroutine(CaptureRoutine());
     }
@@ -38,7 +46,7 @@ public class DiscCapture : MonoBehaviour
     {
         int failBounce = -1;
 
-        if (!captureSuccess)
+        if (captureSuccess == false)
         {
             failBounce = Random.Range(1, 3); // 1 or 2
         }
@@ -80,30 +88,31 @@ public class DiscCapture : MonoBehaviour
     private void PokemonCaptured()
     {
         string alert = capturedCarochito.Name + " foi capturado!";
-        AlertManager.instance.AddAlert(capturedCarochito, alert);
+        AlertManager.instance.AddAlert(capturedCarochito.Base.Sprite, alert);
 
         Party.Instance.AddCarochito(capturedCarochito);
-        Destroy(gameObject);
+
+        StartCoroutine(EndCapture());
     }
 
     private void PokemonEscaped()
     {
         string alert = capturedCarochito.Name + " escapou!";
-        AlertManager.instance.AddAlert(capturedCarochito, alert);
+        AlertManager.instance.AddAlert(capturedCarochito.Base.Sprite, alert);
 
-        Instantiate(modelCarochito, transform);
+        GameObject currentEnemy = Instantiate(capturedCarochito.Base.Model, transform.position, transform.rotation);
+        currentEnemy.GetComponent<CarochitoBattler>().SetUp(capturedCarochito);
+
+        StartCoroutine(EndCapture());
+    }
+    private IEnumerator EndCapture()
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 
     private bool CalculateCaptureChance(Carochito pokemon)
     {
-        // ----------------------------------------
-        // Insert pokemon catch-rate formula here.
-        // HP
-        // Status effects
-        // Ball type
-        // Legendary modifiers
-        // etc.
-        // ----------------------------------------
 
         return Random.value <= 0.5f;
     }

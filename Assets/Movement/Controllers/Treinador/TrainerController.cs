@@ -1,6 +1,9 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Processors;
+using UnityEngine.TextCore.Text;
 
 public class TrainerController : GenericController
 {
@@ -33,10 +36,8 @@ public class TrainerController : GenericController
     private Transform combatCameraTransform;
 
     [Header("Player Data")]
+    public Party party;
     public Inventory inventory;
-
-    [Header("Bola de Berlim")]
-    public ItemBase bolaDeBeerlim;
 
     [Header("Noise")]
     public NoiseArea noiseArea;
@@ -117,48 +118,76 @@ public class TrainerController : GenericController
     public GameObject CaptureArea;
     public GameObject Hammer;
 
-    public void Capture()
+    public ItemBase _disk;
+
+    public void StartCapture()
     {
         CaptureArea.SetActive(true);
         Hammer.SetActive(true);
     }
+
     public void EndCapture()
     {
         CaptureArea.SetActive(false);
         Hammer.SetActive(false);
     }
+
+    public void Capture(CarochitoBattler carochito)
+    {
+        carochito.Capture();
+
+
+        if (inventory.CanRemoveItem(_disk) == true)
+        {
+            inventory.RemoveItem(_disk, 1);
+
+            carochito.Capture();
+        }
+    }
     #endregion
 
     #region Thrwoing
     [Header("Throwing")]
-
-    public GameObject objectToThrow;
     public Transform throwPoint;
     public float throwForce = 10f;
 
     public void Throw()
     {
-        if (inventory.CanRemoveItem(bolaDeBeerlim) == true)
+        if (inventory.CanRemoveItem(inventory.currentBerliner.Item) == true)
         {
-            Debug.Log("Lançar Bola de Berlim!");
-
-            GameObject obj = Instantiate(objectToThrow, throwPoint.position, Quaternion.identity);
-
-            if (obj.TryGetComponent<Rigidbody>(out var rb))
+            if (inventory.currentBerliner.Item is Berliner berliner)
             {
-                Transform cam = Camera.main.transform;
+                animator.SetTrigger("throw");
 
-                Vector3 forward = cam.forward;
+                GameObject berlinerModel = Instantiate(berliner._model, throwPoint.position, Quaternion.identity);
+                berlinerModel.GetComponent<BerlinerBall>().SetFlavour(berliner._flavour);
 
-                float upwardForce = 0.5f;
+                if (berlinerModel.TryGetComponent<Rigidbody>(out var rb))
+                {
+                    Transform cam = Camera.main.transform;
+                    Vector3 forward = cam.forward;
+                    float upwardForce = 0.5f;
+                    Vector3 throwDirection = (forward + Vector3.up * upwardForce).normalized;
+                    rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+                }
 
-                Vector3 throwDirection = (forward + Vector3.up * upwardForce).normalized;
+                inventory.RemoveItem(berliner, 1);
 
-                rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+                inventory.berlinerMenu.RefreshMenu(inventory);
             }
-
-            inventory.RemoveItem(bolaDeBeerlim, 1);
         }
+    }
+
+    public void NextBerliner()
+    {
+        inventory.NextBerliner();
+        inventory.berlinerMenu.RefreshMenu(inventory);
+    }
+
+    public void PreviousBerliner()
+    {
+        inventory.PreviousBerliner();
+        inventory.berlinerMenu.RefreshMenu(inventory);
     }
 
     public class ThrowingState : State<TrainerController>
@@ -185,8 +214,25 @@ public class TrainerController : GenericController
 
             character.cameraHandler.SwitchCamera(character.cameraHandler.combatCam);
 
+            character.animator.SetTrigger("aim");
+
+            character.inventory.berlinerMenu.OpenBerliner();
+
             character.inputManager.throwin.action.started += PressAim;
             character.inputManager.capture.action.started += Throw;
+
+            character.inputManager.next.action.started += PressNext;
+            character.inputManager.previous.action.started += PressPrevious;
+        }
+
+        private void PressPrevious(InputAction.CallbackContext context)
+        {
+            character.PreviousBerliner();
+        }
+
+        private void PressNext(InputAction.CallbackContext context)
+        {
+            character.NextBerliner();
         }
 
         private void PressAim(InputAction.CallbackContext context)
@@ -207,7 +253,6 @@ public class TrainerController : GenericController
 
             input = character.inputManager.move.action.ReadValue<Vector2>();
 
-            // Flatten camera directions (ignore vertical tilt)
             Vector3 camForward = character.cameraTransform.forward;
             Vector3 camRight = character.cameraTransform.right;
 
@@ -217,10 +262,8 @@ public class TrainerController : GenericController
             camForward.Normalize();
             camRight.Normalize();
 
-            // Camera-relative movement
             velocity = camRight * input.x + camForward * input.y;
 
-            // Animator
             character.animator.SetFloat("speed", input.magnitude, character.speedDampTime, Time.deltaTime);
         }
 
@@ -272,8 +315,15 @@ public class TrainerController : GenericController
 
             character.cameraHandler.SwitchCamera(character.cameraHandler.thirdPersonCam);
 
+            character.animator.SetTrigger("move");
+
+            character.inventory.berlinerMenu.OpenMenu();
+
             character.inputManager.throwin.action.started -= PressAim;
             character.inputManager.capture.action.started -= Throw;
+
+            character.inputManager.next.action.started -= PressNext;
+            character.inputManager.previous.action.started -= PressPrevious;
         }
     }
     #endregion
@@ -296,7 +346,7 @@ public class TrainerController : GenericController
             {
                 monster = Instantiate(party.currentCarochito.Base.Model, monsterSpawnPoint.position, monsterSpawnPoint.rotation);
 
-                monster.GetComponent<CarochitoBattler>().SetUp(party.currentCarochito.Base, party.currentCarochito.Level, false, false, this);
+                monster.GetComponent<CarochitoBattler>().SetUp(party.currentCarochito, false, false, this);
                 
                 isMonsterSpawned = true;
             }
@@ -381,7 +431,6 @@ public class TrainerController : GenericController
     #endregion
 
     #region Camera
-
     public void RefreshCamera()
     {
         cameraHandler.Initialize(sceneManager._currentEnviroment);
@@ -409,9 +458,6 @@ public class TrainerController : GenericController
         }     
     }
 
-    [Header("Change Current Carochito")]
-    public Party party;
-
     public void NextCarochito()
     {
         party.NextCarochito();
@@ -419,7 +465,7 @@ public class TrainerController : GenericController
 
     public void PreviousCarochito()
     {
-        party.Previous();
+        party.PreviousCarochito();
     }
     #endregion
 }

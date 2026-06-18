@@ -1,9 +1,14 @@
+
+using UnityEngine;
+
 public class StateMachine<T> where T : GenericController
 {
     public State<T> currentState;
 
     public void Initialize(State<T> startingState)
     {
+
+        Debug.Log("Start");
         currentState = startingState;
         startingState.Enter();
     }

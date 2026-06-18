@@ -32,7 +32,12 @@ public class MenuButton : MonoBehaviour
                 foreach (GameObject go in MenuToOpen)
                 {
                     SoundManager.instance.PlayClip(MenuSound1, transform, 0.75f);
+
+                    
+
                     go.SetActive(true);
+
+                    go.GetComponent<PageHolder>().OpenMenu();
                 }
             }
         }

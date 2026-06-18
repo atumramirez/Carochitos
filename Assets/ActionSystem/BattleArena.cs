@@ -54,7 +54,7 @@ public class BattleArena : MonoBehaviour
         }
 
         GameObject currentEnemy = Instantiate(carochitos[currentEnemyIndex].Base.Model, spawnPoint.position, spawnPoint.rotation);
-        currentEnemy.GetComponent<CarochitoBattler>().SetUp(carochitos[currentEnemyIndex].Base, carochitos[currentEnemyIndex].Level, isCapturable: false);
+        currentEnemy.GetComponent<CarochitoBattler>().SetUp(carochitos[currentEnemyIndex], isCapturable: false);
         Setup(currentEnemy.GetComponent<CarochitoBattler>());
 
         currentEnemyIndex++;

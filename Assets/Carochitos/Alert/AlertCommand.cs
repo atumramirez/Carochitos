@@ -7,10 +7,10 @@ public class AlertCommand : MonoBehaviour
     public Image _alertIcon;
     public TextMeshProUGUI _alertText;
 
-    public void SetUp(Carochito carochito, string text)
+    public void SetUp(Sprite carochito, string text)
     {
         _alertText.text = text;
-        _alertIcon.sprite = carochito.Base.Sprite;
+        _alertIcon.sprite = carochito;
 
         Destroy(gameObject, 3f);
     }

@@ -125,7 +125,10 @@ public class StandingState: State<TrainerController>
 
     private void PressJump(InputAction.CallbackContext context)
     {
-        stateMachine.ChangeState(character.jumping);  
+        if (character.sceneManager._currentEnviroment == Enviroment.Outiside)
+        {
+            stateMachine.ChangeState(character.jumping);
+        }
     }
 
     private void PressAim(InputAction.CallbackContext context)

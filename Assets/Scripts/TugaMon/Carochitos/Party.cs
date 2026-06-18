@@ -80,7 +80,7 @@ public class Party : MonoBehaviour
         Debug.Log("Proximo Carochito: " + partyCarochitos[currentIndex].Base.Name);
     }
 
-    public void Previous()
+    public void PreviousCarochito()
     {
         if (partyCarochitos.Count == 0) return;
 
@@ -89,5 +89,11 @@ public class Party : MonoBehaviour
         _carochitoSelectionMenu.RefreshMenu();
 
         Debug.Log("Carochito Anterior: " + partyCarochitos[currentIndex].Base.Name);
+    }
+
+    public void SelectCarochito(int index)
+    {
+        if (partyCarochitos.Count == 0) return;
+
     }
 }

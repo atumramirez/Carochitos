@@ -1,8 +1,6 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem;
 using static Skill;
 
 public class MonsterController : GenericController
@@ -17,6 +15,7 @@ public class MonsterController : GenericController
     public EnemyAttackState enemyAttackState;
     public EnemyEatState enemyEatState;
     public EnemyInvestigateState enemyInvestigateState;
+    public EnemyCaptureState enemyCaptureState;
 
     [Header("Monster States")]
     public MonsterStandingState standingState;
@@ -37,7 +36,7 @@ public class MonsterController : GenericController
     public Transform target;
 
     [Header("SetUp")]
-    [HideInInspector] public bool setUp;
+    [HideInInspector] public bool setUp = false;
 
     [Header("Behavior Distances")]
     public float fleeDistance = 5f;
@@ -96,6 +95,7 @@ public class MonsterController : GenericController
         enemyAttackState = new EnemyAttackState(this, stateMachine);
         enemyInvestigateState = new EnemyInvestigateState(this, stateMachine);
         enemyEatState = new EnemyEatState(this, stateMachine);
+        enemyCaptureState = new EnemyCaptureState(this, stateMachine);
 
         if (carochitoBattler != null)
         {
@@ -108,12 +108,12 @@ public class MonsterController : GenericController
             {
                 enemyVision.gameObject.SetActive(false);
                 stateMachine.Initialize(followState);
+
+                // Dashes
+                currentDashCharges = maxDashCharges;
+                StartCoroutine(RechargeDashes());
             }
         }
-
-        // Dashes
-        currentDashCharges = maxDashCharges;
-        StartCoroutine(RechargeDashes());
 
         // Camera
         cameraTransform = Camera.main.transform;
@@ -152,7 +152,7 @@ public class MonsterController : GenericController
     public float eatTimer;
     public void Eat(Transform snackPosition)
     {
-        foodPosition.position = snackPosition.position;
+        foodPosition = snackPosition;
 
         navMeshAgent.SetDestination(foodPosition.position);
 
@@ -161,6 +161,37 @@ public class MonsterController : GenericController
 
     public void FinishEating()
     {
+        BerlinerBall food = foodPosition.GetComponent<BerlinerBall>();
+
+        foreach (Flavour falvour in carochitoBattler.Carochito.Base.FavouriteFlavour)
+        {
+            if (food.flavour == falvour)
+            {
+                carochitoBattler.Carochito.CurrentCatchRate += 30;
+
+            }
+        }
+
+        foreach (Flavour falvour in carochitoBattler.Carochito.Base.NeutralFlavours)
+        {
+            if (food.flavour == falvour)
+            {
+                carochitoBattler.Carochito.CurrentCatchRate += 15;
+
+            }
+        }
+
+        foreach (Flavour falvour in carochitoBattler.Carochito.Base.HateFlavours)
+        {
+            if (food.flavour == falvour)
+            {
+                carochitoBattler.Carochito.CurrentCatchRate -= 15;
+
+            }
+        }
+
+        Destroy(food.gameObject);
+
         stateMachine.ChangeState(enemyPatrolState);
     }
     #endregion
@@ -171,8 +202,11 @@ public class MonsterController : GenericController
 
     public void Hear(Transform playerPosition)
     {
-        soundPosition = playerPosition;
-        stateMachine.ChangeState(enemyInvestigateState);
+        if (stateMachine.currentState == enemyPatrolState)
+        {
+            soundPosition = playerPosition;
+            stateMachine.ChangeState(enemyInvestigateState);
+        }
     }
 
     #endregion
@@ -232,7 +266,7 @@ public class MonsterController : GenericController
 
     public void RandomAttack()
     {
-        int randomSkill = Random.Range(0, carochitoBattler.Carochito.Skill.Count);
+        int randomSkill = Random.Range(0, carochitoBattler.Carochito.Skill.Count + 1);
         Attack(randomSkill);
     }
 
