@@ -333,14 +333,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CarochitoBattler
   Carochito:
     _base: {fileID: 0}
-    _nickname: 
     _currentHealth: 0
     _isAlive: 0
-    _level: 0
-    _currentExp: 0
+    _level: 1
+    _currentExp: 1
     _skill: []
-  _base: {fileID: 0}
-  _level: 0
+    _currentCatchRate: 1
   _isEnemy: 0
   _controller: {fileID: 0}
   _isCapturable: 1

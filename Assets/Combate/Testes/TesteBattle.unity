@@ -152,18 +152,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d63e47ed9f633945895c6d762a31ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarochitoBattler
-  _base: {fileID: 11400000, guid: 5a3e2a6d5a9ab7540b0eb3c7b54c35fd, type: 2}
-  _level: 6
   Carochito:
     _base: {fileID: 0}
-    _nickname: 
     _currentHealth: 7
     _isAlive: 0
     _level: 1
     _currentExp: 1
     _skill: []
-  hurtBox: {fileID: 0}
-  firePoint: {fileID: 0}
+    _currentCatchRate: 0
+  _isEnemy: 0
+  _controller: {fileID: 0}
+  _isCapturable: 1
+  _isGettingCaptured: 0
+  _capturePoint: {fileID: 0}
+  _diskPrefab: {fileID: 0}
+  _owner: {fileID: 0}
+  _firePoint: {fileID: 0}
+  _allyHealthBar: {fileID: 0}
+  _allyAbilities: {fileID: 0}
+  _enemyHealthBar: {fileID: 0}
+  _hurtBox: {fileID: 0}
 --- !u!114 &149772866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc59bf0ed2890e458af2342eb181d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HurtBox
+  _carochitoBattler: {fileID: 0}
 --- !u!135 &149772867
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -518,18 +527,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d63e47ed9f633945895c6d762a31ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarochitoBattler
-  _base: {fileID: 11400000, guid: 5a3e2a6d5a9ab7540b0eb3c7b54c35fd, type: 2}
-  _level: 6
   Carochito:
     _base: {fileID: 0}
-    _nickname: 
     _currentHealth: 7
     _isAlive: 0
     _level: 1
     _currentExp: 1
     _skill: []
-  hurtBox: {fileID: 0}
-  firePoint: {fileID: 0}
+    _currentCatchRate: 1
+  _isEnemy: 0
+  _controller: {fileID: 0}
+  _isCapturable: 1
+  _isGettingCaptured: 0
+  _capturePoint: {fileID: 0}
+  _diskPrefab: {fileID: 0}
+  _owner: {fileID: 0}
+  _firePoint: {fileID: 0}
+  _allyHealthBar: {fileID: 0}
+  _allyAbilities: {fileID: 0}
+  _enemyHealthBar: {fileID: 0}
+  _hurtBox: {fileID: 0}
 --- !u!114 &548251430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,6 +559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc59bf0ed2890e458af2342eb181d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HurtBox
+  _carochitoBattler: {fileID: 0}
 --- !u!135 &548251431
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -668,18 +686,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d63e47ed9f633945895c6d762a31ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarochitoBattler
-  _base: {fileID: 11400000, guid: 5a3e2a6d5a9ab7540b0eb3c7b54c35fd, type: 2}
-  _level: 6
   Carochito:
     _base: {fileID: 0}
-    _nickname: 
     _currentHealth: 7
     _isAlive: 0
     _level: 1
     _currentExp: 1
     _skill: []
-  hurtBox: {fileID: 0}
-  firePoint: {fileID: 0}
+    _currentCatchRate: 0
+  _isEnemy: 0
+  _controller: {fileID: 0}
+  _isCapturable: 1
+  _isGettingCaptured: 0
+  _capturePoint: {fileID: 0}
+  _diskPrefab: {fileID: 0}
+  _owner: {fileID: 0}
+  _firePoint: {fileID: 0}
+  _allyHealthBar: {fileID: 0}
+  _allyAbilities: {fileID: 0}
+  _enemyHealthBar: {fileID: 0}
+  _hurtBox: {fileID: 0}
 --- !u!114 &1338897559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,6 +718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc59bf0ed2890e458af2342eb181d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HurtBox
+  _carochitoBattler: {fileID: 0}
 --- !u!135 &1338897560
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1330,7 +1357,6 @@ GameObject:
   - component: {fileID: 2108290647}
   - component: {fileID: 2108290645}
   - component: {fileID: 2108290646}
-  - component: {fileID: 2108290648}
   - component: {fileID: 2108290649}
   - component: {fileID: 2108290650}
   - component: {fileID: 2108290651}
@@ -1447,6 +1473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc59bf0ed2890e458af2342eb181d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HurtBox
+  _carochitoBattler: {fileID: 0}
 --- !u!114 &2108290646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1464,6 +1491,7 @@ MonoBehaviour:
   fireRate: 0.2
   a: {fileID: 2108290647}
   b: {fileID: 11400000, guid: cd65ad11538d1684fb82dd696eee6c6e, type: 2}
+  soundE: {fileID: 8300000, guid: 3373ec54646fb604698238bc2e407d00, type: 3}
 --- !u!114 &2108290647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1476,11 +1504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d63e47ed9f633945895c6d762a31ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarochitoBattler
-  _base: {fileID: 11400000, guid: 5a3e2a6d5a9ab7540b0eb3c7b54c35fd, type: 2}
-  _level: 6
   Carochito:
     _base: {fileID: 0}
-    _nickname: Aliado
     _currentHealth: 0
     _isAlive: 0
     _level: 1
@@ -1488,11 +1513,23 @@ MonoBehaviour:
     _skill:
     - _base: {fileID: 11400000, guid: cd65ad11538d1684fb82dd696eee6c6e, type: 2}
       _state: 0
+      _startUpTime: 0
       _cooldownTime: 0
       _activeTime: 0
-  hurtBox: {fileID: 2108290645}
-  firePoint: {fileID: 0}
---- !u!114 &2108290648
+    _currentCatchRate: 1
+  _isEnemy: 0
+  _controller: {fileID: 0}
+  _isCapturable: 1
+  _isGettingCaptured: 0
+  _capturePoint: {fileID: 0}
+  _diskPrefab: {fileID: 0}
+  _owner: {fileID: 0}
+  _firePoint: {fileID: 0}
+  _allyHealthBar: {fileID: 0}
+  _allyAbilities: {fileID: 0}
+  _enemyHealthBar: {fileID: 0}
+  _hurtBox: {fileID: 0}
+--- !u!114 &2108290649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1501,36 +1538,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2108290639}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 584824c287dbe0c4aab44f08cf770082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RaySpawner
-  a: {fileID: 2108290647}
-  b: {fileID: 11400000, guid: cd65ad11538d1684fb82dd696eee6c6e, type: 2}
-  firePoint: {fileID: 1866985255}
-  hit: 0
-  size: 2
-  layer:
-    serializedVersion: 2
-    m_Bits: 512
---- !u!114 &2108290649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2108290639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e55eb44b4ca7cc4ea1dfdd89e5673c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnerProjectileSpawner
   projectilePrefab: {fileID: 753134704281845868, guid: 08066da14fc683e4aac2d5aa567612f1, type: 3}
   firePoint: {fileID: 1866985255}
+  fParticle: {fileID: 0}
   fireRate: 0.2
   finalSize: {x: 3, y: 3, z: 3}
   finalDuration: 2
   a: {fileID: 2108290647}
   b: {fileID: 11400000, guid: cd65ad11538d1684fb82dd696eee6c6e, type: 2}
+  soundE: {fileID: 0}
 --- !u!114 &2108290650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1544,10 +1563,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VerticalProjectile
   projectilePrefab: {fileID: 753134704281845868, guid: 08066da14fc683e4aac2d5aa567612f1, type: 3}
+  particles: {fileID: 0}
   firePoint: {fileID: 1866985255}
   fireRate: 0.2
   finalSize: {x: 3, y: 10, z: 3}
   finalDuration: 4
+  soundE: {fileID: 0}
   a: {fileID: 2108290647}
   b: {fileID: 11400000, guid: 98b73aac55657d14192f2b9d01681275, type: 2}
 --- !u!114 &2108290651
@@ -1562,13 +1583,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd1843b92fb63ff42b261b4bd10542c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlameSpawner
-  projectilePrefab: {fileID: 0}
-  firePoint: {fileID: 0}
+  projectilePrefab: {fileID: 6764475032928062805, guid: 15d597d6b85a2e34e84011a9785d33ec, type: 3}
+  firePoint: {fileID: 1866985255}
   particles: {fileID: 0}
-  a: {fileID: 0}
-  b: {fileID: 0}
+  a: {fileID: 2108290647}
+  b: {fileID: 11400000, guid: cd65ad11538d1684fb82dd696eee6c6e, type: 2}
   duration: 5
   interval: 0.5
+  soundE: {fileID: 0}
 --- !u!1001 &3187541816041669787
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1577,55 +1599,75 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4738595060751004005, guid: 4bffa16185fd39a46855351955c374c3, type: 3}
+    - target: {fileID: 4466683883361734911, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
+      propertyPath: m_Name
+      value: Sardoto
+      objectReference: {fileID: 0}
+    - target: {fileID: 6849472213045262791, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
+      propertyPath: Carochito._level
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6849472213045262791, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
+      propertyPath: Carochito._currentExp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6849472213045262791, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
+      propertyPath: Carochito._currentCatchRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400708448335500600, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.1
       objectReference: {fileID: 0}
-    - target: {fileID: 4738595060751004005, guid: 4bffa16185fd39a46855351955c374c3, type: 3}
+    - target: {fileID: 7400708448335500600, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4738595060751004005, guid: 4bffa16185fd39a46855351955c374c3, type: 3}
+    - target: {fileID: 7400708448335500600, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4738595060751004005, guid: 4bffa16185fd39a46855351955c374c3, type: 3}
+    - target: {fileID: 7400708448335500600, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 4738595060751004005, guid: 4bffa16185fd39a46855351955c374c3, type: 3}
+    - target: {fileID: 7400708448335500600, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4738595060751004005, guid: 4bffa16185fd39a46855351955c374c3, type: 3}
+    - target: {fileID: 7400708448335500600, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 4738595060751004005, guid: 4bffa16185fd39a46855351955c374c3, type: 3}
+    - target: {fileID: 7400708448335500600, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4738595060751004005, guid: 4bffa16185fd39a46855351955c374c3, type: 3}
+    - target: {fileID: 7400708448335500600, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4738595060751004005, guid: 4bffa16185fd39a46855351955c374c3, type: 3}
+    - target: {fileID: 7400708448335500600, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: 4738595060751004005, guid: 4bffa16185fd39a46855351955c374c3, type: 3}
+    - target: {fileID: 7400708448335500600, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8129372297616350712, guid: 4bffa16185fd39a46855351955c374c3, type: 3}
-      propertyPath: m_Name
-      value: Sphere (4)
+    - target: {fileID: 7523697370706244139, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523697370706244139, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4bffa16185fd39a46855351955c374c3, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: bebdb1a55da7b4842939e1795aed176f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class VerticalProjectile : MonoBehaviour
     private float nextFireTime;
     public Vector3 finalSize;
     public float finalDuration;
-
+    public AudioClip soundE;
     public CarochitoBattler a;
     public SkillBase b;
 
@@ -27,7 +27,7 @@ public class VerticalProjectile : MonoBehaviour
     void Shoot()
     {
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-
+        SoundManager.instance.PlayClip(soundE, transform, 0.75f);
 
         if (projectile.TryGetComponent<SpawnBox>(out var spawnBox))
         {

@@ -10,6 +10,7 @@ public class ProjectileSpawner : MonoBehaviour
 
     public CarochitoBattler a;
     public SkillBase b;
+    public AudioClip soundE;
 
     void Update()
     {
@@ -22,6 +23,7 @@ public class ProjectileSpawner : MonoBehaviour
 
     void Shoot()
     {
+        SoundManager.instance.PlayClip(soundE, transform, 0.75f);
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
 
         // Set Up

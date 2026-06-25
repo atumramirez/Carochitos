@@ -9,6 +9,7 @@ public class FlameSpawner : MonoBehaviour
     public SkillBase b;
     public float duration = 5f;
     public float interval = 0.5f;
+    public AudioClip soundE;
 
     private bool isFiring;
 
@@ -23,6 +24,7 @@ public class FlameSpawner : MonoBehaviour
 
     IEnumerator FireFlamethrower()
     {
+        SoundManager.instance.PlayClip(soundE, transform, 0.75f);
         isFiring = true;
 
         float elapsed = 0f;
